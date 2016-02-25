@@ -1,0 +1,74 @@
+div#map {
+    display: block;
+    width: 100%;
+    height:90vh;
+}
+
+div#map g {
+    stroke: #4A4A4A;
+}
+
+div.legend {
+    background-color: #ffffff;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+}
+
+div.legend h3.title {
+    margin:0.25em 0;
+}
+div.legend h4.subtitle {
+    margin:0.25em 0;
+}
+
+div.legend div.entry span {
+  width:1em;
+  display:inline-block;
+  height: 1em;
+  float:left;
+  margin-right:0.25em;
+}
+
+.colornone {
+    color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0);
+    border: 1px solid rgba(0,0,0,0);
+    fill: rgba(0,0,0,0);
+}
+.color0 {
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    fill: #FFFFFF;
+}
+
+.color1 {
+    color: #a6bddb;
+    background-color: #a6bddb;
+    border: 1px solid #a6bddb;
+    fill: #a6bddb;
+}
+.color2 {
+    color: #74a9cf;
+    background-color: #74a9cf;
+    border: 1px solid #74a9cf;
+    fill: #74a9cf;
+}
+.color3 {
+    color: #3690c0;
+    background-color: #3690c0;
+    border: 1px solid #3690c0;
+    fill: #3690c0;
+}
+.color4 {
+    color: #0570b0;
+    background-color: #0570b0;
+    border: 1px solid #0570b0;
+    fill: #0570b0;
+}
+.color5 {
+    color: #034e7b;
+    background-color: #034e7b;
+    border: 1px solid #034e7b;
+    fill: #034e7b;
+}
