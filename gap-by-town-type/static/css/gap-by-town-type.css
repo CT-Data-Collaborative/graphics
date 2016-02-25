@@ -1,0 +1,78 @@
+div#map {
+    display: block;
+    width: 100%;
+    height:90vh;
+}
+
+div#map g {
+    stroke: #4A4A4A;
+}
+
+div.legend {
+    background-color: #ffffff;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+}
+
+div#options div.checkbox {
+    display: inline-block;
+}
+
+div.legend h3.title {
+    margin:0.25em 0;
+}
+div.legend h4.subtitle {
+    margin:0.25em 0;
+}
+
+div.legend div.entry span {
+  width:1em;
+  display:inline-block;
+  height: 1em;
+  float:left;
+  margin-right:0.25em;
+}
+
+.colornone {
+    color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0);
+    border: 1px solid rgba(0,0,0,0);
+    fill: rgba(0,0,0,0);
+}
+.color0 {
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    fill: #FFFFFF;
+}
+
+.color1 {
+    color: #0571b0;
+    background-color: #0571b0;
+    border: 1px solid #0571b0;
+    fill: #0571b0;
+}
+.color2 {
+    color: #92c5de;
+    background-color: #92c5de;
+    border: 1px solid #92c5de;
+    fill: #92c5de;
+}
+.color3 {
+    color: #ffffbf;
+    background-color: #ffffbf;
+    border: 1px solid #ffffbf;
+    fill: #ffffbf;
+}
+.color4 {
+    color: #fdae61;
+    background-color: #fdae61;
+    border: 1px solid #fdae61;
+    fill: #fdae61;
+}
+.color5 {
+    color: #ca0020;
+    background-color: #ca0020;
+    border: 1px solid #ca0020;
+    fill: #ca0020;
+}
