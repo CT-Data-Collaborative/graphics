@@ -8,10 +8,8 @@ $(document).ready(function(){
         d3.json("/static/data/town.geojson", function(error, geodata) {
             const GEODATA = geodata;
 
-            var filter = "All";
-
             const FILTER_OPTS = [
-                "All",
+                // "All",
                 "Urban Core",
                 "Urban Periphery",
                 "Suburban",
@@ -20,25 +18,68 @@ $(document).ready(function(){
                 "Wealthy"
             ];
 
+            var filter = FILTER_OPTS;
+
             // draw selector/options
-            d3.selectAll("div#options")
-                .append("select")
-                .attr("id", "filter")
-                .selectAll("option")
+            var checkboxes = d3.selectAll("div#options")
+                .selectAll("div")
                 .data(FILTER_OPTS)
                 .enter()
-                .append("option")
-                    .attr("value", function(d) { return d; })
-                    .text(function(d) { return d; })
-            
+                    .append("div")
+                    .classed("checkbox", true)
+                    .datum(function(d) { return d; });
+
+            checkboxes.each(function(checkboxOption, i) {
+                d3.select(this)
+                    .append("input")
+                    .attr("type", "checkbox")
+                    .attr("name", "filter")
+                    .attr("checked", "checked")
+                    .attr("value", function(d) { return d; });
+
+                d3.select(this)
+                    .append("span")
+                    .text(function(d) { return d; });
+            })
+
             // register change event
-            d3.select("select#filter")
+            d3.selectAll("div.checkbox input")
                 .on("change", function() {
-                    // console.log(d3.select(this).node().value);
-                    filter = d3.select(this).node().value;
+                    filter = d3.selectAll("div.checkbox input:checked")[0].map(function(n) {
+                        return n.attributes["value"].value
+                    })
+                    //n.pop().attributes["value"].values
+                    // filter = d3.select(this).node().value;
                     drawChart()
                 })
 
+            // add select all/none buttons
+            var checkboxes = d3.selectAll("div#options")
+                .selectAll("button")
+                .data(["All", "None"])
+                .enter()
+                .append("button")
+                    .attr("id", function(d) { return ["Select", d].join("_"); })
+                    .text(function(d) { return ["Select", d].join(" "); })
+
+            // register select all/none events
+            d3.selectAll("button#Select_All")
+            .on("click", function(){
+                d3.selectAll("div.checkbox input")
+                    .property("checked", true)
+
+                filter = FILTER_OPTS;
+                drawChart();
+            });
+
+            d3.selectAll("button#Select_None")
+            .on("click", function(){
+                d3.selectAll("div.checkbox input")
+                    .property("checked", false)
+
+                filter = [];
+                drawChart();
+            });
             // draw map
             var map = L.map("map", {
                 zoomControl:false
@@ -58,6 +99,43 @@ $(document).ready(function(){
 
             var statesLayer = L.geoJson(GEODATA.features, {});
 
+            /** Legend **/
+            var numberFormat = d3.format("$,.0f");
+
+            var quintileScale = d3.scale.quantile()
+                .domain(SCALE_VALUES)
+                .range(d3.range(1,6));
+
+            var quantiles = [d3.min(SCALE_VALUES)]
+                .concat(quintileScale.quantiles())
+                .concat([d3.max(SCALE_VALUES)]);
+
+            var legendData = d3.range(0,5).map(function(i) {
+                return [numberFormat(quantiles[i]), numberFormat(quantiles[i+1])]
+            })
+
+            var legend = L.control({position: "bottomright"});
+            legend.onAdd = function (map) {
+                var div = L.DomUtil.create("div", "legend");
+
+                var legendTitle = L.DomUtil.create("h3", "title", div),
+                    legendSubTitle = L.DomUtil.create("h4", "subtitle", div);
+                legendTitle.innerHTML = "Equalized Net Grand List";
+                legendSubTitle.innerHTML = "($000s per capita)";
+                
+                // loop through our quantile intervals and generate a label with a colored square for each interval
+                for (var i = 0; i < legendData.length; i++) {
+                    var entry = L.DomUtil.create("div", "entry", div);
+                    entry.innerHTML = legendData[i].join(" - ");
+
+                    var colorBlock = L.DomUtil.create("span", "color"+(i+1), entry)
+                }
+
+                return div;
+            };
+            legend.addTo(map);
+            /** END Legend **/
+
             function drawChart() {
                 // clear previous map data
                 if (undefined !== statesLayer) {
@@ -72,12 +150,8 @@ $(document).ready(function(){
                         "Equalized Net Grand List ($000s per capita)" : parseInt(o["Equalized Net Grand List ($000s per capita)"])
                     }
                 }).filter(function(o) {
-                    return filter === "All" || o["Municipality Type"] === filter
+                    return filter.indexOf(o["Municipality Type"]) !== -1
                 });
-
-                var quintileScale = d3.scale.quantile()
-                    .domain(SCALE_VALUES)
-                    .range(d3.range(1,6));
 
                 // join data to geojson
                 var geoJoinedData = GEODATA.features.map(function(geo) {
@@ -111,14 +185,14 @@ $(document).ready(function(){
                     onEachFeature: function (feature, layer) {
                         // if we only want popups on selected towns
                         /*if (null !== feature.properties.VALUE) {
-                            var popupContent = [feature.properties.NAME, feature.properties.VALUE].join(": ")
+                            var popupContent = [feature.properties.NAME, numberFormat(feature.properties.VALUE)].join(": ")
                             layer.bindPopup(popupContent);
                         }*/
 
                         // If we want popup on all towns, but only give values for selected towns
                         var popupContent = feature.properties.NAME;
                         if (null !== feature.properties.VALUE) {
-                            popupContent += ": "+feature.properties.VALUE;
+                            popupContent += ": "+numberFormat(feature.properties.VALUE);
                         }
                         layer.bindPopup(popupContent);
 
@@ -127,7 +201,7 @@ $(document).ready(function(){
                         //   not the filteredData/geoJoinedData
                         /*var popupContent = feature.properties.NAME;
                         if (null !== feature.properties.VALUE) {
-                            popupContent += ": "+feature.properties.VALUE;
+                            popupContent += ": "+numberFormat(feature.properties.VALUE);
                         }
                         layer.bindPopup(popupContent);*/
                     }
@@ -140,37 +214,6 @@ $(document).ready(function(){
                 })*/
 
                 map.fitBounds(statesLayer.getBounds());
-
-                /** Legend **/
-                var quantiles = [d3.min(SCALE_VALUES)]
-                    .concat(quintileScale.quantiles())
-                    .concat([d3.max(SCALE_VALUES)]);
-
-                var legendData = d3.range(0,5).map(function(i) {
-                    return [Math.round(quantiles[i]), Math.round(quantiles[i+1])]
-                })
-
-                var legend = L.control({position: "bottomright"});
-                legend.onAdd = function (map) {
-                    var div = L.DomUtil.create("div", "legend");
-
-                    var legendTitle = L.DomUtil.create("h3", "title", div),
-                        legendSubTitle = L.DomUtil.create("h4", "subtitle", div);
-                    legendTitle.innerHTML = "Equalized Net Grand List";
-                    legendSubTitle.innerHTML = "($000s per capita)";
-                    
-                    // loop through our quantile intervals and generate a label with a colored square for each interval
-                    for (var i = 0; i < legendData.length; i++) {
-                        var entry = L.DomUtil.create("div", "entry", div);
-                        entry.innerHTML = legendData[i].join(" - ");
-
-                        var colorBlock = L.DomUtil.create("span", "color"+(i+1), entry)
-                    }
-
-                    return div;
-                };
-                legend.addTo(map);
-                /** END Legend **/
 
                 // console.log(filteredData)
                 // console.log(filter)

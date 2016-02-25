@@ -14,6 +14,10 @@ div.legend {
     padding: 0.25em 0.5em;
 }
 
+div#options div.checkbox {
+    display: inline-block;
+}
+
 div.legend h3.title {
     margin:0.25em 0;
 }
