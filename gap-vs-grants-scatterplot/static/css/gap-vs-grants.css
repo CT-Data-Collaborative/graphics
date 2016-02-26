@@ -1,0 +1,123 @@
+div#scatterplot {
+    display: block;
+    width: 100%;
+    height:90vh;
+}
+
+div#popup {
+    left: 12%;
+    position: fixed;
+    top: 15%;
+}
+div#popup p {
+    margin:0;
+    font-size: 10pt;
+}
+
+div#scatterplot g.point.highlight {
+}
+div#scatterplot g.point.highlight path {
+    stroke-width: 10px;
+}
+
+div#scatterplot g.axis path,
+div#scatterplot g.axis line {
+    stroke-width: 0.05rem;
+    stroke: #4A4A4A;
+    fill: none;
+}
+
+div#scatterplot g.axis  g.tick line {
+    stroke: #DFDFDF;
+}
+
+div.legend {
+    background-color: #ffffff;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+}
+
+div.legend h3.title {
+    margin:0.25em 0;
+}
+div.legend h4.subtitle {
+    margin:0.25em 0;
+}
+
+div.legend div.entry span {
+  width:1em;
+  display:inline-block;
+  height: 1em;
+  float:left;
+  margin-right:0.25em;
+  border-radius: 0.25em;
+}
+
+div#options div.checkbox {
+    display: inline-block;
+}
+div#options div.checkbox span.colorblock {
+    height: 0.5em;
+    width: 0.5em;
+    margin: 0 0.1em;
+    display: inline-block;
+    border-radius: 1em;
+}
+
+.colornone {
+    color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0);
+    border: 1px solid rgba(0,0,0,0);
+    fill: rgba(0,0,0,0);
+    stroke: rgba(0,0,0,0);
+}
+.color0 {
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    fill: #FFFFFF;
+    stroke: #FFFFFF;
+}
+
+.color1 {
+    color: #377eb8;
+    background-color: #377eb8;
+    border: 1px solid #377eb8;
+    fill: #377eb8;
+    stroke: #377eb8;
+}
+.color2 {
+    color: #e41a1c;
+    background-color: #e41a1c;
+    border: 1px solid #e41a1c;
+    fill: #e41a1c;
+    stroke: #e41a1c;
+}
+.color3 {
+    color: #4daf4a;
+    background-color: #4daf4a;
+    border: 1px solid #4daf4a;
+    fill: #4daf4a;
+    stroke: #4daf4a;
+}
+.color4 {
+    color: #984ea3;
+    background-color: #984ea3;
+    border: 1px solid #984ea3;
+    fill: #984ea3;
+    stroke: #984ea3;
+}
+.color5 {
+    color: #ff7f00;
+    background-color: #ff7f00;
+    border: 1px solid #ff7f00;
+    fill: #ff7f00;
+    stroke: #ff7f00;
+}
+.color6 {
+    color: #f781bf;
+    background-color: #f781bf;
+    border: 1px solid #f781bf;
+    fill: #f781bf;
+    stroke: #f781bf;
+}
