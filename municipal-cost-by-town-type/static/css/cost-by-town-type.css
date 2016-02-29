@@ -8,6 +8,11 @@ div#map g {
     stroke: #4A4A4A;
 }
 
+button.active {
+    color: #FFFFFF!important;
+    background-color: #4670A7!important;
+}
+
 div.legend {
     background-color: #ffffff;
     border-radius: 0.25em;
