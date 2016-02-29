@@ -27,61 +27,63 @@ $(document).ready(function(){
             .range(d3.range(0,6).map(function(i) { return "color" + (i+1); }))
             .domain(DATA.map(function(o) { return o["Municipality Type"]; }));
 
-        var checkboxes = d3.selectAll("div#options")
-            .selectAll("div")
+        var checkboxes = d3.selectAll("div#options  > div:first-child")
+            .selectAll("label")
             .data(FILTER_OPTS)
             .enter()
-                .append("div")
-                .classed("checkbox", true)
+            .append("label")
+                .attr("class", "btn btn-default active")
+                .text(function(d) { return d; })
                 .datum(function(d) { return d; });
-
-        checkboxes.each(function(checkboxOption, i) {
+        
+        checkboxes.each(function(checkboxData) {
+            d3.select(this)
+                .append("span")
+                .attr("class", function(d) {
+                    return [
+                        "colorblock",
+                        colorScale(d)
+                    ].join(" ");
+                })
             d3.select(this)
                 .append("input")
-                .attr("type", "checkbox")
-                .attr("name", "filter")
-                .attr("checked", "checked")
-                .attr("value", function(d) { return d; });
+                    .property("checked", true)
+                    .attr("type", "checkbox")
+                    .attr("name", "filter")
+                    .attr("value", function(d) { return d; })
 
-            d3.select(this)
-                .append("span")
-                    .attr("class", function(d) {
-                        return [
-                            colorScale(d),
-                            "colorblock"
-                        ].join(" ");
-                    })
-
-            d3.select(this)
-                .append("span")
-                    .text(function(d) { return d; });
         })
 
         // register change event
-        d3.selectAll("div.checkbox input")
-            .on("change", function() {
-                filter = d3.selectAll("div.checkbox input:checked")[0].map(function(n) {
-                    return n.attributes["value"].value
-                })
-                //n.pop().attributes["value"].values
-                // filter = d3.select(this).node().value;
+        d3.selectAll("div#options > div:first-child > label")
+            .on("mousedown", function() {
+                var thisLabel = d3.select(this);
+                thisLabel.classed("active", !thisLabel.classed("active"))
+
+                var thisValue = thisLabel.select("input").node().attributes["value"].value;
+                
+
+                if (filter.indexOf(thisValue) !== -1) {
+                    console.log("removing value:" + thisValue);
+                    filter = filter.filter(function(f) { return f !== thisValue; });
+                } else {
+                    console.log("adding value:" + thisValue);
+                    filter.push(thisValue);
+                }
+
+                console.log(filter);
+
                 drawChart()
             })
-
-        // add select all/none buttons
-        var checkboxes = d3.selectAll("div#options")
-            .selectAll("button")
-            .data(["All", "None"])
-            .enter()
-            .append("button")
-                .attr("id", function(d) { return ["Select", d].join("_"); })
-                .text(function(d) { return ["Select", d].join(" "); })
 
         // register select all/none events
         d3.selectAll("button#Select_All")
         .on("click", function(){
-            d3.selectAll("div.checkbox input")
-                .property("checked", true)
+            d3.selectAll("div#options > div:first-child label")
+                .classed("active", true);
+
+            d3.selectAll("div#options > div:first-child input")
+                .property("checked", true);
 
             filter = FILTER_OPTS;
             drawChart();
@@ -89,8 +91,11 @@ $(document).ready(function(){
 
         d3.selectAll("button#Select_None")
         .on("click", function(){
-            d3.selectAll("div.checkbox input")
-                .property("checked", false)
+            d3.selectAll("div#options > div:first-child label")
+                .classed("active", false);
+
+            d3.selectAll("div#options > div:first-child input")
+                .property("checked", false);
 
             filter = [];
             drawChart();
@@ -108,7 +113,7 @@ $(document).ready(function(){
         var width = BBox.width;
         console.log(BBox);
         var margin = {
-            top: (height * 0.05),
+            top: (height * 0.01),
             right: (width * 0.05),
             bottom: (height * 0.1),
             left: (width * 0.1)
@@ -124,7 +129,7 @@ $(document).ready(function(){
             .attr("width", width - (margin.left + margin.right))
             .attr("transform", "translate("+margin.left+", "+margin.top+")");
 
-        // scales, axes
+        // scales, axes, labels
         var xScale = d3.scale.linear()
             .range([0, chart.attr("width")])
             .domain(d3.extent(DATA.map(function(o) { return o["Municipal Gap($ per capita)"]; })))
@@ -168,8 +173,22 @@ $(document).ready(function(){
             .attr("transform", "translate(0, 0)")
             .call(yAxis);
 
+        var axisLabels = chart.append("g")
+            .classed("axis-labels", true);
+
+        axisLabels.append("text")
+            .attr("text-anchor", "middle")
+            .attr("transform", "translate(" + (margin.left/-1.5) + ", " + height/2 + ")rotate(-90)")
+            .text("State Nonschool Grants ($ per capita)")
+
+        axisLabels.append("text")
+            .attr("text-anchor", "middle")
+            .attr("transform", "translate(" + (width/2) + ", " + (height-(margin.bottom/2)) + ")")
+            .text("Municipal Gap ($ per capita)")
+
+
         /** Legend **/
-        // LEGEND SHOWS COLOR CODE <-> TYPE RELATIONSHIP
+        // LEGEND SHOWS COLOR CODE <-> TYPE RELATIONSHIP ? currently in buttons
         /** END Legend **/
 
         function drawChart() {

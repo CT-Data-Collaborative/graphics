@@ -4,6 +4,16 @@ div#scatterplot {
     height:90vh;
 }
 
+div#options > div:first-child .btn input{
+    clip: rect(0px, 0px, 0px, 0px);
+    pointer-events: none;
+    position: absolute;
+}
+label.active {
+    color: #FFF!important;
+    background-color: #4670A7!important;
+}
+
 div#popup {
     left: 12%;
     position: fixed;
@@ -53,15 +63,15 @@ div.legend div.entry span {
   border-radius: 0.25em;
 }
 
-div#options div.checkbox {
-    display: inline-block;
-}
-div#options div.checkbox span.colorblock {
-    height: 0.5em;
-    width: 0.5em;
-    margin: 0 0.1em;
+div#options label span.colorblock {
+    height: 0.75em;
+    width: 0.75em;
+    margin: 0 0.1em 0 0.3em;
     display: inline-block;
     border-radius: 1em;
+}
+div#options label.active span.colorblock {
+    border: 1px solid #FFF;
 }
 
 .colornone {

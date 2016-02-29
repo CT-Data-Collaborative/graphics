@@ -5,8 +5,21 @@
     <meta name="viewport" content="width=device-width">
     <title>Gap in Municipal Finance vs State Grants</title>
     <link rel="stylesheet" type="text/css" href="/static/css/gap-vs-grants.css" />
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
 <body>
-<div id="options"></div>
+<div id="options">
+    <div class="btn-group" >
+    </div>
+    <div class="btn-group">
+        <label>
+            <button class="btn btn-default btn-sm" type="button" id="Select_All"> Select All </button>
+        </label>
+        <label>
+            <button class="btn btn-default btn-sm" type="button" id="Select_None"> Select None </button>
+        </label>
+    </div>
+</div>
 <div id="scatterplot">
     <div id="popup"></div>
 </div>
@@ -16,7 +29,6 @@
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <!-- viz script -->
 <script src="/static/js/gap-vs-grants.js"></script>
-<!-- requirements for leaflet -->
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<!-- Bootstrap JS for advanced buttons -->
+<script src="/static/js/bootstrap.min.js"></script>
 </body>
