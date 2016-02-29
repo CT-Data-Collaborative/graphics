@@ -21,52 +21,47 @@ $(document).ready(function(){
             var filter = FILTER_OPTS;
 
             // draw selector/options
-            var checkboxes = d3.selectAll("div#options")
-                .selectAll("div")
+            var checkboxes = d3.selectAll("div#options > div:first-child")
+                .selectAll("button")
                 .data(FILTER_OPTS)
                 .enter()
-                    .append("div")
-                    .classed("checkbox", true)
-                    .datum(function(d) { return d; });
-
-            checkboxes.each(function(checkboxOption, i) {
-                d3.select(this)
-                    .append("input")
-                    .attr("type", "checkbox")
-                    .attr("name", "filter")
-                    .attr("checked", "checked")
-                    .attr("value", function(d) { return d; });
-
-                d3.select(this)
-                    .append("span")
+                    .append("button")
+                    .attr("class", "btn btn-default active")
+                    .attr("value", function(d) { return d; })
                     .text(function(d) { return d; });
-            })
 
             // register change event
-            d3.selectAll("div.checkbox input")
-                .on("change", function() {
-                    filter = d3.selectAll("div.checkbox input:checked")[0].map(function(n) {
-                        return n.attributes["value"].value
-                    })
-                    //n.pop().attributes["value"].values
-                    // filter = d3.select(this).node().value;
+            d3.selectAll("div#options > div:first-child button")
+                .on("click", function() {
+                    var thisButton = d3.select(this);
+                    thisButton.classed("active", !thisButton.classed("active"));
+
+                    var thisValue = thisButton.attr("value");
+
+                    if (filter.indexOf(thisValue) === -1) {
+                        filter.push(thisValue)
+                    } else {
+                        filter = filter.filter(function(f) { return f !== thisValue; });
+                    }
+
                     drawChart()
                 })
 
             // add select all/none buttons
-            var checkboxes = d3.selectAll("div#options")
+            d3.selectAll("div#options > div:last-child")
                 .selectAll("button")
                 .data(["All", "None"])
                 .enter()
                 .append("button")
+                    .attr("class", "btn btn-default")
                     .attr("id", function(d) { return ["Select", d].join("_"); })
                     .text(function(d) { return ["Select", d].join(" "); })
 
             // register select all/none events
             d3.selectAll("button#Select_All")
             .on("click", function(){
-                d3.selectAll("div.checkbox input")
-                    .property("checked", true)
+                d3.selectAll("div#options > div:first-child button")
+                    .classed("active", true);
 
                 filter = FILTER_OPTS;
                 drawChart();
@@ -74,8 +69,8 @@ $(document).ready(function(){
 
             d3.selectAll("button#Select_None")
             .on("click", function(){
-                d3.selectAll("div.checkbox input")
-                    .property("checked", false)
+                d3.selectAll("div#options > div:first-child button")
+                    .classed("active", false);
 
                 filter = [];
                 drawChart();
@@ -159,9 +154,11 @@ $(document).ready(function(){
                         return o["Municipality"] === geo.properties.NAME;
                     })
                     if (geoValue.length > 0) {
-                        geo.properties.VALUE = geoValue.pop()["Equalized Net Grand List ($000s per capita)"];
+                        geo.properties.VALUE = geoValue[0]["Equalized Net Grand List ($000s per capita)"];
+                        geo.properties.TYPE = geoValue[0]["Municipality Type"];
                     } else {
                         geo.properties.VALUE = null;
+                        geo.properties.TYPE = null;
                     }
 
                     return geo;
@@ -190,9 +187,10 @@ $(document).ready(function(){
                         }*/
 
                         // If we want popup on all towns, but only give values for selected towns
-                        var popupContent = feature.properties.NAME;
+                        var popupContent = ["<b>", "</b>"].join(feature.properties.NAME);
                         if (null !== feature.properties.VALUE) {
-                            popupContent += ": "+numberFormat(feature.properties.VALUE);
+                            popupContent += "<br>"+feature.properties.TYPE;
+                            popupContent += "<br>ENGL: "+numberFormat(feature.properties.VALUE);
                         }
                         layer.bindPopup(popupContent);
 

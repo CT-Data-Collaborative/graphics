@@ -4,6 +4,11 @@ div#map {
     height:90vh;
 }
 
+button.active {
+    color: #FFFFFF!important;
+    background-color: #4670A7!important;
+}
+
 div#map g {
     stroke: #4A4A4A;
 }
