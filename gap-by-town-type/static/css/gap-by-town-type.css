@@ -33,6 +33,11 @@ div.legend div.entry span {
   margin-right:0.25em;
 }
 
+button.active {
+    color: #FFFFFF!important;
+    background-color: #4670A7!important;
+}
+
 .colornone {
     color: rgba(0,0,0,0);
     background-color: rgba(0,0,0,0);
@@ -47,22 +52,22 @@ div.legend div.entry span {
 }
 
 .color1 {
-    color: #0571b0;
-    background-color: #0571b0;
-    border: 1px solid #0571b0;
-    fill: #0571b0;
+    color: #006837;
+    background-color: #006837;
+    border: 1px solid #006837;
+    fill: #006837;
 }
 .color2 {
-    color: #92c5de;
-    background-color: #92c5de;
-    border: 1px solid #92c5de;
-    fill: #92c5de;
+    color: #66bd63;
+    background-color: #66bd63;
+    border: 1px solid #66bd63;
+    fill: #66bd63;
 }
 .color3 {
-    color: #ffffbf;
-    background-color: #ffffbf;
-    border: 1px solid #ffffbf;
-    fill: #ffffbf;
+    color: #a6d96a;
+    background-color: #a6d96a;
+    border: 1px solid #a6d96a;
+    fill: #a6d96a;
 }
 .color4 {
     color: #fdae61;
@@ -71,8 +76,8 @@ div.legend div.entry span {
     fill: #fdae61;
 }
 .color5 {
-    color: #ca0020;
-    background-color: #ca0020;
-    border: 1px solid #ca0020;
-    fill: #ca0020;
+    color: #d73027;
+    background-color: #d73027;
+    border: 1px solid #d73027;
+    fill: #d73027;
 }
