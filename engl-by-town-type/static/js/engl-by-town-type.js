@@ -181,7 +181,7 @@ $(document).ready(function(){
                         var popupContent = ["<b>", "</b>"].join(feature.properties.NAME);
                         if (null !== feature.properties.VALUE) {
                             popupContent += "<br>"+feature.properties.COG;
-                            popupContent += "<br>Gap: "+numberFormat(feature.properties.VALUE);
+                            popupContent += "<br>ENGL: "+numberFormat(feature.properties.VALUE);
                         }
                         layer.bindPopup(popupContent);
                     }
