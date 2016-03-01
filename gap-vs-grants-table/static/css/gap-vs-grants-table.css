@@ -49,7 +49,7 @@ div#table > table > tbody > tr > td:nth-child(n+3) {
     text-align: right;
 }
 div#table > table > tbody > tr:hover {
-    background-color: #D6E9C6;
+    background-color: #63D1F4;
 }
 
 div#table > table th:nth-child(n+3) {
