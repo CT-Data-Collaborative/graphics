@@ -1,6 +1,12 @@
 $(document).ready(function(){
-    d3.csv("/static/data/NEPPC-appendix-table-1.csv", function(data) {
-        const DATA = data;
+    d3.csv("/static/data/data-with-cogs.csv", function(data) {
+        const DATA = data.map(function(o) {
+            return {
+                "Municipality" : o["Municipality"],
+                "Planning Region" : o["Planning Region"],
+                "Equalized Net Grand List ($000s per capita)" : parseInt(o["Equalized Net Grand List ($000s per capita)"])
+            }
+        });
         const SCALE_VALUES = DATA.map(function(o){
             return parseInt(o["Equalized Net Grand List ($000s per capita)"]);
         });
@@ -9,19 +15,21 @@ $(document).ready(function(){
             const GEODATA = geodata;
 
             const FILTER_OPTS = [
-                // "All",
-                "Urban Core",
-                "Urban Periphery",
-                "Suburban",
-                "Above-Average-Property Rural",
-                "Below-Average-Property Rural",
-                "Wealthy"
+                "Capitol Region",
+                "Greater Bridgeport",
+                "Lower CT River Valley",
+                "Naugatuck Valley",
+                "Northeast CT",
+                "Northwest Hills",
+                "South Central",
+                "Southeastern CT",
+                "Western CT"
             ];
 
             var filter = FILTER_OPTS;
 
             // draw selector/options
-            var checkboxes = d3.selectAll("div#options > div:first-child")
+            var buttons = d3.selectAll("div#options > div:first-child")
                 .selectAll("button")
                 .data(FILTER_OPTS)
                 .enter()
@@ -137,71 +145,45 @@ $(document).ready(function(){
                     map.removeLayer(statesLayer);
                 }
 
-                // filter data
-                var filteredData = DATA.map(function(o) {
-                    return {
-                        "Municipality" : o["Municipality"],
-                        "Municipality Type" : o["Municipality Type"],
-                        "Equalized Net Grand List ($000s per capita)" : parseInt(o["Equalized Net Grand List ($000s per capita)"])
-                    }
-                }).filter(function(o) {
-                    return filter.indexOf(o["Municipality Type"]) !== -1
-                });
-
-                // join data to geojson
+                // join data to geojson, color code etc according to filtering
                 var geoJoinedData = GEODATA.features.map(function(geo) {
-                    var geoValue = filteredData.filter(function(o) {
+                    var geoValue = DATA.filter(function(o) {
                         return o["Municipality"] === geo.properties.NAME;
-                    })
-                    if (geoValue.length > 0) {
-                        geo.properties.VALUE = geoValue[0]["Equalized Net Grand List ($000s per capita)"];
-                        geo.properties.TYPE = geoValue[0]["Municipality Type"];
+                    }).pop();
+                        geo.properties.VALUE = geoValue["Equalized Net Grand List ($000s per capita)"];
+                        geo.properties.COG = geoValue["Planning Region"];
+                    if (filter.indexOf(geoValue["Planning Region"]) !== -1) {
+                        // if this is one of the towns we're color coding
+                        geo.properties.COLOR = "#ECECEC"
+                        geo.properties.CLASS = "color"+quintileScale(geoValue["Equalized Net Grand List ($000s per capita)"])
                     } else {
-                        geo.properties.VALUE = null;
-                        geo.properties.TYPE = null;
+                        // otherwise
+                        geo.properties.COLOR = "#4A4A4A"
+                        geo.properties.CLASS = "colornone"
                     }
 
                     return geo;
-                })/*.filter(function(geo) {
-                    return geo.properties.VALUE !== null;
-                })*/
+                })
 
                 function colorize(t) {
                     return {
                         fillColor: "black",
                         fillOpacity: 1,
-                        // color: "#9C9C9C",
-                        color: (null === t.properties.VALUE ? "#4A4A4A" : "#ECECEC"),
+                        color: t.properties.COLOR,
                         weight: 1,
-                        className: (null === t.properties.VALUE ? "colornone" : "color"+quintileScale(t.properties.VALUE))
+                        className: t.properties.CLASS
                     };
                 }
 
                 statesLayer = L.geoJson(geoJoinedData, {
                     style: colorize,
                     onEachFeature: function (feature, layer) {
-                        // if we only want popups on selected towns
-                        /*if (null !== feature.properties.VALUE) {
-                            var popupContent = [feature.properties.NAME, numberFormat(feature.properties.VALUE)].join(": ")
-                            layer.bindPopup(popupContent);
-                        }*/
-
-                        // If we want popup on all towns, but only give values for selected towns
                         var popupContent = ["<b>", "</b>"].join(feature.properties.NAME);
                         if (null !== feature.properties.VALUE) {
-                            popupContent += "<br>"+feature.properties.TYPE;
-                            popupContent += "<br>ENGL: "+numberFormat(feature.properties.VALUE);
+                            popupContent += "<br>"+feature.properties.COG;
+                            popupContent += "<br>Gap: "+numberFormat(feature.properties.VALUE);
                         }
                         layer.bindPopup(popupContent);
-
-                        // If we want popup on all towns, regardless of selection,
-                        //   we will need to modify this to look at the original DATA const,
-                        //   not the filteredData/geoJoinedData
-                        /*var popupContent = feature.properties.NAME;
-                        if (null !== feature.properties.VALUE) {
-                            popupContent += ": "+numberFormat(feature.properties.VALUE);
-                        }
-                        layer.bindPopup(popupContent);*/
                     }
                 }).addTo(map);
 
