@@ -200,21 +200,21 @@ $(document).ready(function(){
                             thisCell.append("span")
                                 .attr("class", function(d) {
                                     if (d[tableCols[col]] < -5) {
-                                        trendClass = "negative";
+                                        trendClass = "Declined";
                                     } else if (d[tableCols[col]] >= -5 && d[tableCols[col]] <= 5) {
-                                        trendClass = "neutral";
+                                        trendClass = "Flat";
                                     } else {
-                                        trendClass = "positive"
+                                        trendClass = "Increased"
                                     }
                                     return [trendClass, "trend"].join(" ");
                                 })
                                 .text(function(d) {
                                     if (d[tableCols[col]] < -5) {
-                                        return "Negative";
+                                        return "Declined";
                                     } else if (d[tableCols[col]] >= -5 && d[tableCols[col]] <= 5) {
-                                        return "Neutral";
+                                        return "Flat";
                                     } else {
-                                        return "Positive";
+                                        return "Increased";
                                     }
                                 })
                         }

@@ -69,11 +69,11 @@ span.trend, span.gap {
     background-color: #FFFFFF;
     border-radius: 0.25em;
 }
-span.trend.positive {
+span.trend.Increased {
     color: green;
 }
-span.trend.neutral {}
-span.trend.negative {
+span.trend.Flat {}
+span.trend.Declined {
     color: red;
 }
 span.gap.best {
