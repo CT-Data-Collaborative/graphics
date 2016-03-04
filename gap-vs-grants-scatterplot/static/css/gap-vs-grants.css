@@ -15,10 +15,17 @@ label.active {
 }
 
 div#popup {
-    left: 12%;
+    right: 5vw;
     position: fixed;
-    top: 15%;
+    top: 15vh;
+    text-align: right;
 }
+
+div#popup p:first-child {
+    font-weight: bold;
+    font-size: 1.15em;
+}
+
 div#popup p {
     margin:0;
     font-size: 10pt;

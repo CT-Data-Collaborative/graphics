@@ -132,7 +132,7 @@ $(document).ready(function(){
         // scales, axes, labels
         var xScale = d3.scale.linear()
             .range([0, chart.attr("width")])
-            .domain(d3.extent(DATA.map(function(o) { return o["Municipal Gap($ per capita)"]; })))
+            .domain(d3.extent(DATA.map(function(o) { return o["Municipal Gap($ per capita)"]; })).reverse())
             .nice();
 
         var xAxis = d3.svg.axis()
@@ -242,9 +242,12 @@ $(document).ready(function(){
                             ])
                             .enter()
                             .append("p")
-                                .text(function(d) {
+                                .html(function(d) {
                                     if (d.label != "") {
-                                        return [d.label, d.value].join(": "); 
+                                        return [
+                                            ["<b>", "</b>"].join(d.label),
+                                            d.value
+                                        ].join(": "); 
                                     } else {
                                         return d.value;
                                     }
