@@ -1,23 +1,23 @@
 $(document).ready(function(){
-    d3.csv("/static/data/NEPPC-appendix-table-1.csv", function(data) {
+    d3.csv("/static/data/data-with-cogs.csv", function(data) {
         const DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],
-                "Municipality Type" : o["Municipality Type"],
-                "Municipal Gap($ per capita)" : parseInt(o["Municipal Gap($ per capita)"]),
-                "State Nonschool Grants ($ per capita)" : parseInt(o["State Nonschool Grants ($ per capita)"]),
-                "Percentage of Municipal Gap Filled by State Nonschool Grants" : parseInt(o["Percentage of Municipal Gap Filled by State Nonschool Grants"])
+                "Planning Region" : o["Planning Region"],
+                "Municipal Gap($ per capita)" : parseInt(o["Municipal Gap($ per capita)"])
             }
         });
 
         const FILTER_OPTS = [
-            // "All",
-            "Urban Core",
-            "Urban Periphery",
-            "Suburban",
-            "Above-Average-Property Rural",
-            "Below-Average-Property Rural",
-            "Wealthy"
+            "Capitol Region",
+            "Greater Bridgeport",
+            "Lower CT River Valley",
+            "Naugatuck Valley",
+            "Northeast CT",
+            "Northwest Hills",
+            "South Central",
+            "Southeastern CT",
+            "Western CT"
         ];
 
         var filter = FILTER_OPTS;
@@ -92,10 +92,8 @@ $(document).ready(function(){
 
         var tableCols = [
             "Municipality",
-            "Municipality Type",
-            "Municipal Gap($ per capita)",
-            "State Nonschool Grants ($ per capita)",
-            "Percentage of Municipal Gap Filled by State Nonschool Grants"
+            "Planning Region",
+            "Municipal Gap($ per capita)"
         ];
 
         //populate thead
@@ -156,13 +154,13 @@ $(document).ready(function(){
 
             // filter and sort data
             var filteredData = DATA.filter(function(o) {
-                return filter.indexOf(o["Municipality Type"]) !== -1
+                return filter.indexOf(o["Planning Region"]) !== -1
             }).sort(function(a, b) {
                 if (sortOrder === "desc") {
-                    console.log((b[sortCol] > a[sortCol] ? 1 : -1));
+                    // console.log((b[sortCol] > a[sortCol] ? 1 : -1));
                     return (b[sortCol] > a[sortCol] ? 1 : -1);
                 } else {
-                    console.log((a[sortCol] > b[sortCol] ? 1 : -1));
+                    // console.log((a[sortCol] > b[sortCol] ? 1 : -1));
                     return (a[sortCol] > b[sortCol] ? 1 : -1);
                 }
             });
@@ -178,16 +176,33 @@ $(document).ready(function(){
                 .append("tr")
                 .each(function(rowData, i) {
                     for (col in tableCols) {
-                        d3.select(this).append("td")
-                            .text(function(d) {
-                                if (col == 2 || col == 3) {
-                                    return numberFormat(d[tableCols[col]]);
-                                } else if (col == 4) {
-                                    return percentFormat(d[tableCols[col]]);
-                                } else {
-                                    return d[tableCols[col]];
-                                }
-                            })
+                        var thisCell = d3.select(this).append("td");
+
+                        if (tableCols[col] == "Municipal Gap($ per capita)") {
+                            thisCell.append("span")
+                                .attr("class", function(d) {
+                                    var colorClass = "Surpluss"
+                                    if (d[tableCols[col]] < 0) {
+                                        colorClass = "Deficit"
+                                    }
+                                    return [colorClass, "label"].join(" ");
+                                })
+                                .text(function(d) {
+                                    if (d[tableCols[col]] < 0) {
+                                        return "Deficit"
+                                    } else {
+                                        return "Surpluss"
+                                    }
+                                })
+                                
+                            thisCell.append("span")
+                                .attr("class", "value")
+                                .text(function(d) { return numberFormat(d[tableCols[col]]); })
+                        } else {
+                            thisCell.append("span")
+                                .attr("class", "value")
+                                .text(function(d) { return d[tableCols[col]]; })
+                        }
                     }
                 })
 

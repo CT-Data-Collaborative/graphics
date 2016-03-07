@@ -59,3 +59,18 @@ div#table > table th,
 div#table > table td {
     padding: 0 0.5em;
 }
+
+div#table > table > tbody > tr > td > span.label {
+    font-size: 0.75em;
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+    font-weight: bold;
+    background-color: #FFFFFF;
+    border-radius: 0.25em;
+}
+div#table > table > tbody > tr > td > span.label.Deficit {
+    color: red;
+}
+div#table > table > tbody > tr > td > span.label.Surpluss {
+    color: green;
+}
