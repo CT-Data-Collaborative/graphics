@@ -125,8 +125,8 @@ $(document).ready(function(){
 
                 var legendTitle = L.DomUtil.create("h3", "title", div),
                     legendSubTitle = L.DomUtil.create("h4", "subtitle", div);
-                legendTitle.innerHTML = "Equalized Net Grand List";
-                legendSubTitle.innerHTML = "($000s per capita)";
+                legendTitle.innerHTML = "Municipal Cost";
+                legendSubTitle.innerHTML = "($ per capita)";
                 
                 // loop through our quantile intervals and generate a label with a colored square for each interval
                 for (var i = 0; i < legendData.length; i++) {
