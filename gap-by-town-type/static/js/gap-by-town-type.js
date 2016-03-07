@@ -101,6 +101,8 @@ $(document).ready(function(){
             map.touchZoom.disable();
             map.doubleClickZoom.disable();
             map.scrollWheelZoom.disable();
+            map.boxZoom.disable();
+            map.keyboard.disable();
 
             var tileLayer = new L.tileLayer(
                 "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
@@ -116,20 +118,19 @@ $(document).ready(function(){
 
             var quintileScale = function(value) {
                 // doing this manually
-                if (value <= -635) { return 1; }
-                else if (value > -635 && value <= -139) { return 2; }
-                else if (value > -139 && value <= 0) { return 3; }
-                else if (value > 0 && value <= 310) { return 4; }
-                else if (value > 310 && value <= 1330) { return 5; }
-                else { return 6; }
+                if (value >= 635) { return 1; }
+                else if (value < 635 && value >= 139) { return 2; }
+                else if (value < 139 && value >= 0) { return 3; }
+                else if (value < 0 && value >= -310) { return 4; }
+                else if (value < -310) { return 5; }
             }
 
             var legendData = [
-                [-5110, -635],
-                [-653, -139],
-                [-139, 0],
-                [0, 310],
-                [310, 1330]
+                [5110, 635],
+                [653, 139],
+                [139, 0],
+                [0, -310],
+                [-310, -1330]
             ].map(function(span) {
                 return [numberFormat(span[0]), numberFormat(span[1])]
             })
@@ -199,6 +200,11 @@ $(document).ready(function(){
                         if (null !== feature.properties.VALUE) {
                             popupContent += "<br>"+feature.properties.COG;
                             popupContent += "<br>Gap: "+numberFormat(feature.properties.VALUE);
+                            if (feature.properties.VALUE < 0) {
+                                popupContent += " (deficit)";
+                            } else {
+                                popupContent += " (surplus)";
+                            }
                         }
                         layer.bindPopup(popupContent);
                     }
