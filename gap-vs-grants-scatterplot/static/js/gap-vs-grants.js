@@ -1,9 +1,9 @@
 $(document).ready(function(){
-    d3.csv("/static/data/NEPPC-appendix-table-1.csv", function(data) {
+    d3.csv("/static/data/data-with-cogs.csv", function(data) {
         const DATA = data.map(function(o) {
                 return {
                     "Municipality" : o["Municipality"],
-                    "Municipality Type" : o["Municipality Type"],
+                    "Planning Region" : o["Planning Region"],
                     "Municipal Gap($ per capita)" : parseInt(o["Municipal Gap($ per capita)"]),
                     "State Nonschool Grants ($ per capita)" : parseInt(o["State Nonschool Grants ($ per capita)"]),
                     "Percentage of Municipal Gap Filled by State Nonschool Grants" : parseInt(o["Percentage of Municipal Gap Filled by State Nonschool Grants"])
@@ -11,13 +11,15 @@ $(document).ready(function(){
             });
         
         const FILTER_OPTS = [
-            // "All",
-            "Urban Core",
-            "Urban Periphery",
-            "Suburban",
-            "Above-Average-Property Rural",
-            "Below-Average-Property Rural",
-            "Wealthy"
+            "Capitol Region",
+            "Greater Bridgeport",
+            "Lower CT River Valley",
+            "Naugatuck Valley",
+            "Northeast CT",
+            "Northwest Hills",
+            "South Central",
+            "Southeastern CT",
+            "Western CT"
         ];
 
         var filter = FILTER_OPTS;
@@ -25,7 +27,7 @@ $(document).ready(function(){
         // draw selector/options
         var colorScale = d3.scale.ordinal()
             .range(d3.range(0,6).map(function(i) { return "color" + (i+1); }))
-            .domain(DATA.map(function(o) { return o["Municipality Type"]; }));
+            .domain(DATA.map(function(o) { return o["Planning Region"]; }));
 
         var checkboxes = d3.selectAll("div#options  > div:first-child")
             .selectAll("label")
@@ -132,7 +134,7 @@ $(document).ready(function(){
         // scales, axes, labels
         var xScale = d3.scale.linear()
             .range([0, chart.attr("width")])
-            .domain(d3.extent(DATA.map(function(o) { return o["Municipal Gap($ per capita)"]; })).reverse())
+            .domain(d3.extent(DATA.map(function(o) { return o["Municipal Gap($ per capita)"]; })))
             .nice();
 
         var xAxis = d3.svg.axis()
@@ -194,7 +196,7 @@ $(document).ready(function(){
         function drawChart() {
             // filter data
             var filteredData = DATA.filter(function(o) {
-                return filter.indexOf(o["Municipality Type"]) !== -1
+                return filter.indexOf(o["Planning Region"]) !== -1
             });
 
             var pointGroups = chart.selectAll("g.point")
@@ -209,8 +211,8 @@ $(document).ready(function(){
                     .each(function(pointData, i) {
                         d3.select(this).append("path")
                             .attr("class", function(d) {
-                                // get color# css class from color scale using d["Municipality Type"]
-                                return colorScale(d["Municipality Type"]);
+                                // get color# css class from color scale using d["Planning Region"]
+                                return colorScale(d["Planning Region"]);
                             })
                             .attr("d", d3.svg.symbol().type("cirlce").size(10)) // should size be based on chart size?
                             .attr("transform", function(d) {
@@ -233,7 +235,7 @@ $(document).ready(function(){
                                 },
                                 {
                                     label: "Type",
-                                    value: pointData["Municipality Type"]
+                                    value: pointData["Planning Region"]
                                 },
                                 {
                                     label: "Percentage of Gap Filled by State Nonschool Grants",
