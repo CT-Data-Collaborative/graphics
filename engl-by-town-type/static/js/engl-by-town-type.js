@@ -92,6 +92,8 @@ $(document).ready(function(){
             map.touchZoom.disable();
             map.doubleClickZoom.disable();
             map.scrollWheelZoom.disable();
+            map.boxZoom.disable();
+            map.keyboard.disable()
 
             var tileLayer = new L.tileLayer(
                 "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
