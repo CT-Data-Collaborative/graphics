@@ -150,11 +150,11 @@ $(document).ready(function(){
         
         var gapScale = function(value) {
                 // doing this manually
-                if (value <= -635) { return "Best"; }
-                else if (value > -635 && value <= -139) { return "Better"; }
-                else if (value > -139 && value <= 0) { return "Good"; }
-                else if (value > 0 && value <= 310) { return "Bad"; }
-                else if (value > 310) { return "Worst"; }
+                if (value >= 635) { return "Best"; }
+                else if (value < 635 && value >= 139) { return "Better"; }
+                else if (value < 139 && value >= 0) { return "Good"; }
+                else if (value < 0 && value >= -310) { return "Bad"; }
+                else if (value < -310) { return "Worst"; }
             }
         
         function drawChart() {

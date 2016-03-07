@@ -28,6 +28,10 @@ appendix <- fread("NEPPC-appendix-table-1.csv", select=c("Municipality", "Munici
 cogs <- fread("cogs.csv", select=1:2)
 setnames(cogs, "TOWN", "Municipality")
 
+appendix[
+    ,
+    `Municipal Gap($ per capita)` := -1 * as.numeric(`Municipal Gap($ per capita)`)
+]
 
 setkey(data, Municipality)
 setkey(appendix, Municipality)
