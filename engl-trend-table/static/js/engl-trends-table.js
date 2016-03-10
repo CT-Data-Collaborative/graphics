@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    d3.csv("/static/data/gap-and-engl-trends.csv", function(data) {
+    d3.csv("static/data/gap-and-engl-trends.csv", function(data) {
         const DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],

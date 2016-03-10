@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    d3.csv("/static/data/data-with-cogs.csv", function(data) {
+    d3.csv("static/data/data-with-cogs.csv", function(data) {
         const DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],
@@ -11,7 +11,7 @@ $(document).ready(function(){
             return parseInt(o["Equalized Net Grand List ($000s per capita)"]);
         });
 
-        d3.json("/static/data/town.geojson", function(error, geodata) {
+        d3.json("static/data/town.geojson", function(error, geodata) {
             const GEODATA = geodata;
 
             const FILTER_OPTS = [
@@ -88,7 +88,9 @@ $(document).ready(function(){
                 zoomControl:false
             });
 
-            map.dragging.disable();
+            map.attributionControl.setPrefix('<a href="http://ctdata.org">CTData.org</a>');
+
+            // map.dragging.disable();
             map.touchZoom.disable();
             map.doubleClickZoom.disable();
             map.scrollWheelZoom.disable();
@@ -98,7 +100,7 @@ $(document).ready(function(){
             var tileLayer = new L.tileLayer(
                 "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
                 {
-                    attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ",
+                    attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ"
                 })
                 .addTo(map);
 
@@ -123,8 +125,9 @@ $(document).ready(function(){
             legend.onAdd = function (map) {
                 var div = L.DomUtil.create("div", "legend");
 
-                var legendTitle = L.DomUtil.create("h3", "title", div),
-                    legendSubTitle = L.DomUtil.create("h4", "subtitle", div);
+                var legendTitle = L.DomUtil.create("span", "title", div),
+                    legendBreak = L.DomUtil.create("br", "", div);
+                    legendSubTitle = L.DomUtil.create("span", "subtitle", div);
                 legendTitle.innerHTML = "Equalized Net Grand List";
                 legendSubTitle.innerHTML = "($000s per capita)";
                 
@@ -204,7 +207,8 @@ $(document).ready(function(){
             }
 
             drawChart()
+
+            $(window).on('resize', drawchart);
         })
     })
-
 })

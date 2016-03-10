@@ -1,7 +1,7 @@
 div#map {
     display: block;
     width: 100%;
-    height:90vh;
+    height:400px;
 }
 
 div#map g {
@@ -19,11 +19,14 @@ div.legend {
     padding: 0.25em 0.5em;
 }
 
-div.legend h3.title {
+div.legend span {
     margin:0.25em 0;
 }
-div.legend h4.subtitle {
-    margin:0.25em 0;
+div.legend span.title {
+    font-weight: bold;
+}
+div.legend span.subtitle {
+    font-size: 0.9em;
 }
 
 div.legend div.entry span {

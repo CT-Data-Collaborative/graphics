@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    d3.csv("/static/data/data-with-cogs.csv", function(data) {
+    d3.csv("static/data/data-with-cogs.csv", function(data) {
         const DATA = data.map(function(o) {
                 return {
                     "Municipality" : o["Municipality"],
@@ -73,9 +73,9 @@ $(document).ready(function(){
                     filter.push(thisValue);
                 }
 
-                console.log(filter);
+                // console.log(filter);
 
-                drawChart()
+                drawPoints()
             })
 
         // register select all/none events
@@ -88,7 +88,7 @@ $(document).ready(function(){
                 .property("checked", true);
 
             filter = FILTER_OPTS;
-            drawChart();
+            drawPoints();
         });
 
         d3.selectAll("button#Select_None")
@@ -100,7 +100,7 @@ $(document).ready(function(){
                 .property("checked", false);
 
             filter = [];
-            drawChart();
+            drawPoints();
         });
 
         var numberFormat = d3.format("$,.0f");
@@ -108,96 +108,134 @@ $(document).ready(function(){
             return d3.format(",.0f")(v)+ "%";
         };
 
-        // draw chart
-        // HEIGHT AND WIDTH NEED TO BE MORE RESPONSIVE
-        var BBox = d3.select("div#scatterplot").node().getBoundingClientRect();
-        var height = BBox.height;
-        var width = BBox.width;
-        console.log(BBox);
-        var margin = {
-            top: (height * 0.01),
-            right: (width * 0.05),
-            bottom: (height * 0.1),
-            left: (width * 0.1)
+        function drawChart(container_width) {
+            // if there is a plot, remove it.
+            d3.select("#scatterplot").selectAll("svg").remove()
+
+            // draw chart
+            // HEIGHT AND WIDTH NEED TO BE MORE RESPONSIVE
+            // var BBox = d3.select("div#scatterplot").node().getBoundingClientRect();
+            // var height = BBox.height;
+            // var width = BBox.width;
+            // console.log(BBox);
+            
+            var height = container_width * (1/2);
+            var width = container_width;
+            var margin = {
+                top: (height * 0.01),
+                right: (width * 0.05),
+                bottom: (height * 0.15),
+                left: (width * 0.1)
+            }
+
+            // height = height - (margin.top + margin.bottom)
+            // width = width - (margin.left + margin.right)
+
+            var svg = d3.select("#scatterplot")
+                .append("svg")
+                .attr("height", height)
+                .attr("width", width);
+
+            var chart = svg.append("g")
+                .classed("chart", true)
+                .attr("height", height - (margin.top + margin.bottom))
+                .attr("width", width - (margin.left + margin.right))
+                .attr("transform", "translate("+margin.left+", "+margin.top+")");
+
+            // scales, axes, labels
+            var xScale = d3.scale.linear()
+                .range([0, chart.attr("width")])
+                .domain(d3.extent(DATA.map(function(o) { return o["Municipal Gap($ per capita)"]; })))
+                .nice();
+
+            var xAxis = d3.svg.axis()
+                .scale(xScale)
+                .orient("bottom")
+                .innerTickSize(margin.top-chart.attr("height"))
+                .tickPadding(10)
+                .tickFormat(numberFormat);
+
+            chart.append("g")
+                .classed({
+                    "x-axis" : true,
+                    "axis" : true
+                })
+                .attr("transform", "translate(0, " + chart.attr("height") + ")")
+                .call(xAxis);
+
+            var yScale = d3.scale.linear()
+                .range([margin.top, chart.attr("height")])
+                .domain([
+                    d3.max(DATA.map(function(o) { return o["State Nonschool Grants ($ per capita)"]; })),
+                    0
+                ])
+                .nice();
+
+            var yAxis = d3.svg.axis()
+                .scale(yScale)
+                .orient("left")
+                .innerTickSize(-chart.attr("width"))
+                .tickPadding(10)
+                .tickFormat(numberFormat);
+
+            chart.append("g")
+                .classed({
+                    "y-axis" : true,
+                    "axis" : true
+                })
+                .attr("transform", "translate(0, 0)")
+                .call(yAxis);
+
+            var axisLabels = chart.append("g")
+                .classed("axis-labels", true);
+
+            axisLabels.append("text")
+                .attr("text-anchor", "middle")
+                .attr("transform", "translate(" + (margin.left/-1.5) + ", " + height/2 + ")rotate(-90)")
+                .text("State Nonschool Grants ($ per capita)")
+
+            axisLabels.append("text")
+                .attr("text-anchor", "middle")
+                .attr("transform", "translate(" + (width/2) + ", " + (height-(margin.bottom/2)) + ")")
+                .text("Municipal Gap ($ per capita)")
+
+            drawPoints();
         }
-
-        var svg = d3.select("#scatterplot")
-            .append("svg")
-            .attr("height", height)
-            .attr("width", width);
-
-        var chart = svg.append("g")
-            .attr("height", height - (margin.top + margin.bottom))
-            .attr("width", width - (margin.left + margin.right))
-            .attr("transform", "translate("+margin.left+", "+margin.top+")");
-
-        // scales, axes, labels
-        var xScale = d3.scale.linear()
-            .range([0, chart.attr("width")])
-            .domain(d3.extent(DATA.map(function(o) { return o["Municipal Gap($ per capita)"]; })))
-            .nice();
-
-        var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-            .innerTickSize(margin.top-chart.attr("height"))
-            .tickPadding(10)
-            .tickFormat(numberFormat);
-
-        chart.append("g")
-            .classed({
-                "x-axis" : true,
-                "axis" : true
-            })
-            .attr("transform", "translate(0, " + chart.attr("height") + ")")
-            .call(xAxis);
-
-        var yScale = d3.scale.linear()
-            .range([margin.top, chart.attr("height")])
-            .domain([
-                d3.max(DATA.map(function(o) { return o["State Nonschool Grants ($ per capita)"]; })),
-                0
-            ])
-            .nice();
-
-        var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-            .innerTickSize(-chart.attr("width"))
-            .tickPadding(10)
-            .tickFormat(numberFormat);
-
-        chart.append("g")
-            .classed({
-                "y-axis" : true,
-                "axis" : true
-            })
-            .attr("transform", "translate(0, 0)")
-            .call(yAxis);
-
-        var axisLabels = chart.append("g")
-            .classed("axis-labels", true);
-
-        axisLabels.append("text")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (margin.left/-1.5) + ", " + height/2 + ")rotate(-90)")
-            .text("State Nonschool Grants ($ per capita)")
-
-        axisLabels.append("text")
-            .attr("text-anchor", "middle")
-            .attr("transform", "translate(" + (width/2) + ", " + (height-(margin.bottom/2)) + ")")
-            .text("Municipal Gap ($ per capita)")
 
 
         /** Legend **/
         // LEGEND SHOWS COLOR CODE <-> TYPE RELATIONSHIP ? currently in buttons
         /** END Legend **/
 
-        function drawChart() {
+        function drawPoints() {
+            console.log("drawing points")
             // filter data
             var filteredData = DATA.filter(function(o) {
                 return filter.indexOf(o["Planning Region"]) !== -1
             });
+
+            var svg = d3.select("svg");
+            var chart = d3.select("svg g.chart");
+
+            var margin = {
+                top: (svg.attr("height") * 0.01),
+                right: (svg.attr("width") * 0.05),
+                bottom: (svg.attr("height") * 0.15),
+                left: (svg.attr("width") * 0.1)
+            }
+
+            var xScale = d3.scale.linear()
+                .range([0, chart.attr("width")])
+                .domain(d3.extent(DATA.map(function(o) { return o["Municipal Gap($ per capita)"]; })))
+                .nice();
+
+            var yScale = d3.scale.linear()
+                .range([margin.top, chart.attr("height")])
+                .domain([
+                    d3.max(DATA.map(function(o) { return o["State Nonschool Grants ($ per capita)"]; })),
+                    0
+                ])
+                .nice();
 
             var pointGroups = chart.selectAll("g.point")
                 .data(filteredData, function(d) {
@@ -227,6 +265,7 @@ $(document).ready(function(){
                                 .classed("highlight", true);
 
                             d3.selectAll("div#popup")
+                            .classed("visible", true)
                             .selectAll("p")
                             .data([
                                 {
@@ -259,6 +298,9 @@ $(document).ready(function(){
                             d3.select(this)
                                 .classed("highlight", false);
 
+                            d3.selectAll("div#popup")
+                            .classed("visible", false);
+
                             d3.selectAll("div#popup p").remove();
                         })
                     })
@@ -271,7 +313,12 @@ $(document).ready(function(){
             // console.log(GEODATA)
         }
 
-        drawChart()
+        // drawChart();
+        // drawPoints();
+
+        pymChild = new pym.Child({ renderCallback: function(container_width){
+            drawChart(container_width);
+        } });
         
     })
 

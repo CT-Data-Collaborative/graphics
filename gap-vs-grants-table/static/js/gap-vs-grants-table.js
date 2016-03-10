@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    d3.csv("/static/data/data-with-cogs.csv", function(data) {
+    d3.csv("static/data/data-with-cogs.csv", function(data) {
         const DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],
@@ -181,7 +181,7 @@ $(document).ready(function(){
                         if (tableCols[col] == "Municipal Gap($ per capita)") {
                             thisCell.append("span")
                                 .attr("class", function(d) {
-                                    var colorClass = "Surpluss"
+                                    var colorClass = "Surplus"
                                     if (d[tableCols[col]] < 0) {
                                         colorClass = "Deficit"
                                     }
@@ -191,7 +191,7 @@ $(document).ready(function(){
                                     if (d[tableCols[col]] < 0) {
                                         return "Deficit"
                                     } else {
-                                        return "Surpluss"
+                                        return "Surplus"
                                     }
                                 })
                                 
