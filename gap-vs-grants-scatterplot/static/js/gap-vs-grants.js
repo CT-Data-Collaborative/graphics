@@ -1,5 +1,7 @@
 $(document).ready(function(){
     d3.csv("static/data/data-with-cogs.csv", function(data) {
+        var mobile_threshold = 500;
+
         const DATA = data.map(function(o) {
                 return {
                     "Municipality" : o["Municipality"],
@@ -109,6 +111,13 @@ $(document).ready(function(){
         };
 
         function drawChart(container_width) {
+            // console.log(container_width);
+            // if (container_width < mobile_threshold) {
+            //     console.log("UNDER mobile threshold");
+            // } else {
+            //     console.log("OVER mobile threshold");
+            // }
+
             // if there is a plot, remove it.
             d3.select("#scatterplot").selectAll("svg").remove()
 
@@ -122,16 +131,22 @@ $(document).ready(function(){
             var height = container_width * (1/2);
             var width = container_width;
             var margin = {
-                top: (height * 0.01),
+                top: (height * 0.02),
                 right: (width * 0.05),
-                bottom: (height * 0.15),
-                left: (width * 0.1)
+                bottom: (height * 0.08),
+                left: (width * 0.12)
+            }
+
+            if (container_width <= mobile_threshold) {
+                margin.bottom = (height * 0.17);
+
+                margin.left = d3.min([(width * 0.31), 82]);
             }
 
             // height = height - (margin.top + margin.bottom)
             // width = width - (margin.left + margin.right)
 
-            var svg = d3.select("#scatterplot")
+            var svg = d3.select("#svg-container")
                 .append("svg")
                 .attr("height", height)
                 .attr("width", width);
@@ -154,6 +169,12 @@ $(document).ready(function(){
                 .innerTickSize(margin.top-chart.attr("height"))
                 .tickPadding(10)
                 .tickFormat(numberFormat);
+
+            if (container_width <= mobile_threshold) {
+                xAxis
+                    .tickFormat(d3.format("$s"))
+                    .ticks(4);
+            }
 
             chart.append("g")
                 .classed({
@@ -178,6 +199,10 @@ $(document).ready(function(){
                 .tickPadding(10)
                 .tickFormat(numberFormat);
 
+            if (container_width <= mobile_threshold) {
+                yAxis.ticks(4);
+            }
+
             chart.append("g")
                 .classed({
                     "y-axis" : true,
@@ -186,18 +211,20 @@ $(document).ready(function(){
                 .attr("transform", "translate(0, 0)")
                 .call(yAxis);
 
-            var axisLabels = chart.append("g")
-                .classed("axis-labels", true);
+            // var axisLabels = chart.append("g")
+            //     .classed("axis-labels", true);
 
-            axisLabels.append("text")
-                .attr("text-anchor", "middle")
-                .attr("transform", "translate(" + (margin.left/-1.5) + ", " + height/2 + ")rotate(-90)")
-                .text("State Nonschool Grants ($ per capita)")
+            // // x axis label
+            // axisLabels.append("text")
+            //     .attr("text-anchor", "middle")
+            //     .attr("transform", "translate(" + (width/2) + ", " + (height-5) + ")")
+            //     .text("Municipal Gap ($ per capita)")
 
-            axisLabels.append("text")
-                .attr("text-anchor", "middle")
-                .attr("transform", "translate(" + (width/2) + ", " + (height-(margin.bottom/2)) + ")")
-                .text("Municipal Gap ($ per capita)")
+            // // y axis label
+            // axisLabels.append("text")
+            //     .attr("text-anchor", "middle")
+            //     .attr("transform", "translate(" + (margin.left/-1.5) + ", " + height/2 + ")rotate(-90)")
+            //     .text("State Nonschool Grants ($ per capita)")
 
             drawPoints();
         }
@@ -208,7 +235,6 @@ $(document).ready(function(){
         /** END Legend **/
 
         function drawPoints() {
-            console.log("drawing points")
             // filter data
             var filteredData = DATA.filter(function(o) {
                 return filter.indexOf(o["Planning Region"]) !== -1
@@ -218,10 +244,16 @@ $(document).ready(function(){
             var chart = d3.select("svg g.chart");
 
             var margin = {
-                top: (svg.attr("height") * 0.01),
+                top: (svg.attr("height") * 0.02),
                 right: (svg.attr("width") * 0.05),
-                bottom: (svg.attr("height") * 0.15),
-                left: (svg.attr("width") * 0.1)
+                bottom: (svg.attr("height") * 0.08),
+                left: (svg.attr("width") * 0.12)
+            }
+
+            if (svg.attr("width") <= mobile_threshold) {
+                margin.bottom = (svg.attr("height") * 0.17);
+
+                margin.left = d3.min([(svg.attr("width") * 0.31), 82]);
             }
 
             var xScale = d3.scale.linear()
@@ -242,6 +274,12 @@ $(document).ready(function(){
                     return d["Municipality"];
                 });
 
+            var pointSize = 20;
+
+            // if (svg.attr("width") <= mobile_threshold) {
+            //     pointSize = 25;
+            // }
+
             pointGroups.enter()
                     .append("g")
                     .classed("point", true)
@@ -252,7 +290,7 @@ $(document).ready(function(){
                                 // get color# css class from color scale using d["Planning Region"]
                                 return colorScale(d["Planning Region"]);
                             })
-                            .attr("d", d3.svg.symbol().type("cirlce").size(10)) // should size be based on chart size?
+                            .attr("d", d3.svg.symbol().type("cirlce").size(pointSize)) // should size be based on chart size?
                             .attr("transform", function(d) {
                                 var tx = xScale(d["Municipal Gap($ per capita)"]),
                                     ty = yScale(d["State Nonschool Grants ($ per capita)"]);
