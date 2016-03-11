@@ -229,7 +229,7 @@ $(document).ready(function(){
 
             drawChart()
 
-            $(window).on('resize', drawchart);
+            $(window).on('resize', drawChart);
         })
     })
 
