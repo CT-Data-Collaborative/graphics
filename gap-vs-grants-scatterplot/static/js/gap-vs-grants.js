@@ -311,7 +311,7 @@ $(document).ready(function(){
                                     value: pointData["Municipality"]
                                 },
                                 {
-                                    label: "Type",
+                                    label: "Planning Region",
                                     value: pointData["Planning Region"]
                                 },
                                 {
