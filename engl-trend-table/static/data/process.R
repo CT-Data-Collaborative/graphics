@@ -1,28 +1,54 @@
 library(data.table)
+library(reshape2)
 library(stringr)
 
 data <- fread(
-    "engl-by-fiscal-year.csv",
-    select=c(1,3,6)
+    "municipal-grand-list.csv"
 )
 
-setnames(data, "Location", "Municipality")
+data <- data[
+    Variable == "Equalized Net Grand List"
+][
+    ,
+    c(1,3,6),
+    with = F
+]
 
-data[, `:=`(
-    `SFY 2010-2011` = as.numeric(str_replace_all(`SFY 2010-2011`, "[^0-9]", "")),
-    `SFY 2013-2014` = as.numeric(str_replace_all(`SFY 2013-2014`, "[^0-9]", ""))
-)]
+setnames(data, "Town", "Municipality")
+
+data <- dcast(data, Municipality ~ Year)
+
+data <- as.data.table(data)
+
+# Write to File for posterity
+write.table(
+    data,
+    "engl-by-fiscal-year-all.csv",
+    sep = ",",
+    row.names = F,
+    na = "-9999"
+)
 
 data[
     ,
-    `ENGL '09 vs '12` := round(100 * (`SFY 2010-2011`-`SFY 2013-2014`)/`SFY 2010-2011`, 1),
+    `ENGL AAGR '11-'14` := 100 * mean(
+        c(
+            (`SFY 2011-2012` - `SFY 2010-2011`)/`SFY 2010-2011`,
+            (`SFY 2012-2013` - `SFY 2011-2012`)/`SFY 2011-2012`,
+            (`SFY 2013-2014` - `SFY 2012-2013`)/`SFY 2012-2013`
+        )
+    ),
     by = Municipality
 ]
 
-data[, `:=`(
-    `SFY 2010-2011` = NULL,
-    `SFY 2013-2014` = NULL
-)]
+data <- data[
+    ,
+    list(
+        Municipality,
+        `ENGL AAGR '11-'14`
+    )
+]
+
 
 appendix <- fread("NEPPC-appendix-table-1.csv", select=c("Municipality", "Municipal Gap($ per capita)"))
 cogs <- fread("cogs.csv", select=1:2)
@@ -37,4 +63,12 @@ setkey(data, Municipality)
 setkey(appendix, Municipality)
 setkey(cogs, Municipality)
 
-write.table(cogs[appendix][data], "gap-and-engl-trends.csv", sep=",", row.names=F)
+data <- cogs[appendix][data][order(-`Municipal Gap($ per capita)`)]
+data[
+    ,
+    Rank := 1:.N
+]
+
+setcolorder(data, c(1, 2, 5, 3, 4))
+
+write.table(data, "gap-and-engl-trends.csv", sep=",", row.names=F)

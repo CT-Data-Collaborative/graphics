@@ -33,7 +33,7 @@ $(document).ready(function(){
             .data(FILTER_OPTS)
             .enter()
                 .append("button")
-                .attr("class", "btn btn-default active")
+                .attr("class", "btn btn-sm btn-default active")
                 .attr("value", function(d) { return d; })
                 .text(function(d) { return d; });
 
@@ -60,7 +60,7 @@ $(document).ready(function(){
             .data(["All", "None"])
             .enter()
             .append("button")
-                .attr("class", "btn btn-default")
+                .attr("class", "btn btn-sm btn-default")
                 .attr("id", function(d) { return ["Select", d].join("_"); })
                 .text(function(d) { return ["Select", d].join(" "); })
 
@@ -82,6 +82,13 @@ $(document).ready(function(){
             filter = [];
             drawChart();
         });
+
+        // add note about sorting columns
+        var sortCallout = d3.select("div#table")
+            .append("div")
+            .classed("note", true)
+            .append("p")
+                .text("Click a column header to sort by that column. Click again to reverse order.");
 
         // draw table
         var table = d3.select("div#table")

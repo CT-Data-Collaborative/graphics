@@ -36,7 +36,7 @@ $(document).ready(function(){
             .data(FILTER_OPTS)
             .enter()
             .append("label")
-                .attr("class", "btn btn-default active")
+                .attr("class", "btn btn-sm btn-default active")
                 .text(function(d) { return d; })
                 .datum(function(d) { return d; });
         

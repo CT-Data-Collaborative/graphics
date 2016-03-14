@@ -34,7 +34,7 @@ $(document).ready(function(){
                 .data(FILTER_OPTS)
                 .enter()
                     .append("button")
-                    .attr("class", "btn btn-default active")
+                    .attr("class", "btn btn-sm btn-default active")
                     .attr("value", function(d) { return d; })
                     .text(function(d) { return d; });
 
@@ -61,7 +61,7 @@ $(document).ready(function(){
                 .data(["All", "None"])
                 .enter()
                 .append("button")
-                    .attr("class", "btn btn-default")
+                    .attr("class", "btn btn-sm btn-default")
                     .attr("id", function(d) { return ["Select", d].join("_"); })
                     .text(function(d) { return ["Select", d].join(" "); })
 

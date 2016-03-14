@@ -1,6 +1,28 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
 div#map {
     display: block;
-    width: 100%;
+    margin: 0 1em;
+    width: calc(100% - 2em);
     height:400px;
 }
 

@@ -1,171 +1,170 @@
-"Municipality","Planning Region","Municipal Gap($ per capita)","ENGL '09 vs '12"
-"Andover","Capitol Region",-16,4.7
-"Ansonia","Naugatuck Valley",-734,14
-"Ashford","Northeast CT",-291,11.1
-"Avon","Capitol Region",631,1.3
-"Barkhamsted","Northwest Hills",95,9.1
-"Beacon Falls","Naugatuck Valley",-65,9.9
-"Berlin","Capitol Region",207,5.8
-"Bethany","South Central",183,5.7
-"Bethel","Western CT",85,6
-"Bethlehem","Naugatuck Valley",265,5.5
-"Bloomfield","Capitol Region",-159,5.4
-"Bolton","Capitol Region",36,7
-"Bozrah","Southeastern CT",44,14.9
-"Branford","South Central",319,-1.8
-"Bridgeport","Greater Bridgeport",-1168,15.5
-"Bridgewater","Western CT",1800,8.5
-"Bristol","Naugatuck Valley",-428,11.6
-"Brookfield","Western CT",658,3.7
-"Brooklyn","Northeast CT",-327,0.4
-"Burlington","Northwest Hills",138,-0.2
-"Canaan","Northwest Hills",805,7.8
-"Canterbury","Northeast CT",-237,11.7
-"Canton","Capitol Region",227,2
-"Chaplin","Northeast CT",-416,2.8
-"Cheshire","Naugatuck Valley",112,4.2
-"Chester","Lower CT River Valley",193,-2.9
-"Clinton","Lower CT River Valley",334,3.6
-"Colchester","Southeastern CT",-158,2.2
-"Colebrook","Northwest Hills",292,5.9
-"Columbia","Capitol Region",62,6
-"Cornwall","Northwest Hills",2159,11.4
-"Coventry","Capitol Region",-121,1
-"Cromwell","Lower CT River Valley",-19,4.1
-"Danbury","Western CT",-198,3
-"Darien","Western CT",3782,-6.7
-"Deep River","Lower CT River Valley",296,4.2
-"Derby","Naugatuck Valley",-632,20.7
-"Durham","Lower CT River Valley",231,7.2
-"East Granby","Capitol Region",266,3.7
-"East Haddam","Lower CT River Valley",139,11.3
-"East Hampton","Lower CT River Valley",34,5.3
-"East Hartford","Capitol Region",-740,8.2
-"East Haven","South Central",-343,11.9
-"East Lyme","Southeastern CT",321,6.9
-"East Windsor","Capitol Region",-112,11.4
-"Eastford","Northeast CT",-43,1.7
-"Easton","Greater Bridgeport",1132,4
-"Ellington","Capitol Region",-73,4.3
-"Enfield","Capitol Region",-321,13.5
-"Essex","Lower CT River Valley",1063,8.3
-"Fairfield","Greater Bridgeport",885,-9.3
-"Farmington","Capitol Region",517,5.2
-"Franklin","Southeastern CT",95,3
-"Glastonbury","Capitol Region",317,6.2
-"Goshen","Northwest Hills",1328,7.3
-"Granby","Capitol Region",78,6.3
-"Greenwich","Western CT",5110,-3.6
-"Griswold","Southeastern CT",-376,12.9
-"Groton","Southeastern CT",61,8.7
-"Guilford","South Central",641,0.7
-"Haddam","Lower CT River Valley",291,8.7
-"Hamden","South Central",-336,9.7
-"Hampton","Northeast CT",-204,2.2
-"Hartford","Capitol Region",-1330,10.7
-"Hartland","Northwest Hills",-126,-11.8
-"Harwinton","Northwest Hills",144,7
-"Hebron","Capitol Region",-70,3.2
-"Kent","Northwest Hills",1334,16.9
-"Killingly","Northeast CT",-369,5.9
-"Killingworth","Lower CT River Valley",350,5.9
-"Lebanon","Southeastern CT",-111,6.5
-"Ledyard","Southeastern CT",-249,10.1
-"Lisbon","Southeastern CT",-63,-1.1
-"Litchfield","Northwest Hills",497,7.6
-"Lyme","Lower CT River Valley",2147,18.3
-"Madison","South Central",1145,2.8
-"Manchester","Capitol Region",-375,11
-"Mansfield","Capitol Region",-730,1.1
-"Marlborough","Capitol Region",-35,0.6
-"Meriden","South Central",-607,15.8
-"Middlebury","Naugatuck Valley",357,5.6
-"Middlefield","Lower CT River Valley",92,13
-"Middletown","Lower CT River Valley",-306,10.9
-"Milford","South Central",-161,-31.4
-"Monroe","Greater Bridgeport",210,2.2
-"Montville","Southeastern CT",-299,15.4
-"Morris","Northwest Hills",842,8.7
-"Naugatuck","Naugatuck Valley",-506,15.2
-"New Britain","Capitol Region",-1056,12.8
-"New Canaan","Western CT",3703,-5.5
-"New Fairfield","Western CT",353,6.5
-"New Hartford","Northwest Hills",110,2.6
-"New Haven","South Central",-1101,-20.4
-"New London","Southeastern CT",-896,12.7
-"New Milford","Western CT",178,8.2
-"Newington","Capitol Region",-94,10.4
-"Newtown","Western CT",289,9.2
-"Norfolk","Northwest Hills",1006,0.8
-"North Branford","South Central",67,6.9
-"North Canaan","Northwest Hills",2,6
-"North Haven","South Central",254,8.4
-"North Stonington","Southeastern CT",245,8
-"Norwalk","Western CT",318,4.5
-"Norwich","Southeastern CT",-619,6.7
-"Old Lyme","Lower CT River Valley",1698,2.9
-"Old Saybrook","Lower CT River Valley",1647,5.6
-"Orange","South Central",247,-13.2
-"Oxford","Naugatuck Valley",142,1.4
-"Plainfield","Northeast CT",-410,12.7
-"Plainville","Capitol Region",-298,4.3
-"Plymouth","Naugatuck Valley",-361,9.9
-"Pomfret","Northeast CT",-172,16.5
-"Portland","Lower CT River Valley",-92,1.1
-"Preston","Southeastern CT",-59,7.1
-"Prospect","Naugatuck Valley",-14,0.5
-"Putnam","Northeast CT",-573,10.1
-"Redding","Western CT",1096,4.5
-"Ridgefield","Western CT",1350,8.5
-"Rocky Hill","Capitol Region",32,5.9
-"Roxbury","Northwest Hills",2679,-2.1
-"Salem","Southeastern CT",75,10.5
-"Salisbury","Northwest Hills",2531,-3.2
-"Scotland","Northeast CT",-202,12.7
-"Seymour","Naugatuck Valley",-331,11.5
-"Sharon","Northwest Hills",1952,-1.7
-"Shelton","Naugatuck Valley",128,5.1
-"Sherman","Western CT",1385,5.6
-"Simsbury","Capitol Region",211,14.1
-"Somers","Capitol Region",-257,5.7
-"South Windsor","Capitol Region",105,7.6
-"Southbury","Naugatuck Valley",124,6.9
-"Southington","Capitol Region",3,8.3
-"Sprague","Southeastern CT",-332,19
-"Stafford","Capitol Region",-367,12.9
-"Stamford","Western CT",643,9.7
-"Sterling","Northeast CT",-315,21
-"Stonington","Southeastern CT",875,9.7
-"Stratford","Greater Bridgeport",-299,3.4
-"Suffield","Capitol Region",-37,-2
-"Thomaston","Naugatuck Valley",-284,7.5
-"Thompson","Northeast CT",-369,6.7
-"Tolland","Capitol Region",-86,2.2
-"Torrington","Northwest Hills",-403,11.3
-"Total",NA,NA,3.7
-"Trumbull","Greater Bridgeport",281,-2.2
-"Union","Northeast CT",-48,17.5
-"Vernon","Capitol Region",-503,2.4
-"Voluntown","Northeast CT",-257,3.4
-"Wallingford","South Central",58,8.6
-"Warren","Northwest Hills",1734,-3.2
-"Washington","Northwest Hills",3100,8.4
-"Waterbury","Naugatuck Valley",-849,18.4
-"Waterford","Southeastern CT",1073,7.5
-"Watertown","Naugatuck Valley",-69,9.3
-"West Hartford","Capitol Region",-250,-26.6
-"West Haven","South Central",-750,6.7
-"Westbrook","Lower CT River Valley",1183,13
-"Weston","Western CT",1908,-1.8
-"Westport","Western CT",3622,-0.5
-"Wethersfield","Capitol Region",-140,3.9
-"Willington","Capitol Region",-206,6.2
-"Wilton","Western CT",1791,3.6
-"Winchester","Northwest Hills",-256,14.4
-"Windham","Southeastern CT",-771,19.1
-"Windsor","Capitol Region",-107,0.3
-"Windsor Locks","Capitol Region",27,6.4
-"Wolcott","Naugatuck Valley",-79,5.1
-"Woodbridge","South Central",467,0
-"Woodbury","Naugatuck Valley",379,8.1
-"Woodstock","Northeast CT",-78,8.2
+"Municipality","Planning Region","Rank","Municipal Gap($ per capita)","ENGL AAGR '11-'14"
+"Greenwich","Western CT",1,5110,1.30729834778649
+"Darien","Western CT",2,3782,2.25357304175308
+"New Canaan","Western CT",3,3703,1.81317360174654
+"Westport","Western CT",4,3622,0.308293533027738
+"Washington","Northwest Hills",5,3100,-2.79185305609584
+"Roxbury","Northwest Hills",6,2679,0.962324446447744
+"Salisbury","Northwest Hills",7,2531,1.16552787235103
+"Cornwall","Northwest Hills",8,2159,-3.55890427227297
+"Lyme","Lower CT River Valley",9,2147,-6.19382133306108
+"Sharon","Northwest Hills",10,1952,1.09794015726891
+"Weston","Western CT",11,1908,0.70681584088879
+"Bridgewater","Western CT",12,1800,-2.36594196734755
+"Wilton","Western CT",13,1791,-1.21205137911158
+"Warren","Northwest Hills",14,1734,2.92385036819012
+"Old Lyme","Lower CT River Valley",15,1698,-0.787173390792481
+"Old Saybrook","Lower CT River Valley",16,1647,-1.72871178097135
+"Sherman","Western CT",17,1385,-1.66981197935206
+"Ridgefield","Western CT",18,1350,-2.90798093924623
+"Kent","Northwest Hills",19,1334,-5.71289049855137
+"Goshen","Northwest Hills",20,1328,-2.40622052086726
+"Westbrook","Lower CT River Valley",21,1183,-4.45236417443431
+"Madison","South Central",22,1145,-0.857662069291989
+"Easton","Greater Bridgeport",23,1132,-1.33528015188435
+"Redding","Western CT",24,1096,-1.47290753552823
+"Waterford","Southeastern CT",25,1073,-2.49627753243716
+"Essex","Lower CT River Valley",26,1063,-2.79380063951814
+"Norfolk","Northwest Hills",27,1006,0.434418768918863
+"Fairfield","Greater Bridgeport",28,885,3.00840157276809
+"Stonington","Southeastern CT",29,875,-3.19899720775649
+"Morris","Northwest Hills",30,842,-2.96654887567337
+"Canaan","Northwest Hills",31,805,-1.32709096665789
+"Brookfield","Western CT",32,658,-1.19198199818338
+"Stamford","Western CT",33,643,-3.32653270920129
+"Guilford","South Central",34,641,-0.121830087104834
+"Avon","Capitol Region",35,631,-0.413824721084204
+"Farmington","Capitol Region",36,517,-1.62156643453695
+"Litchfield","Northwest Hills",37,497,-2.5428028601365
+"Woodbridge","South Central",38,467,0.0373119178882871
+"Woodbury","Naugatuck Valley",39,379,-2.75282919819643
+"Middlebury","Naugatuck Valley",40,357,-1.80583267497033
+"New Fairfield","Western CT",41,353,-2.11949121947444
+"Killingworth","Lower CT River Valley",42,350,-1.95838689949012
+"Clinton","Lower CT River Valley",43,334,-1.17320378503528
+"East Lyme","Southeastern CT",44,321,-2.3537408128898
+"Branford","South Central",45,319,0.620993222204926
+"Norwalk","Western CT",46,318,-1.52368681039639
+"Glastonbury","Capitol Region",47,317,-2.09104298816205
+"Deep River","Lower CT River Valley",48,296,-1.41973818596439
+"Colebrook","Northwest Hills",49,292,-1.89877892141312
+"Haddam","Lower CT River Valley",50,291,-3.00447854009512
+"Newtown","Western CT",51,289,-3.13515878468948
+"Trumbull","Greater Bridgeport",52,281,0.8222263664514
+"East Granby","Capitol Region",53,266,-1.02401681639866
+"Bethlehem","Naugatuck Valley",54,265,-1.55748920432936
+"North Haven","South Central",55,254,-2.77818150900733
+"Orange","South Central",56,247,5.3053212805813
+"North Stonington","Southeastern CT",57,245,-2.67562705630629
+"Durham","Lower CT River Valley",58,231,-2.4579787764738
+"Canton","Capitol Region",59,227,-0.65551496765665
+"Simsbury","Capitol Region",60,211,-4.8991454789249
+"Monroe","Greater Bridgeport",61,210,-0.675717252132001
+"Berlin","Capitol Region",62,207,-1.95840423464869
+"Chester","Lower CT River Valley",63,193,1.16140096502069
+"Bethany","South Central",64,183,-1.89576441559977
+"New Milford","Western CT",65,178,-2.78121487241429
+"Harwinton","Northwest Hills",66,144,-2.22040485517209
+"Oxford","Naugatuck Valley",67,142,-0.413928366392355
+"East Haddam","Lower CT River Valley",68,139,-3.90732857714482
+"Burlington","Northwest Hills",69,138,0.0953522446597345
+"Shelton","Naugatuck Valley",70,128,-1.69361468739079
+"Southbury","Naugatuck Valley",71,124,-1.87171648398515
+"Cheshire","Naugatuck Valley",72,112,-1.38442039325641
+"New Hartford","Northwest Hills",73,110,-0.876005466918324
+"South Windsor","Capitol Region",74,105,-2.4756843676298
+"Barkhamsted","Northwest Hills",75,95,-3.11520311014203
+"Franklin","Southeastern CT",76,95,-0.983604933063122
+"Middlefield","Lower CT River Valley",77,92,-4.5273065118036
+"Bethel","Western CT",78,85,-2.03432130640318
+"Granby","Capitol Region",79,78,-2.14052395903492
+"Salem","Southeastern CT",80,75,-3.54058263647809
+"North Branford","South Central",81,67,-2.27814392357218
+"Columbia","Capitol Region",82,62,-1.99088246569111
+"Groton","Southeastern CT",83,61,-2.59911545183812
+"Wallingford","South Central",84,58,-2.78217109793317
+"Bozrah","Southeastern CT",85,44,-4.76783237134987
+"Bolton","Capitol Region",86,36,-2.2993563695193
+"East Hampton","Lower CT River Valley",87,34,-1.77206476692838
+"Rocky Hill","Capitol Region",88,32,-1.94176950109367
+"Windsor Locks","Capitol Region",89,27,-1.46414480962178
+"Southington","Capitol Region",90,3,-2.82964534943666
+"North Canaan","Northwest Hills",91,2,-1.14674531998843
+"Prospect","Naugatuck Valley",92,-14,-0.074205519244419
+"Andover","Capitol Region",93,-16,-1.60096151437283
+"Cromwell","Lower CT River Valley",94,-19,-1.31782226696159
+"Marlborough","Capitol Region",95,-35,-0.157872909937845
+"Suffield","Capitol Region",96,-37,0.71197296043646
+"Eastford","Northeast CT",97,-43,0.880693812029961
+"Union","Northeast CT",98,-48,-6.16285856438571
+"Preston","Southeastern CT",99,-59,-2.39521651734431
+"Lisbon","Southeastern CT",100,-63,0.649688810077426
+"Beacon Falls","Naugatuck Valley",101,-65,-3.17851847335265
+"Watertown","Naugatuck Valley",102,-69,-3.10590880998378
+"Hebron","Capitol Region",103,-70,-1.08529208152302
+"Ellington","Capitol Region",104,-73,-1.42456078402138
+"Woodstock","Northeast CT",105,-78,-2.80163000779073
+"Wolcott","Naugatuck Valley",106,-79,-1.52272753819419
+"Tolland","Capitol Region",107,-86,-0.710345589843669
+"Portland","Lower CT River Valley",108,-92,-0.363810741351222
+"Newington","Capitol Region",109,-94,-3.54176040223047
+"Windsor","Capitol Region",110,-107,-0.109622765779904
+"Lebanon","Southeastern CT",111,-111,-2.21317421240709
+"East Windsor","Capitol Region",112,-112,-3.88668810524594
+"Coventry","Capitol Region",113,-121,-0.298995598496761
+"Hartland","Northwest Hills",114,-126,3.79633883207419
+"Wethersfield","Capitol Region",115,-140,-1.28618694245617
+"Colchester","Southeastern CT",116,-158,-0.700333717093024
+"Bloomfield","Capitol Region",117,-159,-1.61479380036378
+"Milford","South Central",118,-161,10.7011043732348
+"Pomfret","Northeast CT",119,-172,-5.83163394697805
+"Danbury","Western CT",120,-198,-0.857191470145165
+"Scotland","Northeast CT",121,-202,-4.28286576752086
+"Hampton","Northeast CT",122,-204,-0.55429718905753
+"Willington","Capitol Region",123,-206,-1.94528964324255
+"Canterbury","Northeast CT",124,-237,-3.82903066003006
+"Ledyard","Southeastern CT",125,-249,-3.47420471250879
+"West Hartford","Capitol Region",126,-250,8.34055501253624
+"Winchester","Northwest Hills",127,-256,-4.93610776076723
+"Somers","Capitol Region",128,-257,-1.86231445661301
+"Voluntown","Northeast CT",129,-257,-1.11789026779606
+"Thomaston","Naugatuck Valley",130,-284,-2.4045961879397
+"Ashford","Northeast CT",131,-291,-3.67815984518808
+"Plainville","Capitol Region",132,-298,-1.46215789822702
+"Montville","Southeastern CT",133,-299,-5.4143981373769
+"Stratford","Greater Bridgeport",134,-299,-0.996074162806856
+"Middletown","Lower CT River Valley",135,-306,-3.75510461660824
+"Sterling","Northeast CT",136,-315,-7.51226335821206
+"Enfield","Capitol Region",137,-321,-4.55962589042928
+"Brooklyn","Northeast CT",138,-327,-0.0103817221393581
+"Seymour","Naugatuck Valley",139,-331,-3.97768185208925
+"Sprague","Southeastern CT",140,-332,-6.26629225123633
+"Hamden","South Central",141,-336,-3.32238766180288
+"East Haven","South Central",142,-343,-4.04810673905881
+"Plymouth","Naugatuck Valley",143,-361,-3.36161468821922
+"Stafford","Capitol Region",144,-367,-4.48809195842457
+"Killingly","Northeast CT",145,-369,-1.80097672919676
+"Thompson","Northeast CT",146,-369,-2.26609727232842
+"Manchester","Capitol Region",147,-375,-3.77584148232499
+"Griswold","Southeastern CT",148,-376,-4.45475658080452
+"Torrington","Northwest Hills",149,-403,-3.92585046444953
+"Plainfield","Northeast CT",150,-410,-3.91450041791637
+"Chaplin","Northeast CT",151,-416,-0.608701179608395
+"Bristol","Naugatuck Valley",152,-428,-3.98212909525449
+"Vernon","Capitol Region",153,-503,-0.779001810844725
+"Naugatuck","Naugatuck Valley",154,-506,-5.33273539155189
+"Putnam","Northeast CT",155,-573,-3.15497153535793
+"Meriden","South Central",156,-607,-5.48940434883338
+"Norwich","Southeastern CT",157,-619,-2.23981480736601
+"Derby","Naugatuck Valley",158,-632,-7.37661936087689
+"Mansfield","Capitol Region",159,-730,-0.25380030175523
+"Ansonia","Naugatuck Valley",160,-734,-4.87335890759942
+"East Hartford","Capitol Region",161,-740,-2.72978033915289
+"West Haven","South Central",162,-750,-2.24415756603909
+"Windham","Southeastern CT",163,-771,-6.44496344709011
+"Waterbury","Naugatuck Valley",164,-849,-6.24428017147401
+"New London","Southeastern CT",165,-896,-4.3937352706033
+"New Britain","Capitol Region",166,-1056,-4.4421721674818
+"New Haven","South Central",167,-1101,7.59209019825578
+"Bridgeport","Greater Bridgeport",168,-1168,-5.07301734379251
+"Hartford","Capitol Region",169,-1330,-3.49454311006929

@@ -4,8 +4,9 @@ $(document).ready(function(){
             return {
                 "Municipality" : o["Municipality"],
                 "Planning Region" : o["Planning Region"],
+                "Rank" : parseInt(o["Rank"]),
                 "Municipal Gap($ per capita)" : parseInt(o["Municipal Gap($ per capita)"]),
-                "ENGL '09 vs '12" : parseFloat(o["ENGL '09 vs '12"])
+                "ENGL AAGR '11-'14" : parseFloat(o["ENGL AAGR '11-'14"])
             }
         });
 
@@ -34,7 +35,7 @@ $(document).ready(function(){
             .data(FILTER_OPTS)
             .enter()
                 .append("button")
-                .attr("class", "btn btn-default active")
+                .attr("class", "btn btn-sm btn-default active")
                 .attr("value", function(d) { return d; })
                 .text(function(d) { return d; });
 
@@ -61,7 +62,7 @@ $(document).ready(function(){
             .data(["All", "None"])
             .enter()
             .append("button")
-                .attr("class", "btn btn-default")
+                .attr("class", "btn btn-sm btn-default")
                 .attr("id", function(d) { return ["Select", d].join("_"); })
                 .text(function(d) { return ["Select", d].join(" "); })
 
@@ -84,6 +85,53 @@ $(document).ready(function(){
             drawChart();
         });
 
+        var gapScale = function(value) {
+                // doing this manually
+                if (value >= 635) { return 1; }
+                else if (value < 635 && value >= 139) { return 2; }
+                else if (value < 139 && value >= 0) { return 3; }
+                else if (value < 0 && value >= -310) { return 4; }
+                else if (value < -310) { return 5; }
+            }
+
+        var legendData = [
+            [635, 5110],
+            [139, 653],
+            [0, 139],
+            [-310, 0],
+            [-1330, -310]
+        ]/*.map(function(span) {
+            return [numberFormat(span[0]), numberFormat(span[1])]
+        })*/
+
+        var legend = d3.select("div#legend");
+        
+        legend.append("div")
+            .append("span")
+            .classed("legend-title", true)
+            .text("Municipal Gap:");
+
+        legend.append("div")
+            .selectAll("div")
+            .data(legendData)
+            .enter()
+            .append("div")
+                .append("span")
+                .text(function(d) {
+                    return d.map(function(v) { return numberFormat(v); }).join(" to ");
+                })
+                .append("span")
+                .attr("class", function(d, i) {
+                    return "color_"+gapScale((d[0]+d[1])/2);
+                })
+
+        // add note about sorting columns
+        var sortCallout = d3.select("div#table")
+            .append("div")
+            .classed("note", true)
+            .append("p")
+                .text("Click a column header to sort by that column. Click again to reverse order.");
+
         // draw table
         var table = d3.select("div#table")
             .append("table");
@@ -92,10 +140,26 @@ $(document).ready(function(){
         var tbody = table.append("tbody");
 
         var tableCols = [
-            "Municipality",
-            "Planning Region",
-            "Municipal Gap($ per capita)",
-            "ENGL '09 vs '12"
+            {
+                "name": "Municipality",
+                "label" : "Municipality"
+            },
+            {
+                "name": "Planning Region",
+                "label" : "Planning Region"
+            },
+            {
+                "name": "Rank",
+                "label" : "Rank"
+            },
+            {
+                "name": "Municipal Gap($ per capita)",
+                "label" : "Municipal Gap"
+            },
+            {
+                "name": "ENGL AAGR '11-'14",
+                "label" : "ENGL AAGR '11-'14"
+            }
         ];
 
         //populate thead
@@ -104,8 +168,8 @@ $(document).ready(function(){
             .data(tableCols)
             .enter()
             .append("th")
-            .attr("data-col", function(d) { return d; })
-            .text(function(d) { return d; })
+            .attr("data-col", function(d) { return d.name; })
+            .text(function(d) { return d.label; })
             .attr("data-sort", function(d, i) {
                 if (i === 0) {
                     return "asc";
@@ -148,15 +212,6 @@ $(document).ready(function(){
             drawChart();
         })
         
-        var gapScale = function(value) {
-                // doing this manually
-                if (value >= 635) { return "Best"; }
-                else if (value < 635 && value >= 139) { return "Better"; }
-                else if (value < 139 && value >= 0) { return "Good"; }
-                else if (value < 0 && value >= -310) { return "Bad"; }
-                else if (value < -310) { return "Worst"; }
-            }
-        
         function drawChart() {
             var sorter = thead.select("tr > th[data-sort]");
             var sortCol = sorter.attr("data-col");
@@ -186,47 +241,53 @@ $(document).ready(function(){
                     for (col in tableCols) {
                         var thisCell = d3.select(this).append("td");
 
-                        if (col == 2) {
-                            thisCell.append("span")
+                        if (tableCols[col].name == "Municipal Gap($ per capita)") {
+                            thisCell.attr("class", function(d) {
+                                var colorClass = "color_" + gapScale(d[tableCols[col].name]);
+
+                                return [
+                                    colorClass,
+                                    "gap"
+                                ].join(" ");
+                            })
+                        } else if (tableCols[col].name == "ENGL AAGR '11-'14") {
+                            thisCell.attr("class", function(d) {
+                                if (d[tableCols[col].name] < -0.95) {
+                                    trendClass = "decrease";
+                                } else if (d[tableCols[col].name] >= -0.95 && d[tableCols[col].name] < 0.95) {
+                                    trendClass = "flat";
+                                } else {
+                                    trendClass = "increase"
+                                }
+
+                                return [
+                                    trendClass,
+                                    "engl"
+                                ].join(" ");
+                            })
+
+                            thisCell.append("i")
                                 .attr("class", function(d) {
-                                    return [gapScale(d[tableCols[col]]).toLowerCase(), "gap"].join(" ");
+                                    if (d[tableCols[col].name] < -0.95) {
+                                        trendClass = "fa-arrow-down";
+                                    } else if (d[tableCols[col].name] >= -0.95 && d[tableCols[col].name] < 0.95) {
+                                        trendClass = "fa-arrow-right";
+                                    } else {
+                                        trendClass = "fa-arrow-up"
+                                    }
+                                    return [trendClass, "fa"].join(" ");
                                 })
-                                .text(function(d) {
-                                    return gapScale(d[tableCols[col]]);
-                                })
+                        } else {
                         }
 
-                        if (col == 3) {
-                            thisCell.append("span")
-                                .attr("class", function(d) {
-                                    if (d[tableCols[col]] < -5) {
-                                        trendClass = "Declined";
-                                    } else if (d[tableCols[col]] >= -5 && d[tableCols[col]] <= 5) {
-                                        trendClass = "Flat";
-                                    } else {
-                                        trendClass = "Increased"
-                                    }
-                                    return [trendClass, "trend"].join(" ");
-                                })
-                                .text(function(d) {
-                                    if (d[tableCols[col]] < -5) {
-                                        return "Declined";
-                                    } else if (d[tableCols[col]] >= -5 && d[tableCols[col]] <= 5) {
-                                        return "Flat";
-                                    } else {
-                                        return "Increased";
-                                    }
-                                })
-                        }
-                        
                         thisCell.append("span")
                             .text(function(d) {
-                                if (col == 2) {
-                                    return numberFormat(d[tableCols[col]]);
-                                } else if (col == 3) {
-                                    return percentFormat(d[tableCols[col]]);
+                                if (tableCols[col].name == "Municipal Gap($ per capita)") {
+                                    return numberFormat(d[tableCols[col].name]);
+                                } else if (tableCols[col].name == "ENGL AAGR '11-'14") {
+                                    return percentFormat(d[tableCols[col].name]);
                                 } else {
-                                    return d[tableCols[col]];
+                                    return d[tableCols[col].name];
                                 }
                             })
                     }

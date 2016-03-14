@@ -1,3 +1,24 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
 button.active {
     color: #FFFFFF!important;
     background-color: #4670A7!important;
@@ -6,7 +27,9 @@ button.active {
 div#table {
     display: block;
     width: 100%;
-    padding: 1em;
+    max-height: 325px;
+    height: 50%;
+    overflow-y: auto;
 }
 
 div#table > table {

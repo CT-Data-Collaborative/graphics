@@ -1,3 +1,25 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+
+body > div {
+    padding:0.5em 1em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
 button.active {
     color: #FFFFFF!important;
     background-color: #4670A7!important;
@@ -6,7 +28,9 @@ button.active {
 div#table {
     display: block;
     width: 100%;
-    padding: 1em;
+    max-height: 325px;
+    height: 50%;
+    overflow-y: auto;
 }
 
 div#table > table {
@@ -60,33 +84,86 @@ div#table > table td {
     padding: 0 0.5em;
 }
 
-span.trend, span.gap {
-    font-size: 0.75em;
+td.engl i.fa,
+i.fa {
+    margin: 0 0.25em;
+    display: inline;
+}
+td.engl i.fa.fa-arrow-down,
+i.fa.fa-arrow-down {
+    color: red;
+}
+td.engl i.fa.fa-arrow-right,
+i.fa.fa-arrow-right {}
+
+td.engl i.fa.fa-arrow-up,
+i.fa.fa-arrow-up {
+    color: green;
+}
+
+td.gap.color_1 {
+    color: #006837;
+}
+td.gap.color_2 {
+    color: #66bd63;
+}
+td.gap.color_3 {
+    color: #a6d96a;
+}
+td.gap.color_4 {
+    color: #fdae61;
+}
+td.gap.color_5 {
+    color: #d73027;
+}
+
+td.gap span/*, span.trend, span.gap*/ {
+    /*font-size: 0.75em;
     padding: 0 0.5em;
     margin-right: 0.5em;
-    font-weight: bold;
+    font-weight: bold;*/
     background-color: #FFFFFF;
     border-radius: 0.25em;
 }
-span.trend.Increased {
+/*span.trend.Increased {
     color: green;
 }
 span.trend.Flat {}
 span.trend.Declined {
     color: red;
+}*/
+
+div#legend span.legend-title {
+    font-weight: bold;
 }
-span.gap.best {
-    color: #006837;
+@media screen and (min-width: 500px) {
+    div#legend > div {
+        float: left;
+    }
+    div#legend > div > div {
+        display:inline-block;
+        float: right;
+    }
 }
-span.gap.better {
-    color: #66bd63;
+div#legend span > span {
+    display: inline-block;
+    float: left;
+    height: 1em;
+    margin: 0.1em 0.3em;
+    width: 1em;
 }
-span.gap.good {
-    color: #a6d96a;
+div#legend span > span.color_1 {
+    background-color: #006837;
 }
-span.gap.bad {
-    color: #fdae61;
+div#legend span > span.color_2 {
+    background-color: #66bd63;
 }
-span.gap.worst {
-    color: #d73027;
+div#legend span > span.color_3 {
+    background-color: #a6d96a;
+}
+div#legend span > span.color_4 {
+    background-color: #fdae61;
+}
+div#legend span > span.color_5 {
+    background-color: #d73027;
 }

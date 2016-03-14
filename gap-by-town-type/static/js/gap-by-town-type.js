@@ -40,7 +40,7 @@ $(document).ready(function(){
             checkboxes.each(function(checkboxOption, i) {
                 d3.select(this)
                     .append("button")
-                    .attr("class", "btn btn-default active")
+                    .attr("class", "btn btn-sm btn-default active")
                     .attr("type", "button")
                     .attr("value", function(d) { return d; })
                     .text(function(d) { return d; });
@@ -70,7 +70,7 @@ $(document).ready(function(){
                 .data(["All", "None"])
                 .enter()
                 .append("button")
-                    .attr("class", "btn btn-default")
+                    .attr("class", "btn btn-sm btn-default")
                     .attr("id", function(d) { return ["Select", d].join("_"); })
                     .text(function(d) { return ["Select", d].join(" "); })
 
@@ -128,11 +128,11 @@ $(document).ready(function(){
             }
 
             var legendData = [
-                [5110, 635],
-                [653, 139],
-                [139, 0],
-                [0, -310],
-                [-310, -1330]
+                [635, 5110],
+                [139, 653],
+                [0, 139],
+                [-310, 0],
+                [-1330, -310]
             ].map(function(span) {
                 return [numberFormat(span[0]), numberFormat(span[1])]
             })
