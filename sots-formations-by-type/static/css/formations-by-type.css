@@ -1,0 +1,130 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
+div#legend {
+    float: right;
+}
+div#legend div span.color {
+    display: inline-block;
+    height: 0.8em;
+    width: 0.8em;
+    margin: 0.1em 0.5em 0.1em 0.1em;
+}
+div#legend div span.color.recession {
+    background-color: #ECECEC;
+}
+div#legend div span.color.corporation {
+    background-color: #4670A7;
+}
+div#legend div span.color.llc {
+    background-color: #B94A48;
+}
+div#legend div span.color.other {
+    background-color: #6da53f;
+}
+
+div#chart {
+    display: block;
+    width: calc(100% - 2em);
+    /*height:400px;*/
+    margin:0 1em;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #4A4A4A;
+  /*shape-rendering: crispEdges;*/
+}
+
+/*g.xaxis g.tick:nth-child(even) text {
+    transform: translate(0em, 1em);
+}*/
+
+path.line {
+  fill: none;
+  stroke-width: 3px;
+}
+path.corporation {
+    stroke: #4670A7;
+}
+path.llc {
+    stroke: #B94A48;
+}
+path.other {
+    stroke: #6da53f;
+}
+
+rect.recession {
+    stroke: #FFFFFF;
+    stroke-width: 1px;
+    fill: #ECECEC;
+    opacity: 0.75;
+}
+
+
+g.hover-group rect.hover-line,
+g.hover-group line.hover-line {
+    opacity: 0; /* Should be 0 */
+    stroke: #4A4A4A;
+    stroke-width: 1px;
+    /*fill: rgba(0, 0, 0, 0);*/
+    fill: #4A4A4A;
+}
+g.hover-group rect.hover-line.highlight,
+g.hover-group line.hover-line.highlight {
+    opacity: 1;
+}
+
+g.hover-group path.point {
+    fill: #FFFFFF;
+}
+
+div#value-label i,
+div#value-label p {
+    margin: 0;
+}
+
+div#value-label p {
+    display: none;
+    padding-left: 1em;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 500px) {
+    div#value-label p.highlight {
+        display: inline;
+    }
+}
+@media screen and (max-width: 499px) {
+    div#value-label p.highlight {
+        display: block;
+    }
+
+    div#value-label {
+        display: block;
+        height: 4em;
+    }
+}
+
+div#value-label.highlight i {
+    display: none;
+}

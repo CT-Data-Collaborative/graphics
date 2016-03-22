@@ -1,0 +1,105 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
+div#options {
+    /*border: 1px solid red;*/
+}
+
+div#chart {
+    /*border: 1px solid blue;*/
+}
+
+div#legend {
+    /*border: 1px solid green;*/
+}
+div#legend div.legend-entry {
+    cursor: default;
+}
+div.legend-entry span.color {
+    display: inline-block;
+    height: 0.8em;
+    width: 0.8em;
+    margin: 0.1em 0.5em 0.1em 0.1em;
+}
+@media screen and (min-width: 500px) {
+    div#options select {
+        margin-left: 1em;
+    }
+    div#legend div.legend-entry {
+        display: inline-block;
+        margin: 0.25em;
+    }
+}
+div.legend-entry span.color_0 {
+    background-color: #4670A7;
+}
+div.legend-entry span.color_1 {
+    background-color: #B94A48;
+}
+div.legend-entry span.color_2 {
+    background-color: #6da53f;
+}
+div.legend-entry span.color_3 {
+    background-color: #a674d0;
+}
+div.legend-entry span.color_4 {
+    background-color: #0ad8df;
+}
+
+div.legend-entry.highlight {
+}
+div.legend-entry.lowlight {
+    color: #ECECEC;
+    font-style: italic;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #4A4A4A;
+}
+
+path.line {
+  fill: none;
+  stroke-width: 3px;
+  stroke: #4A4A4A;
+}
+path.line.highlight {
+    stroke-width: 5px;
+}
+path.line.lowlight {
+    opacity: 0.1;
+}
+path.color_0 {
+    stroke: #4670A7;
+}
+path.color_1 {
+    stroke: #B94A48;
+}
+path.color_2 {
+    stroke: #6da53f;
+}
+path.color_3 {
+    stroke: #a674d0;
+}
+path.color_4 {
+    stroke: #0ad8df;
+}
