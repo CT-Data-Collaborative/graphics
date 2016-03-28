@@ -26,7 +26,8 @@ div#yaxis-label-container {
     text-align: center;
 }
 div#yaxis-label {
-    top: 90%;
+    top: 60%;
+    left: 1%;
     max-width: 60%;
     position: fixed;
     transform: rotate(-90deg);
@@ -49,12 +50,12 @@ div#xaxis-label-container {
 }
 @media screen and (max-width: 500px) {
     div#yaxis-label {
-        top: 100%;
+        top: 70%;
     }
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 501px) and (max-width: 800px) {
     div#yaxis-label {
-        top: 70%;
+        top: 80%;
     }
 }
 

@@ -132,7 +132,7 @@ $(document).ready(function(){
             var width = container_width;
             var margin = {
                 top: (height * 0.02),
-                right: (width * 0.05),
+                right: (width * 0.08),
                 bottom: (height * 0.08),
                 left: (width * 0.12)
             }
