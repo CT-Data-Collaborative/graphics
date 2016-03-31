@@ -1,87 +1,21 @@
 $(document).ready(function(){
-    d3.csv("static/data/data-with-cogs.csv", function(data) {
+    d3.csv("static/data/agg-data.csv", function(data) {
         const DATA = data.map(function(o) {
             return {
-                "Municipality" : o["Municipality"],
                 "Planning Region" : o["Planning Region"],
-                "Municipal Gap($ per capita)" : parseInt(o["Municipal Gap($ per capita)"])
+                "Municipal Capacity" : parseInt(o["Municipal Capacity"]),
+                "Municipal Cost" : parseInt(o["Municipal Cost"]),
+                "Municipal Gap" : parseInt(o["Municipal Gap"]),
+                "State Nonschool Grants" : parseInt(o["State Nonschool Grants"]),
+                "Gap After Grants" : parseInt(o["Gap After Grants"]),
+                "% of Gap filled by Grants" : parseFloat(o["% of Gap filled by Grants"])
             }
         });
-
-        const FILTER_OPTS = [
-            "Capitol Region",
-            "Greater Bridgeport",
-            "Lower CT River Valley",
-            "Naugatuck Valley",
-            "Northeast CT",
-            "Northwest Hills",
-            "South Central",
-            "Southeastern CT",
-            "Western CT"
-        ];
-
-        var filter = FILTER_OPTS;
 
         var numberFormat = d3.format("$,.0f");
         var percentFormat = function(v) {
             return d3.format(",.0f")(v)+ "%";
         };
-
-        // draw selector/options
-        var filterButtons = d3.selectAll("div#options > div:first-child")
-            .selectAll("button")
-            .data(FILTER_OPTS)
-            .enter()
-                .append("button")
-                .attr("class", "btn btn-sm btn-default active")
-                .attr("value", function(d) { return d; })
-                .text(function(d) { return d; });
-
-        // register change event
-        d3.selectAll("div#options > div:first-child button")
-            .on("click", function() {
-                var thisButton = d3.select(this);
-                thisButton.classed("active", !thisButton.classed("active"));
-
-                var thisValue = thisButton.attr("value");
-
-                if (filter.indexOf(thisValue) === -1) {
-                    filter.push(thisValue)
-                } else {
-                    filter = filter.filter(function(f) { return f !== thisValue; });
-                }
-
-                drawChart()
-            })
-
-        // add select all/none buttons
-        d3.selectAll("div#options > div:last-child")
-            .selectAll("button")
-            .data(["All", "None"])
-            .enter()
-            .append("button")
-                .attr("class", "btn btn-sm btn-default")
-                .attr("id", function(d) { return ["Select", d].join("_"); })
-                .text(function(d) { return ["Select", d].join(" "); })
-
-        // register select all/none events
-        d3.selectAll("button#Select_All")
-        .on("click", function(){
-            d3.selectAll("div#options > div:first-child button")
-                .classed("active", true);
-
-            filter = FILTER_OPTS;
-            drawChart();
-        });
-
-        d3.selectAll("button#Select_None")
-        .on("click", function(){
-            d3.selectAll("div#options > div:first-child button")
-                .classed("active", false);
-
-            filter = [];
-            drawChart();
-        });
 
         // add note about sorting columns
         var sortCallout = d3.select("div#table")
@@ -98,9 +32,13 @@ $(document).ready(function(){
         var tbody = table.append("tbody");
 
         var tableCols = [
-            "Municipality",
             "Planning Region",
-            "Municipal Gap($ per capita)"
+            "Municipal Capacity",
+            "Municipal Cost",
+            "Municipal Gap",
+            "State Nonschool Grants",
+            "Gap After Grants",
+            "% of Gap filled by Grants"
         ];
 
         //populate thead
@@ -160,9 +98,7 @@ $(document).ready(function(){
             var sortOrder = sorter.attr("data-sort");
 
             // filter and sort data
-            var filteredData = DATA.filter(function(o) {
-                return filter.indexOf(o["Planning Region"]) !== -1
-            }).sort(function(a, b) {
+            var sortedData = DATA.sort(function(a, b) {
                 if (sortOrder === "desc") {
                     // console.log((b[sortCol] > a[sortCol] ? 1 : -1));
                     return (b[sortCol] > a[sortCol] ? 1 : -1);
@@ -178,33 +114,33 @@ $(document).ready(function(){
             tbody.selectAll("tr").remove();
 
             var tableRows = tbody.selectAll("tr")
-                .data(filteredData)
+                .data(sortedData)
                 .enter()
                 .append("tr")
                 .each(function(rowData, i) {
                     for (col in tableCols) {
                         var thisCell = d3.select(this).append("td");
 
-                        if (tableCols[col] == "Municipal Gap($ per capita)") {
-                            thisCell.append("span")
-                                .attr("class", function(d) {
-                                    var colorClass = "Surplus"
-                                    if (d[tableCols[col]] < 0) {
-                                        colorClass = "Deficit"
-                                    }
-                                    return [colorClass, "label"].join(" ");
-                                })
-                                .text(function(d) {
-                                    if (d[tableCols[col]] < 0) {
-                                        return "Deficit"
-                                    } else {
-                                        return "Surplus"
-                                    }
-                                })
-                                
+                        if (
+                            tableCols[col] == "Municipal Capacity"
+                            || tableCols[col] == "Municipal Cost"
+                            || tableCols[col] == "Municipal Gap"
+                            || tableCols[col] == "State Nonschool Grants"
+                            || tableCols[col] == "Gap After Grants"
+                        ) {                                
                             thisCell.append("span")
                                 .attr("class", "value")
                                 .text(function(d) { return numberFormat(d[tableCols[col]]); })
+                        } else if (tableCols[col] == "% of Gap filled by Grants") {
+                            thisCell.append("span")
+                                .attr("class", "value")
+                                .text(function(d) {
+                                    if (d[tableCols[col]] < 0) {
+                                        return " - ";
+                                    } else {
+                                        return percentFormat(d[tableCols[col]]);
+                                    }
+                                })
                         } else {
                             thisCell.append("span")
                                 .attr("class", "value")
@@ -213,8 +149,7 @@ $(document).ready(function(){
                     }
                 })
 
-            // console.log(filteredData)
-            // console.log(filter)
+            // console.log(sortedData)
             // console.log(DATA)
             // console.log(GEODATA)
         }
