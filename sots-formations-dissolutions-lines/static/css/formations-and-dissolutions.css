@@ -75,16 +75,19 @@ rect.recession {
 }
 
 
+g.hover-group rect.group-filler {
+    stroke-opacity: 0;
+    fill-opacity: 0;
+}
 g.hover-group rect.hover-line,
 g.hover-group line.hover-line {
-    opacity: 0; /* Should be 0 */
+    opacity: 0;
     stroke: #4A4A4A;
     stroke-width: 1px;
-    /*fill: rgba(0, 0, 0, 0);*/
     fill: #4A4A4A;
 }
-g.hover-group rect.hover-line.highlight,
-g.hover-group line.hover-line.highlight {
+g.hover-group.highlight rect.hover-line,
+g.hover-group.highlight line.hover-line {
     opacity: 1;
 }
 

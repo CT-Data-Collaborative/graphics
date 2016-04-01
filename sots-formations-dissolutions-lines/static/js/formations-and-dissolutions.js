@@ -194,11 +194,16 @@ $(document).ready(function(){
                 .data(DATA)
                 .enter()
                     .append("g")
-                    .classed("hover-group", true)
+                    .attr("class", function(d){
+                        return [
+                            "hover-group",
+                            "_"+dateFormat(d.Year)
+                        ].join(" ")
+                    })
                     .attr("width", xBandWidth)
                     .attr("height", height)
                     .attr("data-year", function(d) {
-                        return yearClass = "_"+dateFormat(d.Year);
+                        return "_"+dateFormat(d.Year);
                     })
                     .datum(function(d) { return d; })
 
@@ -206,58 +211,56 @@ $(document).ready(function(){
             var labelContainer = d3.select("div#value-label")
             hoverGroups.each(function(pointData, i) {
                 // console.log(pointData);
+                var yearClass = "_"+dateFormat(pointData.Year);
 
                 var group = d3.select(this);
 
                 group.append("rect")
+                    .classed("group-filler", true)
                     .attr("height", group.attr("height"))
-                    .attr("width", group.attr("width"))
-                    .attr("x", x(pointData.Year) - (xBandWidth/2))
-                    .attr("fill", "rgba(0,0,0,0)")
-                    .attr("stroke", "red")
-                    .attr("stroke-width", "1px")
+                    .attr("width", function() {
+                        // first and last bars are only half width
+                        if (i === 0 || i == (hoverGroups.size() - 1)) {
+                            return group.attr("width")/2
+                        } else {
+                            return group.attr("width");
+                        }
+                    })
+                    .attr("x", function() {
+                        if (i === 0) {
+                            // first bar is only half width, not offset left
+                            return x(pointData.Year);
+                        } else {
+                            return x(pointData.Year) - (xBandWidth/2)
+                        }
+                    })
 
-                var yearClass = "_"+dateFormat(pointData.Year);
 
                 group.append("rect")
                     .classed("hover-line", true)
-                    // .attr("data-year", yearClass)
-                    // .attr("class", function() {
-                    //     return [
-                    //         "hover-line",
-                    //         yearClass
-                    //     ].join(" ")
-                    // })
                     .attr("x", x(pointData.Year) - 2)
-                    // .attr("y", y(pointData.Formations))
-                    // .attr("height", height - y(pointData.Formations))
                     .attr("y", 0)
                     .attr("height", height)
                     .attr("width", 4)
 
                 group.append("path")
-                    .classed("point", true)
-                    // .attr("data-year", yearClass)
-                    // .attr("class", function() {
-                    //     return [
-                    //         "point",
-                    //         yearClass,
-                    //         "formation"
-                    //     ].join(" ");
-                    // })
+                    .attr("class", function() {
+                        return [
+                            "point",
+                            "formation"
+                        ].join(" ");
+                    })
                     .attr("d", d3.svg.symbol().type("circle").size(50))
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.Formations) +")";})
 
                 group.append("path")
                     .classed("point", true)
-                    // .attr("data-year", yearClass)
-                    // .attr("class", function() {
-                    //     return [
-                    //         "point",
-                    //         yearClass,
-                    //         "dissolution"
-                    //     ].join(" ");
-                    // })
+                    .attr("class", function() {
+                        return [
+                            "point",
+                            "dissolution"
+                        ].join(" ");
+                    })
                     .attr("d", d3.svg.symbol().type("circle").size(50))
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.Dissolutions) +")";})
 
@@ -301,8 +304,6 @@ $(document).ready(function(){
             })
 
             // register hover events for point groups
-            // hoverGroups.selectAll("line.hover-line, path.point")
-            // hoverGroups.selectAll("rect.hover-line, path.point")
             hoverGroups
                 .on("mouseover", function(){
                     var highlightClass = d3.select(this).attr("data-year");
