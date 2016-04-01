@@ -102,6 +102,9 @@ $(document).ready(function(){
                     )
                 )
 
+            // width of x scale "bands"
+            var xBandWidth = x(dateFormat.parse("1981")) - x(dateFormat.parse("1980"))
+
             var formationLine = d3.svg.line()
                 .x(function(d) { return x(d.Year); })
                 .y(function(d) { return y(d.Formations); });
@@ -192,6 +195,11 @@ $(document).ready(function(){
                 .enter()
                     .append("g")
                     .classed("hover-group", true)
+                    .attr("width", xBandWidth)
+                    .attr("height", height)
+                    .attr("data-year", function(d) {
+                        return yearClass = "_"+dateFormat(d.Year);
+                    })
                     .datum(function(d) { return d; })
 
             var rectWidth = (x(dateFormat.parse("2001")) - x(dateFormat.parse("2000"))) / 4;
@@ -201,16 +209,25 @@ $(document).ready(function(){
 
                 var group = d3.select(this);
 
-                var yearClass = "_"+d3.time.format("%Y")(pointData.Year);
+                group.append("rect")
+                    .attr("height", group.attr("height"))
+                    .attr("width", group.attr("width"))
+                    .attr("x", x(pointData.Year) - (xBandWidth/2))
+                    .attr("fill", "rgba(0,0,0,0)")
+                    .attr("stroke", "red")
+                    .attr("stroke-width", "1px")
+
+                var yearClass = "_"+dateFormat(pointData.Year);
 
                 group.append("rect")
-                    .attr("data-year", yearClass)
-                    .attr("class", function() {
-                        return [
-                            "hover-line",
-                            yearClass
-                        ].join(" ")
-                    })
+                    .classed("hover-line", true)
+                    // .attr("data-year", yearClass)
+                    // .attr("class", function() {
+                    //     return [
+                    //         "hover-line",
+                    //         yearClass
+                    //     ].join(" ")
+                    // })
                     .attr("x", x(pointData.Year) - 2)
                     // .attr("y", y(pointData.Formations))
                     // .attr("height", height - y(pointData.Formations))
@@ -219,26 +236,28 @@ $(document).ready(function(){
                     .attr("width", 4)
 
                 group.append("path")
-                    .attr("data-year", yearClass)
-                    .attr("class", function() {
-                        return [
-                            "point",
-                            yearClass,
-                            "formation"
-                        ].join(" ");
-                    })
+                    .classed("point", true)
+                    // .attr("data-year", yearClass)
+                    // .attr("class", function() {
+                    //     return [
+                    //         "point",
+                    //         yearClass,
+                    //         "formation"
+                    //     ].join(" ");
+                    // })
                     .attr("d", d3.svg.symbol().type("circle").size(50))
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.Formations) +")";})
 
                 group.append("path")
-                    .attr("data-year", yearClass)
-                    .attr("class", function() {
-                        return [
-                            "point",
-                            yearClass,
-                            "dissolution"
-                        ].join(" ");
-                    })
+                    .classed("point", true)
+                    // .attr("data-year", yearClass)
+                    // .attr("class", function() {
+                    //     return [
+                    //         "point",
+                    //         yearClass,
+                    //         "dissolution"
+                    //     ].join(" ");
+                    // })
                     .attr("d", d3.svg.symbol().type("circle").size(50))
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.Dissolutions) +")";})
 
@@ -283,7 +302,8 @@ $(document).ready(function(){
 
             // register hover events for point groups
             // hoverGroups.selectAll("line.hover-line, path.point")
-            hoverGroups.selectAll("rect.hover-line, path.point")
+            // hoverGroups.selectAll("rect.hover-line, path.point")
+            hoverGroups
                 .on("mouseover", function(){
                     var highlightClass = d3.select(this).attr("data-year");
 
