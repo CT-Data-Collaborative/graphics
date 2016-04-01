@@ -7,6 +7,7 @@ $(document).ready(function(){
     // we need this in a few places
     var dateFormat = d3.time.format("%Y");
     var numberFormat = d3.format(",d");
+    var percentFormat = d3.format(",%");
 
     // recession start/end dates
     var recessionFormat = d3.time.format("%Y-%m-%d");
@@ -274,6 +275,15 @@ $(document).ready(function(){
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.Other) +")";})
 
                 // value label text
+
+                // calculate percent shares
+                var total = pointData.Corporation + pointData.LLC + pointData.Other;
+                var shares = {
+                    Corporation : percentFormat(pointData.Corporation/total),
+                    LLC : percentFormat(pointData.LLC/total),
+                    Other : percentFormat(pointData.Other/total)
+                }
+
                 labelContainer.append("p")
                     .attr("class", function() {
                         return [
@@ -293,7 +303,8 @@ $(document).ready(function(){
                     .text(function(){
                         return [
                             "Corporation:",
-                            numberFormat(pointData.Corporation)
+                            numberFormat(pointData.Corporation),
+                            ["(", ")"].join(shares["Corporation"])
                         ].join(" ");
                     })
 
@@ -307,7 +318,8 @@ $(document).ready(function(){
                     .text(function(){
                         return [
                             "LLC:",
-                            numberFormat(pointData.LLC)
+                            numberFormat(pointData.LLC),
+                            ["(", ")"].join(shares["LLC"])
                         ].join(" ");
                     })
 
@@ -321,7 +333,8 @@ $(document).ready(function(){
                     .text(function(){
                         return [
                             "Other:",
-                            numberFormat(pointData.Other)
+                            numberFormat(pointData.Other),
+                            ["(", ")"].join(shares["Other"])
                         ].join(" ");
                     })
             })
