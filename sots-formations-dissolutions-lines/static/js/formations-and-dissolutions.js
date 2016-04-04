@@ -102,6 +102,9 @@ $(document).ready(function(){
                     )
                 )
 
+            // width of x scale "bands"
+            var xBandWidth = x(dateFormat.parse("1981")) - x(dateFormat.parse("1980"))
+
             var formationLine = d3.svg.line()
                 .x(function(d) { return x(d.Year); })
                 .y(function(d) { return y(d.Formations); });
@@ -191,39 +194,59 @@ $(document).ready(function(){
                 .data(DATA)
                 .enter()
                     .append("g")
-                    .classed("hover-group", true)
+                    .attr("class", function(d){
+                        return [
+                            "hover-group",
+                            "_"+dateFormat(d.Year)
+                        ].join(" ")
+                    })
+                    .attr("width", xBandWidth)
+                    .attr("height", height)
+                    .attr("data-year", function(d) {
+                        return "_"+dateFormat(d.Year);
+                    })
                     .datum(function(d) { return d; })
 
             var rectWidth = (x(dateFormat.parse("2001")) - x(dateFormat.parse("2000"))) / 4;
             var labelContainer = d3.select("div#value-label")
             hoverGroups.each(function(pointData, i) {
                 // console.log(pointData);
+                var yearClass = "_"+dateFormat(pointData.Year);
 
                 var group = d3.select(this);
 
-                var yearClass = "_"+d3.time.format("%Y")(pointData.Year);
+                group.append("rect")
+                    .classed("group-filler", true)
+                    .attr("height", group.attr("height"))
+                    .attr("width", function() {
+                        // first and last bars are only half width
+                        if (i === 0 || i == (hoverGroups.size() - 1)) {
+                            return group.attr("width")/2
+                        } else {
+                            return group.attr("width");
+                        }
+                    })
+                    .attr("x", function() {
+                        if (i === 0) {
+                            // first bar is only half width, not offset left
+                            return x(pointData.Year);
+                        } else {
+                            return x(pointData.Year) - (xBandWidth/2)
+                        }
+                    })
+
 
                 group.append("rect")
-                    .attr("data-year", yearClass)
-                    .attr("class", function() {
-                        return [
-                            "hover-line",
-                            yearClass
-                        ].join(" ")
-                    })
+                    .classed("hover-line", true)
                     .attr("x", x(pointData.Year) - 2)
-                    // .attr("y", y(pointData.Formations))
-                    // .attr("height", height - y(pointData.Formations))
                     .attr("y", 0)
                     .attr("height", height)
                     .attr("width", 4)
 
                 group.append("path")
-                    .attr("data-year", yearClass)
                     .attr("class", function() {
                         return [
                             "point",
-                            yearClass,
                             "formation"
                         ].join(" ");
                     })
@@ -231,11 +254,10 @@ $(document).ready(function(){
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.Formations) +")";})
 
                 group.append("path")
-                    .attr("data-year", yearClass)
+                    .classed("point", true)
                     .attr("class", function() {
                         return [
                             "point",
-                            yearClass,
                             "dissolution"
                         ].join(" ");
                     })
@@ -282,8 +304,7 @@ $(document).ready(function(){
             })
 
             // register hover events for point groups
-            // hoverGroups.selectAll("line.hover-line, path.point")
-            hoverGroups.selectAll("rect.hover-line, path.point")
+            hoverGroups
                 .on("mouseover", function(){
                     var highlightClass = d3.select(this).attr("data-year");
 

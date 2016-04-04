@@ -7,6 +7,7 @@ $(document).ready(function(){
     // we need this in a few places
     var dateFormat = d3.time.format("%Y");
     var numberFormat = d3.format(",d");
+    var percentFormat = d3.format(",%");
 
     // recession start/end dates
     var recessionFormat = d3.time.format("%Y-%m-%d");
@@ -93,6 +94,9 @@ $(document).ready(function(){
                         DATA.map(function(v) { return v.Corporation; }).concat(DATA.map(function(v) { return v.LLC; }))
                     )
                 )
+
+            // width of x scale "bands"
+            var xBandWidth = x(dateFormat.parse("1981")) - x(dateFormat.parse("1980"))
 
             var corpLine = d3.svg.line()
                 .x(function(d) { return x(d.Year); })
@@ -210,39 +214,58 @@ $(document).ready(function(){
                 .data(DATA)
                 .enter()
                     .append("g")
-                    .classed("hover-group", true)
+                    .attr("class", function(d){
+                        return [
+                            "hover-group",
+                            "_"+dateFormat(d.Year)
+                        ].join(" ")
+                    })
+                    .attr("width", xBandWidth)
+                    .attr("height", height)
+                    .attr("data-year", function(d) {
+                        return "_"+dateFormat(d.Year);
+                    })
                     .datum(function(d) { return d; })
 
             var rectWidth = (x(dateFormat.parse("2001")) - x(dateFormat.parse("2000"))) / 4;
             var labelContainer = d3.select("div#value-label")
             hoverGroups.each(function(pointData, i) {
                 // console.log(pointData);
+                var yearClass = "_"+dateFormat(pointData.Year);
 
                 var group = d3.select(this);
 
-                var yearClass = "_"+d3.time.format("%Y")(pointData.Year);
+                group.append("rect")
+                    .classed("group-filler", true)
+                    .attr("height", group.attr("height"))
+                    .attr("width", function() {
+                        // first and last bars are only half width
+                        if (i === 0 || i == (hoverGroups.size() - 1)) {
+                            return group.attr("width")/2
+                        } else {
+                            return group.attr("width");
+                        }
+                    })
+                    .attr("x", function() {
+                        if (i === 0) {
+                            // first bar is only half width, not offset left
+                            return x(pointData.Year);
+                        } else {
+                            return x(pointData.Year) - (xBandWidth/2)
+                        }
+                    })
 
                 group.append("rect")
-                    .attr("data-year", yearClass)
-                    .attr("class", function() {
-                        return [
-                            "hover-line",
-                            yearClass
-                        ].join(" ")
-                    })
+                    .classed("hover-line", true)
                     .attr("x", x(pointData.Year) - 2)
-                    // .attr("y", y(pointData.Corporation))
-                    // .attr("height", height - y(pointData.Corporation))
                     .attr("y", 0)
                     .attr("height", height)
                     .attr("width", 4)
 
                 group.append("path")
-                    .attr("data-year", yearClass)
                     .attr("class", function() {
                         return [
                             "point",
-                            yearClass,
                             "corporation"
                         ].join(" ");
                     })
@@ -250,11 +273,9 @@ $(document).ready(function(){
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.Corporation) +")";})
 
                 group.append("path")
-                    .attr("data-year", yearClass)
                     .attr("class", function() {
                         return [
                             "point",
-                            yearClass,
                             "llc"
                         ].join(" ");
                     })
@@ -262,11 +283,9 @@ $(document).ready(function(){
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.LLC) +")";})
 
                 group.append("path")
-                    .attr("data-year", yearClass)
                     .attr("class", function() {
                         return [
                             "point",
-                            yearClass,
                             "other"
                         ].join(" ");
                     })
@@ -274,6 +293,15 @@ $(document).ready(function(){
                     .attr("transform", function(d) { return "translate(" + x(pointData.Year) + ", " + y(pointData.Other) +")";})
 
                 // value label text
+
+                // calculate percent shares
+                var total = pointData.Corporation + pointData.LLC + pointData.Other;
+                var shares = {
+                    Corporation : percentFormat(pointData.Corporation/total),
+                    LLC : percentFormat(pointData.LLC/total),
+                    Other : percentFormat(pointData.Other/total)
+                }
+
                 labelContainer.append("p")
                     .attr("class", function() {
                         return [
@@ -293,7 +321,8 @@ $(document).ready(function(){
                     .text(function(){
                         return [
                             "Corporation:",
-                            numberFormat(pointData.Corporation)
+                            numberFormat(pointData.Corporation),
+                            ["(", ")"].join(shares["Corporation"])
                         ].join(" ");
                     })
 
@@ -307,7 +336,8 @@ $(document).ready(function(){
                     .text(function(){
                         return [
                             "LLC:",
-                            numberFormat(pointData.LLC)
+                            numberFormat(pointData.LLC),
+                            ["(", ")"].join(shares["LLC"])
                         ].join(" ");
                     })
 
@@ -321,14 +351,14 @@ $(document).ready(function(){
                     .text(function(){
                         return [
                             "Other:",
-                            numberFormat(pointData.Other)
+                            numberFormat(pointData.Other),
+                            ["(", ")"].join(shares["Other"])
                         ].join(" ");
                     })
             })
 
             // register hover events for point groups
-            // hoverGroups.selectAll("line.hover-line, path.point")
-            hoverGroups.selectAll("rect.hover-line, path.point")
+            hoverGroups
                 .on("mouseover", function(){
                     var highlightClass = d3.select(this).attr("data-year");
 
