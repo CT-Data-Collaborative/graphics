@@ -1,0 +1,112 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
+div#map {
+    display: block;
+    margin: 0 1em;
+    width: calc(100% - 2em);
+    height:400px;
+}
+
+button.active {
+    color: #FFFFFF!important;
+    background-color: #4670A7!important;
+}
+
+div#map g {
+    stroke: #4A4A4A;
+}
+
+div.legend {
+    background-color: #ffffff;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+}
+
+div#options div.checkbox {
+    display: inline-block;
+}
+
+div.legend span {
+    margin:0.25em 0;
+}
+div.legend span.title {
+    font-weight: bold;
+}
+div.legend span.subtitle {
+    font-size: 0.9em;
+}
+
+div.legend div.entry span {
+  width:1em;
+  display:inline-block;
+  height: 1em;
+  float:left;
+  margin-right:0.25em;
+}
+
+.colornone {
+    color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0);
+    border: 1px solid rgba(0,0,0,0);
+    fill: rgba(0,0,0,0);
+}
+.color0 {
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    fill: #FFFFFF;
+}
+
+.color1 {
+    color: #006837;
+    background-color: #006837;
+    border: 1px solid #006837;
+    fill: #006837;
+}
+.color2 {
+    color: #66bd63;
+    background-color: #66bd63;
+    border: 1px solid #66bd63;
+    fill: #66bd63;
+}
+.color3 {
+    stroke: #999!important;
+    color: #ffff9c;
+    background-color: #ffff9c;
+    border: 1px solid #ffff9c;
+    fill: #ffff9c;
+}
+span.color3 {
+    border: 1px solid #999;
+}
+.color4 {
+    color: #fdae61;
+    background-color: #fdae61;
+    border: 1px solid #fdae61;
+    fill: #fdae61;
+}
+.color5 {
+    color: #d73027;
+    background-color: #d73027;
+    border: 1px solid #d73027;
+    fill: #d73027;
+}
