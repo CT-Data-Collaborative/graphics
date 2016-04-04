@@ -18,9 +18,18 @@ div.note p {
 div#footer {
     font-size: 0.8em;
 }
-
 div#legend {
     float: right;
+}
+
+@media screen and (max-width: 500px) {
+    div#legend {
+        float: none;
+    }
+}
+div#legend hr {
+    margin: 0.5rem 0;
+    border-color: #cecece;
 }
 div#legend div span.color {
     display: inline-block;
@@ -95,20 +104,37 @@ g.hover-group path.point {
     fill: #FFFFFF;
 }
 
-div#value-label i,
 div#value-label p {
     margin: 0;
 }
 
-div#value-label p {
-    display: none;
-    padding-left: 1em;
-    font-weight: bold;
+div#value-label p.placeholder,
+div#value-label p.value {
+    padding-left: 1rem;
 }
 
+div#value-label p.value {
+    display: none;
+}
+
+div#value-label p.placeholder > span:first-child,
+div#value-label p.value > span:first-child {
+    font-weight: bold
+}
+
+div#value-label p.placeholder > span:last-child,
+div#value-label p.value > span:last-child {
+    padding-left: 1rem;
+}
+
+
+div#value-label p.placeholder > span:first-child:after,
+div#value-label p.value > span:first-child:after {
+    content: ":";
+}
 @media screen and (min-width: 500px) {
     div#value-label p.highlight {
-        display: inline;
+        display: block;
     }
 }
 @media screen and (max-width: 499px) {
@@ -118,10 +144,9 @@ div#value-label p {
 
     div#value-label {
         display: block;
-        height: 4em;
     }
 }
 
-div#value-label.highlight i {
+div#value-label.highlight p.placeholder {
     display: none;
 }
