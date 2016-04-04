@@ -5,9 +5,9 @@ $(document).ready(function(){
                 "Municipality" : o["Municipality"],
                 "Planning Region" : o["Planning Region"],
                 "Population Density" : parseFloat(o["Population Density (000s per square mile)"]),
-                "Private-Sector Wage Index" : parseFloat(o["Private-Sector Wage Index (%)"]),
-                "State Nonschool Grants" : parseFloat(o["State Nonschool Grants ($ per capita)"]),
+                "Unemployment Rate" : parseFloat(o["Unemployment Rate (%)"]),
                 "Total Jobs" : parseFloat(o["Total Jobs (per capita)"]),
+                "Private-Sector Wage Index" : parseFloat(o["Private-Sector Wage Index (%)"]),
                 "Road Mileage" : parseFloat(o["Town Maintenance Road Mileage (per 000 population)"])
             }
         });
@@ -105,9 +105,9 @@ $(document).ready(function(){
             "Municipality",
             "Planning Region",
             "Population Density",
-            "Private-Sector Wage Index",
-            "State Nonschool Grants",
+            "Unemployment Rate",
             "Total Jobs",
+            "Private-Sector Wage Index",
             "Road Mileage"
         ];
 
@@ -193,7 +193,10 @@ $(document).ready(function(){
                     for (col in tableCols) {
                         var thisCell = d3.select(this).append("td");
 
-                        if (tableCols[col] == "Private-Sector Wage Index") {                                
+                        if (
+                            tableCols[col] == "Private-Sector Wage Index"
+                            || tableCols[col] == "Unemployment Rate"
+                        ) {                                
                             thisCell.append("span")
                                 .attr("class", "value")
                                 .text(function(d) { return percentFormat(d[tableCols[col]]); })

@@ -67,14 +67,14 @@ div#table > table > tbody > tr > td {
 div#table > table > tbody > tr > td:not(:first-of-type) {
     border-left: 1px solid #ECECEC;
 }
-div#table > table > tbody > tr > td:nth-child(n+3) {
+div#table > table > tbody > tr > td:nth-child(n+2) {
     text-align: right;
 }
 div#table > table > tbody > tr:hover {
     background-color: #63D1F4;
 }
 
-div#table > table th:nth-child(n+3) {
+div#table > table th:nth-child(n+2) {
     text-align: center;
 }
 div#table > table th,

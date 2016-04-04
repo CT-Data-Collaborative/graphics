@@ -10,11 +10,7 @@
     <!-- fontawesome for icons -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <body>
-<div id="options">
-    <div class="btn-group"></div>
-    <div class="btn-group"></div>
-</div>
-<div id="table"></div>
+<div id="map"></div>
 <div id="footer">
     <p>
         Municipal Capacity &mdash; FY 2007-2011 average, 2012 Dollars
@@ -26,16 +22,17 @@
         Municipal Gap &mdash; FY 2007-2011 average, 2012 Dollars
     </p>
     <p>
-        State Nonschool Grants &mdash; FY 2007-2011 average, 2012 Dollars
-    </p>
     <p>
-        <b>Source:</b> NEPPC report. CT Data reverse engineered values for municipalities and aggregated the data by COGs, calculating Gap After Grants and % of Gap Filled by Grants
+        <b>Source:</b> NEPPC report. CT Data reverse engineered values for municipalities and aggregated the data by COGs
     </p>
 </div>
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <!-- d3 -->
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<!-- requirements for leaflet -->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+ <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <!-- viz script -->
 <script src="static/js/cog-gaps.js"></script>
 </body>
