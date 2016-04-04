@@ -309,8 +309,16 @@ $(document).ready(function(){
                             yearClass
                         ].join(" ");
                     })
-                    .text(dateFormat(pointData.Year));
+                    .selectAll("span")
+                    .data(["Year", dateFormat(pointData.Year)])
+                    .enter()
+                        .append("span")
+                        .text(function(t) { return t; })
 
+                var corpValue = [
+                    numberFormat(pointData.Corporation),
+                    ["(", ")"].join(shares["Corporation"])
+                ].join(" ");
                 labelContainer.append("p")
                     .attr("class", function() {
                         return [
@@ -318,14 +326,16 @@ $(document).ready(function(){
                             yearClass
                         ].join(" ");
                     })
-                    .text(function(){
-                        return [
-                            "Corporation:",
-                            numberFormat(pointData.Corporation),
-                            ["(", ")"].join(shares["Corporation"])
-                        ].join(" ");
-                    })
+                    .selectAll("span")
+                    .data(["Corporation", corpValue])
+                    .enter()
+                        .append("span")
+                        .text(function(t) { return t; })
 
+                var llcValue = [
+                    numberFormat(pointData.LLC),
+                    ["(", ")"].join(shares["LLC"])
+                ].join(" ");
                 labelContainer.append("p")
                     .attr("class", function() {
                         return [
@@ -333,14 +343,16 @@ $(document).ready(function(){
                             yearClass
                         ].join(" ");
                     })
-                    .text(function(){
-                        return [
-                            "LLC:",
-                            numberFormat(pointData.LLC),
-                            ["(", ")"].join(shares["LLC"])
-                        ].join(" ");
-                    })
+                    .selectAll("span")
+                    .data(["LLC", llcValue])
+                    .enter()
+                        .append("span")
+                        .text(function(t) { return t; })
 
+                var otherValue = [
+                    numberFormat(pointData.Other),
+                    ["(", ")"].join(shares["Other"])
+                ].join(" ");
                 labelContainer.append("p")
                     .attr("class", function() {
                         return [
@@ -348,13 +360,11 @@ $(document).ready(function(){
                             yearClass
                         ].join(" ");
                     })
-                    .text(function(){
-                        return [
-                            "Other:",
-                            numberFormat(pointData.Other),
-                            ["(", ")"].join(shares["Other"])
-                        ].join(" ");
-                    })
+                    .selectAll("span")
+                    .data(["Other", otherValue])
+                    .enter()
+                        .append("span")
+                        .text(function(t) { return t; })
             })
 
             // register hover events for point groups

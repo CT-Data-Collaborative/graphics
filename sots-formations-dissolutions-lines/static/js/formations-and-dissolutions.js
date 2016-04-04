@@ -272,7 +272,11 @@ $(document).ready(function(){
                             yearClass
                         ].join(" ");
                     })
-                    .text(dateFormat(pointData.Year));
+                    .selectAll("span")
+                    .data(["Year", dateFormat(pointData.Year)])
+                    .enter()
+                        .append("span")
+                        .text(function(t) { return t; })
 
                 labelContainer.append("p")
                     .attr("class", function() {
@@ -281,12 +285,11 @@ $(document).ready(function(){
                             yearClass
                         ].join(" ");
                     })
-                    .text(function(){
-                        return [
-                            "Formations:",
-                            numberFormat(pointData.Formations)
-                        ].join(" ");
-                    })
+                    .selectAll("span")
+                    .data(["Formations", numberFormat(pointData.Formations)])
+                    .enter()
+                        .append("span")
+                        .text(function(t) { return t; })
 
                 labelContainer.append("p")
                     .attr("class", function() {
@@ -295,12 +298,11 @@ $(document).ready(function(){
                             yearClass
                         ].join(" ");
                     })
-                    .text(function(){
-                        return [
-                            "Dissolutions:",
-                            numberFormat(pointData.Dissolutions)
-                        ].join(" ");
-                    })
+                    .selectAll("span")
+                    .data(["Dissolutions", numberFormat(pointData.Dissolutions)])
+                    .enter()
+                        .append("span")
+                        .text(function(t) { return t; })
             })
 
             // register hover events for point groups
