@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Municipal Gap vs Net Municipal Gap by Quintile</title>
+    <link rel="stylesheet" type="text/css" href="static/css/gap-vs-net-gap-by-quintile.css" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="static/css/theme.min.css" />
+<body class="container-fluid">
+<div id="container" class="row">
+    <div id="legend" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <span class="legend-title">Legend:</span>
+        <div class="legend-entry gap" data-type="gap">
+            <span class="color gap"></span>
+            <span>Original Municipal Gap</span>
+        </div>
+        <div class="legend-entry net-gap" data-type="net-gap">
+            <span class="color net-gap"></span>
+            <span>Net Municipal Gap</span>
+        </div>
+    </div>
+    <div id="chart" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+</div>
+<div id="footer">
+    <p>
+        <b>Population:</b> ACS 5-Year Aggregations, 2007-2011
+    </p>
+    <p>
+        <b>Municipal Gap:</b> 2007-2011 Average, in 2012 Dollars
+    </p>
+    <p>
+        <b>Municipal Grants:</b> 2007-2011 Average, in 2012 Dollars
+    </p>
+    <p>
+        <b>Source:</b> NEPPC Report, CTData provided calculations by Quintile
+    </p>
+</div>
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<!-- d3 -->
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<!-- d3 tooltips -->
+<script src="static/js/d3.tip.js"></script>
+<!-- pym script -->
+<script src="static/js/pym.js"></script>
+<!-- viz script -->
+<script src="static/js/gap-vs-net-gap-by-quintile.js"></script>
+</body>

@@ -1,0 +1,121 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+body > div#container {
+    padding-top: 2em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
+div#options {
+    /*border: 1px solid red;*/
+}
+
+div#chart {
+    /*border: 1px solid blue;*/
+}
+
+div#legend {
+    /*border: 1px solid green;*/
+}
+div.legend-entry {
+}
+div.legend-entry span.value {
+    width: 3em;
+    display: inline-block;
+}
+div.legend-entry span.color {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    margin: 0.1em 0.3em 0.1em 0.1em;
+    vertical-align: text-bottom;
+}
+@media screen and (min-width: 500px) {
+    div#options select {
+        margin-left: 1em;
+    }
+    div#legend div.legend-entry {
+        display: inline-block;
+        margin: 0.25em;
+    }
+}
+div.legend-entry span.gap {
+    background-color: #4670A7;
+}
+div.legend-entry span.net-gap {
+    background-color: #B94A48;
+}
+
+div.legend-entry.highlight {
+}
+div.legend-entry.lowlight {
+    color: #ECECEC;
+    font-style: italic;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #4A4A4A;
+}
+
+g.bar-group rect.bar.highlight,
+g.bar-group.highlight rect.bar {}
+
+g.bar-group rect.bar.lowlight,
+g.bar-group.lowlight rect.bar {
+    opacity: 0.2;
+}
+
+rect.bar.gap {
+    fill: #4670A7;
+}
+rect.bar.net-gap {
+    fill: #B94A48;
+}
+
+rect.hover-target {
+    fill-opacity: 0;
+    stroke-opacity: 0;
+}
+
+.barchart-tip {
+  color: #FFFFFF;
+  background-color: #4A4A4A;
+  /*padding: 0.25rem 0.5rem;*/
+  padding: 1rem;
+  font-weight: bold;
+  border-radius: 0.1rem;
+  text-align: center;
+  line-height: 1;
+}
+.barchart-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
