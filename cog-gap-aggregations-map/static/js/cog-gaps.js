@@ -79,7 +79,7 @@ $(document).ready(function(){
                 // loop through our quantile intervals and generate a label with a colored square for each interval
                 for (var i = 0; i < legendData.length; i++) {
                     var entry = L.DomUtil.create("div", "entry", div);
-                    entry.innerHTML = legendData[i].join(" - ");
+                    entry.innerHTML = legendData[i].join(" to ");
 
                     var colorBlock = L.DomUtil.create("span", "color"+(i+1), entry)
                 }
@@ -132,11 +132,11 @@ $(document).ready(function(){
                         var popupContent = ["<b>", "</b>"].join(feature.properties.NAME);
                         popupContent += "<br>Capacity: "+numberFormat(feature.properties.CAPACITY);
                         popupContent += "<br>Cost: "+numberFormat(feature.properties.COST);
-                        // popupContent += "<br>Gap: "+numberFormat(feature.properties.GAP);
+                        popupContent += "<br>Gap: "+numberFormat(feature.properties.GAP);
                         if (feature.properties.GAP < 0) {
-                            popupContent += "<br>Deficit: "+numberFormat(feature.properties.GAP);;
+                            popupContent += " (deficit)";
                         } else {
-                            popupContent += "<br>Surplus: "+numberFormat(feature.properties.GAP);;
+                            popupContent += " (surplus)";
                         }
                         layer.bindPopup(popupContent);
                     }
