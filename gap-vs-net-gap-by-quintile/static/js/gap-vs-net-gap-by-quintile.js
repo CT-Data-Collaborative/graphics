@@ -47,7 +47,6 @@ $(document).ready(function(){
 
     d3.csv("static/data/data.csv", function(data) {
         // type casting
-        console.log(data);
         var DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],
