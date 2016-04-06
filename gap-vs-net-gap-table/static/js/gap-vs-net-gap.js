@@ -4,11 +4,11 @@ $(document).ready(function(){
             return {
                 "Municipality" : o["Municipality"],
                 "Planning Region" : o["Planning Region"],
-                "Municipal Gap" : parseInt(o["Municipal Gap"]),
+                "Municipal Gap" : parseInt(o["Municipal Gap($ per capita)"]),
                 "Population" : parseInt(o["Population"]),
                 "Quintile" : parseInt(o["quintile"]),
-                "State Nonschool Grants" : parseInt(o["State Nonschool Grants"]),
-                "Net Municipal Gap" : parseInt(o["Municipal Gap"]) + parseInt(o["State Nonschool Grants"])
+                "State Nonschool Grants" : parseInt(o["State Nonschool Grants ($ per capita)"]),
+                "Net Municipal Gap" : parseInt(o["Municipal Gap($ per capita)"]) + parseInt(o["State Nonschool Grants ($ per capita)"])
             }
         });
 

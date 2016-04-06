@@ -9,7 +9,8 @@ $(document).ready(function(){
     var numberFormat = d3.format(",d");
     var decimalFormat = d3.format(",.0f");
     var currencyFormat = d3.format("$,.0f");
-    var shortCurrencyFormat = d3.format("$s");
+    var shortCurrencyFormat = currencyFormat;
+    // var shortCurrencyFormat = d3.format("$s");
     var percentFormat = function(v) {
         return decimalFormat(v) + "%";
     };
@@ -46,13 +47,14 @@ $(document).ready(function(){
 
     d3.csv("static/data/data.csv", function(data) {
         // type casting
+        console.log(data);
         var DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],
                 "Planning Region" : o["Planning Region"],
                 "Population" : parseInt(o["Population"]),
-                "Municipal Gap" : parseInt(o["Municipal Gap"]),
-                "State Nonschool Grants" : parseInt(o["State Nonschool Grants"]),
+                "Municipal Gap" : parseInt(o["Municipal Gap($ per capita)"]),
+                "State Nonschool Grants" : parseInt(o["State Nonschool Grants ($ per capita)"]),
                 "quintile" : parseInt(o["quintile"])
             }
         });
@@ -106,7 +108,7 @@ $(document).ready(function(){
                 top: 0.09 * height,
                 right: 0.12 * width,
                 bottom: 0.1 * height,
-                left: 0.12 * width
+                left: 0.08 * width
             }
 
             // check bottom/left for minimums
@@ -115,7 +117,7 @@ $(document).ready(function(){
                     top: 0.15 * height,
                     right: 0.15 * width,
                     bottom: 0.28 * height,
-                    left: 0.22 * width
+                    left: 0.16 * width
                 }
             } else if (container_width < mobile_threshold * 1.5) {
                 margin = {
