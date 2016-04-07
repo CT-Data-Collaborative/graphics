@@ -31,37 +31,35 @@ div#chart {
 }
 
 div#legend {
-    /*border: 1px solid green;*/
+    float: right;
 }
-div.legend-entry {
-}
-div.legend-entry span.value {
-    width: 3em;
-    display: inline-block;
-}
-div.legend-entry span.color {
-    display: inline-block;
-    height: 1em;
-    width: 1em;
-    margin: 0.1em 0.3em 0.1em 0.1em;
-    vertical-align: text-bottom;
-}
-@media screen and (min-width: 500px) {
-    div#options select {
-        margin-left: 1em;
-    }
-    div#legend div.legend-entry {
-        display: inline-block;
-        margin: 0.25em;
+
+@media screen and (max-width: 500px) {
+    div#legend {
+        float: none;
     }
 }
-div.legend-entry span.corporation {
+div#legend hr {
+    margin: 0.5rem 0;
+    border-color: #cecece;
+}
+
+div#legend div span.color {
+    display: inline-block;
+    height: 0.8rem;
+    width: 0.8rem;
+    margin: 0.1rem 0.5rem 0.1rem 0.1rem;
+}
+div#legend div span.color.recession {
+    background-color: #ECECEC;
+}
+div#legend div span.color.corporation {
     background-color: #4670A7;
 }
-div.legend-entry span.llc {
+div#legend div span.color.llc {
     background-color: #B94A48;
 }
-div.legend-entry span.other {
+div#legend div span.color.other {
     background-color: #6da53f;
 }
 
@@ -97,8 +95,8 @@ rect.bar.other {
 }
 
 rect.hover-target {
-    fill: #FFFFFF;
-    opacity: 0;
+  fill: #FFFFFF;
+  fill-opacity: 0;
 }
 
 .barchart-tip {
@@ -124,4 +122,51 @@ rect.hover-target {
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
+}
+
+div#value-label p {
+    margin: 0;
+}
+
+div#value-label p.placeholder,
+div#value-label p.value {
+    padding-left: 1rem;
+}
+
+div#value-label p.value {
+    display: none;
+}
+
+div#value-label p.placeholder > span:first-child,
+div#value-label p.value > span:first-child {
+    font-weight: bold
+}
+
+div#value-label p.placeholder > span:last-child,
+div#value-label p.value > span:last-child {
+    padding-left: 1rem;
+}
+
+
+div#value-label p.placeholder > span:first-child:after,
+div#value-label p.value > span:first-child:after {
+    content: ":";
+}
+@media screen and (min-width: 500px) {
+    div#value-label p.highlight {
+        display: block;
+    }
+}
+@media screen and (max-width: 499px) {
+    div#value-label p.highlight {
+        display: block;
+    }
+
+    div#value-label {
+        display: block;
+    }
+}
+
+div#value-label.highlight p.placeholder {
+    display: none;
 }

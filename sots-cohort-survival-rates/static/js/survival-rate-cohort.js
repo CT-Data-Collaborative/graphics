@@ -1,7 +1,7 @@
 $(document).ready(function(){
     // variables
     var pymChild = null;
-    var aspect_ratio = (1 / 2); // H / W
+    var aspect_ratio = (1 / 3); // H / W
     var mobile_threshold = 500;
 
     var typeOrder = [
@@ -19,21 +19,12 @@ $(document).ready(function(){
     };
 
     /** START container vars **/
-    var container = d3.select("div#container");
-    var optionsContainer = container.select("div#options");
-    var chartContainer = container.select("div#chart");
-    var legendContainer = container.select("div#legend");
+    // var container = d3.select("div#container");
+    var optionsContainer = d3.select("div#options");
+    var chartContainer = d3.select("div#chart");
+    var legendContainer = d3.select("div#legend");
+    var labelContainer = d3.select("div#value-label")
     /** END container vars **/
-
-    // tooltip function
-    var tip = d3.tip()
-        .attr("class", "barchart-tip")
-        .offset([-10, 0])
-        .html(function(d) {
-            return d.values.map(function(v) {
-                return [v.key, percentFormat(v.values)].join(": ");
-            }).join("<br />");
-        })
 
     d3.csv("static/data/survival-rates-by-cohort.csv", function(data) {
         const DATA = data.map(function(o) {
@@ -53,6 +44,7 @@ $(document).ready(function(){
 
             // remove existing chart and legend entries
             chartContainer.selectAll("svg").remove();
+            labelContainer.selectAll("p.value").remove();
 
             data = d3.nest()
                 .key(function(o) { return o.Cohort; })
@@ -71,7 +63,7 @@ $(document).ready(function(){
             var margin = {
                 top: 0.09 * height,
                 right: 0.12 * width,
-                bottom: 0.1 * height,
+                bottom: 0.15 * height,
                 left: 0.08 * width
             }
 
@@ -80,14 +72,14 @@ $(document).ready(function(){
                 margin = {
                     top: 0.15 * height,
                     right: 0.15 * width,
-                    bottom: 0.28 * height,
+                    bottom: 0.35 * height,
                     left: 0.18 * width
                 }
             } else if (container_width < mobile_threshold * 1.5) {
                 margin = {
                     top: 0.09 * height,
                     right: 0.12 * width,
-                    bottom: 0.1 * height,
+                    bottom: 0.2 * height,
                     left: 0.1 * width
                 }
             }
@@ -132,6 +124,8 @@ $(document).ready(function(){
                 );
 
                 barX.rangeRoundBands([0, groupX.rangeBand()], 0.1);
+                hoverX = groupX.copy()
+                    .rangeRoundBands([0, width], 0);
 
 
                 var chart = svg.append("g")
@@ -217,7 +211,42 @@ $(document).ready(function(){
                             return "translate(" + groupX(d.key) + ", 0)";
                         })
 
-                barGroups.call(tip);
+
+                barGroups.each(function(groupData) {
+                    // make value labels
+                    var valueData = [
+                        {key : "Cohort", values: cohort},
+                        {key : "Year", values: groupData.key}
+                    ].concat(groupData.values);
+
+                    var valueYear = groupData.key;
+
+                    valueData.forEach(function(value) {
+                        labelContainer.append("p")
+                            .attr("class", function() {
+                                return [
+                                    "value",
+                                    "_"+valueYear,
+                                    "c_"+cohort
+                                ].join(" ");
+                            })
+                            .selectAll("span")
+                            .data(function() {
+                                if (
+                                    value.key === "Corporation"
+                                    || value.key === "LLC"
+                                    || value.key === "Other"
+                                ) {
+                                    return [value.key, percentFormat(value.values)]
+                                } else {
+                                    return [value.key, value.values]
+                                }
+                            })
+                            .enter()
+                            .append("span")
+                                .text(function(v) { return v; })
+                    })
+                });
 
                 // bars within groups
                 barGroups.selectAll("rect.bar")
@@ -256,11 +285,11 @@ $(document).ready(function(){
                         .attr("data-cohort", "c_"+cohort)
                         .attr("height", height-yOffset)
                         .attr("x", function(d) {
-                            return groupX(d);
+                            return -0.05 * hoverX.rangeBand();
                         })
                         .attr("y", yOffset)
                         // .attr("height", height)
-                        .attr("width", groupX.rangeBand());
+                        .attr("width", hoverX.rangeBand());
                 })
             })
 
@@ -271,7 +300,7 @@ $(document).ready(function(){
                     var highlightYear = d3.select(this).attr("data-year");
                     var highlightCohort = d3.select(this).attr("data-cohort");
 
-                    var toHighlight = d3.selectAll("g.bar-group."+highlightCohort+"."+highlightYear)
+                    var toHighlight = d3.selectAll("div#value-label, g.bar-group."+highlightCohort+"."+highlightYear+", p."+highlightCohort+"."+highlightYear)
                     var toLowlight = d3.selectAll("g.bar-group."+highlightCohort+":not(."+highlightYear+")")
 
                     toLowlight.classed({
@@ -281,8 +310,6 @@ $(document).ready(function(){
                     toHighlight.classed({
                             "highlight": true
                         });
-
-                    tip.show(d);
                 })
                 .on("mouseout", function(d){
                     d3.selectAll(".highlight, .lowlight")
@@ -290,8 +317,6 @@ $(document).ready(function(){
                             "lowlight": false,
                             "highlight": false
                         });
-
-                    tip.hide(d);
                 });
 
             d3.selectAll("div.legend-entry")
