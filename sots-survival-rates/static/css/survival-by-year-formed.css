@@ -28,7 +28,7 @@ div#chart {
 }
 
 div#legend {
-    /*border: 1px solid green;*/
+    float: right;
 }
 div#legend div.legend-entry {
     cursor: default;
@@ -43,10 +43,10 @@ div.legend-entry span.color {
     div#options select {
         margin-left: 1em;
     }
-    div#legend div.legend-entry {
+    /*div#legend div.legend-entry {
         display: inline-block;
         margin: 0.25em;
-    }
+    }*/
 }
 div.legend-entry span.color_0 {
     background-color: #4670A7;

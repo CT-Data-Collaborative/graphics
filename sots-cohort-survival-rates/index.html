@@ -7,33 +7,50 @@
     <link rel="stylesheet" type="text/css" href="static/css/survival-rate-cohort.css" />
     <!-- bootstrap css -->
     <link rel="stylesheet" type="text/css" href="static/css/theme.min.css" />
-<body class="container-fluid">
+<body>
 <!-- <div id="options">
     <div class="btn-group"></div>
     <div class="btn-group"></div>
 </div> -->
-<div id="container" class="row">
-    <!-- <div id="options" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-inline"></div> -->
-    <div id="legend" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <span class="legend-title">Legend:</span>
-        <div class="legend-entry corporation" data-type="corporation">
-            <span class="color corporation"></span>
-            <span>Corporation</span>
-            <!-- <span class="value"></span> -->
-        </div>
-        <div class="legend-entry llc" data-type="llc">
-            <span class="color llc"></span>
-            <span>LLC</span>
-            <!-- <span class="value"></span> -->
-        </div>
-        <div class="legend-entry other" data-type="other">
-            <span class="color other"></span>
-            <span>Other</span>
-            <!-- <span class="value"></span> -->
-        </div>
+<div id="legend">
+    <div class="legend-entry corporation" data-type="corporation">
+        <span class="color corporation"></span>
+        <span class="title">Corporation</span>
     </div>
-    <div id="chart" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+    <div class="legend-entry llc" data-type="llc">
+        <span class="color llc"></span>
+        <span class="title">LLC</span>
+    </div>
+    <div class="legend-entry other" data-type="other">
+        <span class="color other"></span>
+        <span class="title">Other</span>
+    </div>
 </div>
+<div id="top-note">
+</div>
+<div id="value-label">
+    <p class="placeholder">
+        <span>Cohort</span>
+        <span>&mdash;</span>
+    </p>
+    <p class="placeholder">
+        <span>Year</span>
+        <span>&mdash;</span>
+    </p>
+    <p class="placeholder">
+        <span>Corporation</span>
+        <span>&mdash;</span>
+    </p>
+    <p class="placeholder">
+        <span>LLC</span>
+        <span>&mdash;</span>
+    </p>
+    <p class="placeholder">
+        <span>Other</span>
+        <span>&mdash;</span>
+    </p>
+</div>
+<div id="chart"></div>
 <div id="footer">
     <p>
         <b>Source:</b> <a href="http://ctdata.org">CTData.org</a>, Connecticut Secretary of the State CONCORD Data
