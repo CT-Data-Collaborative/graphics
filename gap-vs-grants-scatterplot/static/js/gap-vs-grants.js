@@ -5,7 +5,7 @@ $(document).ready(function(){
         const DATA = data.map(function(o) {
                 return {
                     "Municipality" : o["Municipality"],
-                    "Planning Region" : o["Planning Region"],
+                    "COG" : o["Planning Region"],
                     "Municipal Gap($ per capita)" : parseInt(o["Municipal Gap($ per capita)"]),
                     "State Nonschool Grants ($ per capita)" : parseInt(o["State Nonschool Grants ($ per capita)"]),
                     "Percentage of Municipal Gap Filled by State Nonschool Grants" : parseInt(o["Percentage of Municipal Gap Filled by State Nonschool Grants"])
@@ -29,7 +29,7 @@ $(document).ready(function(){
         // draw selector/options
         var colorScale = d3.scale.ordinal()
             .range(d3.range(0,6).map(function(i) { return "color" + (i+1); }))
-            .domain(DATA.map(function(o) { return o["Planning Region"]; }));
+            .domain(DATA.map(function(o) { return o["COG"]; }));
 
         var checkboxes = d3.selectAll("div#options  > div:first-child")
             .selectAll("label")
@@ -237,7 +237,7 @@ $(document).ready(function(){
         function drawPoints() {
             // filter data
             var filteredData = DATA.filter(function(o) {
-                return filter.indexOf(o["Planning Region"]) !== -1
+                return filter.indexOf(o["COG"]) !== -1
             });
 
             var svg = d3.select("svg");
@@ -287,8 +287,8 @@ $(document).ready(function(){
                     .each(function(pointData, i) {
                         d3.select(this).append("path")
                             .attr("class", function(d) {
-                                // get color# css class from color scale using d["Planning Region"]
-                                return colorScale(d["Planning Region"]);
+                                // get color# css class from color scale using d["COG"]
+                                return colorScale(d["COG"]);
                             })
                             .attr("d", d3.svg.symbol().type("cirlce").size(pointSize)) // should size be based on chart size?
                             .attr("transform", function(d) {
@@ -311,8 +311,8 @@ $(document).ready(function(){
                                     value: pointData["Municipality"]
                                 },
                                 {
-                                    label: "Planning Region",
-                                    value: pointData["Planning Region"]
+                                    label: "COG",
+                                    value: pointData["COG"]
                                 },
                                 {
                                     label: "Percentage of Gap Filled by State Nonschool Grants",

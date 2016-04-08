@@ -3,7 +3,7 @@ $(document).ready(function(){
         const DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],
-                "Planning Region" : o["Planning Region"],
+                "COG" : o["Planning Region"],
                 "Municipal Gap" : parseInt(o["Municipal Gap($ per capita)"]),
                 "Population" : parseInt(o["Population"]),
                 "Quintile" : parseInt(o["quintile"]),
@@ -111,7 +111,7 @@ $(document).ready(function(){
 
         var tableCols = [
             "Municipality",
-            "Planning Region",
+            "COG",
             "Population",
             "Quintile",
             "Municipal Gap",
@@ -177,7 +177,7 @@ $(document).ready(function(){
 
             // filter and sort data
             var filteredData = DATA.filter(function(o) {
-                return filter.indexOf(o["Planning Region"]) !== -1
+                return filter.indexOf(o["COG"]) !== -1
             }).sort(function(a, b) {
                 if (sortOrder === "desc") {
                     // console.log((b[sortCol] > a[sortCol] ? 1 : -1));

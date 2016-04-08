@@ -2,7 +2,7 @@ $(document).ready(function(){
     d3.csv("static/data/agg-data.csv", function(data) {
         const DATA = data.map(function(o) {
             return {
-                "Planning Region" : o["Planning Region"],
+                "COG" : o["Planning Region"],
                 "Municipal Capacity" : parseInt(o["Municipal Capacity"]),
                 "Municipal Cost" : parseInt(o["Municipal Cost"]),
                 "Municipal Gap" : parseInt(o["Municipal Gap"]),
@@ -32,7 +32,7 @@ $(document).ready(function(){
         var tbody = table.append("tbody");
 
         var tableCols = [
-            "Planning Region",
+            "COG",
             "Municipal Capacity",
             "Municipal Cost",
             "Municipal Gap",
