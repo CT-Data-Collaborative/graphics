@@ -47,6 +47,7 @@ $(document).ready(function(){
         });
     var indicatorTip = d3.tip()
         .attr("class", "barchart-tip")
+        .direction("e")
         .offset([-10, 0])
         .html(function(d) {
             return "Indicator%"
@@ -137,7 +138,7 @@ $(document).ready(function(){
                 .rangeRoundBands([0, width], 0.0);
 
             var y = d3.scale.linear()
-                .range([0, height])
+                .range([0, height*0.75])
                 .domain([0, 100]);
 
             svgs.each(function(chartData, chartIndex) {
@@ -167,18 +168,20 @@ $(document).ready(function(){
                     .call(xAxis);
 
                 // if (container_width < mobile_threshold) {
-                //   xAxis.call(function(g) {
-                //       g.selectAll("g text")
-                //           .attr("dy", function(d, i){
-                //               if (i % 2 == 1) {
-                //                   // ODD ticks
-                //                   return "1.75em";
-                //               } else {
-                //                   // EVEN ticks
-                //                   return "0.75em"
-                //               }
-                //           })
-                //   })
+                  xAxis.call(function(g) {
+                      g.selectAll("g text")
+                          .attr("transform", "rotate(270)")
+                          .attr("text-anchor", "start")
+                          .attr("dy", function(d, i){
+                              if (i % 2 == 1) {
+                                  // ODD ticks
+                                  return "1.75em";
+                              } else {
+                                  // EVEN ticks
+                                  return "0.75em"
+                              }
+                          })
+                  })
                 // }
 
                 // var xAxisLabel = xAxis.append("text")
@@ -227,8 +230,6 @@ $(document).ready(function(){
                             colors.domain().forEach(function(indicator, index) {
                                 var d = barData[indicator];
 
-                                console.log([d, y(d)])
-
                                 bargroup
                                     .append("rect")
                                         .attr("x", 0)
@@ -236,7 +237,6 @@ $(document).ready(function(){
                                             return y(offset)
                                         })
                                         .attr("height", function() {
-                                            // console.log(d);
                                             return y(d);
                                         })
                                         .attr("width", x.rangeBand())
@@ -246,6 +246,7 @@ $(document).ready(function(){
                                                 colors(indicator)
                                             ].join(" ");
                                         })
+                                        .call(indicatorTip)
 
                                     offset += d;
                             })
@@ -266,9 +267,23 @@ $(document).ready(function(){
                 return;
             })
 
-return;
-
             // register hover events (tooltips) for bar groups
+            // d3.selectAll("g.bar-group")
+            //     .on("mouseover", function(d) {
+            //         townTip.show(d)
+            //     })
+            //     .on("mouseout", function(d) {
+            //         townTip.hide(d)
+            //     })
+            // d3.selectAll("rect.bar")
+            //     .on("mouseover", function(d) {
+            //         indicatorTip.show(d)
+            //     })
+            //     .on("mouseout", function(d) {
+            //         indicatorTip.hide(d)
+            //     })
+
+            return;
             d3.selectAll("rect.hover-target")
                 .on("mouseover", function(d){
                     var highlightQuintile = d3.select(this).attr("data-quintile");
