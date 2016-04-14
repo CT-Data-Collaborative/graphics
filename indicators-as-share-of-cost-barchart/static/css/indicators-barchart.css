@@ -69,6 +69,14 @@ div.legend-entry.lowlight {
   stroke: #4A4A4A;
 }
 
+.tick text.highlight {
+  font-weight: bold;
+}
+
+.tick text.lowlight {
+  fill: #cecece;
+}
+
 g.bar-group rect.bar.highlight,
 g.bar-group.highlight rect.bar {}
 
@@ -82,48 +90,66 @@ g.bar-group rect.bar {
   stroke-width: 1px;
 }
 
+g.bar-group.highlight rect.bar {
+}
+g.bar-group.lowlight rect.bar {
+  opacit: 0.3;
+}
+
+g.legend-entry path.color_1,
 rect.bar.color_1 {
-  fill: #b94a48;
+  fill: #4670A7;
 }
+g.legend-entry path.color_2,
 rect.bar.color_2 {
-  fill: #A43FCD;
+  fill: #6da53f;
 }
+g.legend-entry path.color_3,
 rect.bar.color_3 {
   fill: #4A4A4A;
 }
+g.legend-entry path.color_4,
 rect.bar.color_4 {
-  fill: #6da53f;
+  fill: #A43FCD;
 }
+g.legend-entry path.color_5,
 rect.bar.color_5 {
-  fill: #4670A7;
+  fill: #b94a48;
 }
 
 rect.hover-target {
     fill-opacity: 0;
     stroke-opacity: 0;
+    stroke-width: 1px;
+    stroke: red;
+    fill: black;
 }
-
 .barchart-tip {
   color: #FFFFFF;
-  background-color: #4A4A4A;
-  /*padding: 0.25rem 0.5rem;*/
-  padding: 1rem;
-  font-weight: bold;
-  border-radius: 0.1rem;
-  text-align: center;
-  line-height: 1;
+  position: relative;
+  background: #4a4a4a;
+  border: 1px solid #FFFFFF;
 }
-.barchart-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-  margin: -1px 0 0 0;
+.barchart-tip:after, .barchart-tip:before {
   top: 100%;
-  left: 0;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.barchart-tip:after {
+  border-color: rgba(74, 74, 74, 0);
+  border-top-color: #4a4a4a;
+  border-width: 8px;
+  margin-left: -8px;
+}
+.barchart-tip:before {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #FFFFFF;
+  border-width: 9px;
+  margin-left: -9px;
 }
