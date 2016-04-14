@@ -64,19 +64,18 @@ $(document).ready(function(){
                     /**
                      * NAME
                      * Formed as <type> on <date>
-                     * Organized on <date> // No articles of organization
+                     * Organized on <date> // No record of Organization and First Report
                      * [Converted to BCorp on <date>]
                      */
                     var popupText = [
                         marker.name,
-                        "Listed at " + marker.address.type + " address",
                         "Formed as " + marker.formation.type + " on " + marker.formation.date
                     ];
 
                     if (marker.organization !== false) {
-                        popupText.push("Organized on " + marker.organization.date);
+                        popupText.push("Organized and First report filed on " + marker.organization.date);
                     } else {
-                        popupText.push("No articles of Organization");
+                        popupText.push("No record of Organization and First Report");
                     }
 
                     if (marker.conversion !== false) {
@@ -87,9 +86,17 @@ $(document).ready(function(){
 
                     marker = L.marker(
                         [marker.address.geocode[0], marker.address.geocode[1]],
-                        {icon: mapMarker}
+                        {
+                            icon: mapMarker,
+                            riseOnHover : true
+                        }
                     )
-                    .bindPopup(popupText)
+                    .bindPopup(
+                        popupText,
+                        {
+                            offset: [0, -6]
+                        }
+                    )
                     .addTo(markers);
                 })
 

@@ -46,37 +46,19 @@ for formation in [row for row in raw if row["tx_certif"] in formationTypes]:
         "date" : datetime.datetime.strptime(formation["tm_filing"], "%Y%m%d").strftime("%b %d, %Y")
     }
 
-    # address values
-    aAddress = {
-        "street1" : formation["ad_agt_bus_str1"],
-        "street2" : formation["ad_agt_bus_str2"],
-        "street3" : formation["ad_agt_bus_str3"],
-        "city" : formation["ad_agt_bus_city"],
-        "zip" : formation["ad_agt_bus_zip5"],
-        "state" : formation["ad_agt_bus_st"],
-        "type" : "Agent",
-        "geocode" : False
-    }
-
-    cAddress = {
-        "street1" : formation["ad_str1"],
-        "street2" : formation["ad_str2"],
-        "street3" : formation["ad_str3"],
-        "city" : formation["ad_city"],
-        "zip" : formation["ad_zip5"],
-        "state" : formation["ad_st"],
-        "type" : "Company",
-        "geocode" : False
-    }
-
-    if cAddress["zip"] == "" and aAddress["zip"] == "":
+    # address
+    if formation["ad_zip5"] == "":
         dataObj[formation["id_bus"]]["address"] = False
-    elif cAddress["zip"] == "":
-        dataObj[formation["id_bus"]]["address"] = aAddress
     else:
-        dataObj[formation["id_bus"]]["address"] = cAddress
-
-    if dataObj[formation["id_bus"]]["address"] != False:
+        dataObj[formation["id_bus"]]["address"] = {
+            "street1" : formation["ad_str1"],
+            "street2" : formation["ad_str2"],
+            "street3" : formation["ad_str3"],
+            "city" : formation["ad_city"],
+            "zip" : formation["ad_zip5"],
+            "state" : formation["ad_st"]
+        }
+        # geocode address
         geoAddress = [
             dataObj[formation["id_bus"]]["address"]["street1"]
         ]
