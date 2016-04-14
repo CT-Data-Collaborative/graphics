@@ -1,0 +1,57 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
+div#map {
+    display: block;
+    margin: 0 1em;
+    width: calc(100% - 2em);
+    height:400px;
+}
+
+div#map g {
+    stroke: #4A4A4A;
+}
+
+
+/* Town map sections */
+path.town {
+    stroke: #4a4a4a;
+    stroke-width: 1px;
+    fill: #FFF;
+    fill-opacity: 0;
+}
+
+/* BCorp markers */
+div.map-marker {
+    height: 2.5rem;
+    width: 2.5rem;
+    /*border: 1px solid red;*/
+}
+
+div.map-marker i {
+    font-size: 2.5rem;
+    color: #4670a7;
+    text-shadow: #4a4a4a 1px 0px;
+}
+div.map-marker i:hover {
+    color: #FFF;
+    text-shadow: #4670a7 1px 0px;
+}
