@@ -3,8 +3,11 @@ $(document).ready(function(){
         const DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],
-                "Planning Region" : o["Planning Region"],
-                "Municipal Gap($ per capita)" : parseInt(o["Municipal Gap($ per capita)"])
+                "COG" : o["Planning Region"],
+                "Municipal Gap" : parseInt(o["Municipal Gap($ per capita)"]),
+                "State Nonschool Grants" : parseInt(o["State Nonschool Grants ($ per capita)"]),
+                "Net Gap" : parseInt(o["Municipal Gap($ per capita)"]) + parseInt(o["State Nonschool Grants ($ per capita)"]),
+                "% Gap Filled by Grants" : parseInt(o["Percentage of Municipal Gap Filled by State Nonschool Grants"])
             }
         });
 
@@ -99,8 +102,11 @@ $(document).ready(function(){
 
         var tableCols = [
             "Municipality",
-            "Planning Region",
-            "Municipal Gap($ per capita)"
+            "COG",
+            "Municipal Gap",
+            "State Nonschool Grants",
+            "Net Gap",
+            "% Gap Filled by Grants"
         ];
 
         //populate thead
@@ -161,7 +167,7 @@ $(document).ready(function(){
 
             // filter and sort data
             var filteredData = DATA.filter(function(o) {
-                return filter.indexOf(o["Planning Region"]) !== -1
+                return filter.indexOf(o["COG"]) !== -1
             }).sort(function(a, b) {
                 if (sortOrder === "desc") {
                     // console.log((b[sortCol] > a[sortCol] ? 1 : -1));
@@ -185,7 +191,10 @@ $(document).ready(function(){
                     for (col in tableCols) {
                         var thisCell = d3.select(this).append("td");
 
-                        if (tableCols[col] == "Municipal Gap($ per capita)") {
+                        if (
+                            tableCols[col] == "Municipal Gap"
+                            || tableCols[col] == "Net Gap"
+                        ) {
                             thisCell.append("span")
                                 .attr("class", function(d) {
                                     var colorClass = "Surplus"
@@ -205,6 +214,14 @@ $(document).ready(function(){
                             thisCell.append("span")
                                 .attr("class", "value")
                                 .text(function(d) { return numberFormat(d[tableCols[col]]); })
+                        } else if (tableCols[col] == "State Nonschool Grants"){
+                            thisCell.append("span")
+                                .attr("class", "value")
+                                .text(function(d) { return numberFormat(d[tableCols[col]]); })
+                        } else if (tableCols[col] === "% Gap Filled by Grants") {
+                            thisCell.append("span")
+                                .attr("class", "value")
+                                .text(function(d) { return percentFormat(d[tableCols[col]]); })
                         } else {
                             thisCell.append("span")
                                 .attr("class", "value")

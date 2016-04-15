@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Municipal Gap by Planning Region</title>
-    <link rel="stylesheet" type="text/css" href="static/css/cog-gaps.css" />
+    <title>Indicators As Share of Total Cost</title>
+    <link rel="stylesheet" type="text/css" href="static/css/indicators-barchart.css" />
     <!-- bootstrap css -->
     <link rel="stylesheet" type="text/css" href="static/css/theme.min.css" />
     <!-- fontawesome for icons -->
@@ -14,28 +14,32 @@
     <div class="btn-group"></div>
     <div class="btn-group"></div>
 </div>
-<div id="table"></div>
+<div id="container"></div>
 <div id="footer">
     <p>
-        Municipal Capacity &mdash; FY 2007-2011 average, 2012 Dollars
+        Population Density &mdash; Thousands per square mile
     </p>
     <p>
-        Municipal Cost &mdash; FY 2007-2011 average, 2012 Dollars
+        Private-Sector Wage Index &mdash; Private-Sector Wage Index (%)
+    </p
+    <p>
+        Total Jobs &mdash; per Capita
     </p>
     <p>
-        Municipal Gap &mdash; FY 2007-2011 average, 2012 Dollars
+        Road Mileage &mdash; Miles per thousand persons
     </p>
     <p>
-        State Nonschool Grants &mdash; FY 2007-2011 average, 2012 Dollars
-    </p>
-    <p>
-        <b>Source:</b> NEPPC report. CTData provided calculations by COGs.
+        <b>Source:</b> NEPPC report.
     </p>
 </div>
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<!-- pym script -->
+<script src="static/js/pym.js"></script>
 <!-- d3 -->
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<!-- d3 tooltips -->
+<script src="static/js/d3.tip.js" charset="utf-8"></script>
 <!-- viz script -->
-<script src="static/js/cog-gaps.js"></script>
+<script src="static/js/indicators-share-of-cost-barchart.js"></script>
 </body>

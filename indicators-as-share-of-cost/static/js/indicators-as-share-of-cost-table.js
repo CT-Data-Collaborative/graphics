@@ -1,14 +1,14 @@
 $(document).ready(function(){
-    d3.csv("static/data/data.csv", function(data) {
+    d3.csv("static/data/indicator-share-with-cogs.csv", function(data) {
         const DATA = data.map(function(o) {
             return {
                 "Municipality" : o["Municipality"],
-                "COG" : o["Planning Region"],
-                "Municipal Gap" : parseInt(o["Municipal Gap($ per capita)"]),
-                "Population" : parseInt(o["Population"]),
-                "Quintile" : parseInt(o["quintile"]),
-                "State Nonschool Grants" : parseInt(o["State Nonschool Grants ($ per capita)"]),
-                "Net Municipal Gap" : parseInt(o["Municipal Gap($ per capita)"]) + parseInt(o["State Nonschool Grants ($ per capita)"])
+                "Planning Region" : o["Planning Region"],
+                "Unemployment Rate" : parseFloat(o["Unemployment Rate (%)"]),
+                "Population Density" : parseFloat(o["Population Density (000s per square mile)"]),
+                "Private-Sector Wage Index" : parseFloat(o["Private-Sector Wage Index (%)"]),
+                "Town Maintenance Road Mileage" : parseFloat(o["Town Maintenance Road Mileage (per 000 population)"]),
+                "Total Jobs" : parseFloat(o["Total Jobs (per capita)"])
             }
         });
 
@@ -26,17 +26,9 @@ $(document).ready(function(){
 
         var filter = FILTER_OPTS;
 
-        var numberFormat = d3.format(",.0f");
-        var decimalFormat = d3.format(",.2f");
-        var currencyFormat = d3.format("$,.0f");
+        var numberFormat = d3.format("$,.0f");
         var percentFormat = function(v) {
-            return d3.format(",.0f")(v)+ "%";
-        };
-        // code from Shopify (see gist: https://gist.github.com/jlbruno/1535691)
-        var quintileFormat = function(q) {
-            var suffixes = ["th","st","nd","rd"];
-            var suffixIndex = q % 100;
-            return q + (suffixes[(suffixIndex - 20) % 10] || suffixes[suffixIndex] || suffixes[0]); // + " Quintile";
+            return d3.format(",.1f")(v)+ "%";
         };
 
         // draw selector/options
@@ -111,12 +103,12 @@ $(document).ready(function(){
 
         var tableCols = [
             "Municipality",
-            "COG",
-            "Population",
-            "Quintile",
-            "Municipal Gap",
-            "State Nonschool Grants",
-            "Net Municipal Gap"
+            "Planning Region",
+            "Unemployment Rate",
+            "Population Density",
+            "Private-Sector Wage Index",
+            "Town Maintenance Road Mileage",
+            "Total Jobs"
         ];
 
         //populate thead
@@ -177,7 +169,7 @@ $(document).ready(function(){
 
             // filter and sort data
             var filteredData = DATA.filter(function(o) {
-                return filter.indexOf(o["COG"]) !== -1
+                return filter.indexOf(o["Planning Region"]) !== -1
             }).sort(function(a, b) {
                 if (sortOrder === "desc") {
                     // console.log((b[sortCol] > a[sortCol] ? 1 : -1));
@@ -202,40 +194,15 @@ $(document).ready(function(){
                         var thisCell = d3.select(this).append("td");
 
                         if (
-                            tableCols[col] == "Municipal Gap"
-                            || tableCols[col] == "Net Municipal Gap"
-                        ) {
-                            thisCell.append("span")
-                                .attr("class", function(d) {
-                                    var colorClass = "Surplus"
-                                    if (d[tableCols[col]] < 0) {
-                                        colorClass = "Deficit"
-                                    }
-                                    return [colorClass, "label"].join(" ");
-                                })
-                                .text(function(d) {
-                                    if (d[tableCols[col]] < 0) {
-                                        return "Deficit"
-                                    } else {
-                                        return "Surplus"
-                                    }
-                                })
-                                
+                            tableCols[col] == "Unemployment Rate"
+                            || tableCols[col] == "Population Density"
+                            || tableCols[col] == "Private-Sector Wage Index"
+                            || tableCols[col] == "Town Maintenance Road Mileage"
+                            || tableCols[col] == "Total Jobs"
+                        ) {                                
                             thisCell.append("span")
                                 .attr("class", "value")
-                                .text(function(d) { return currencyFormat(d[tableCols[col]]); })
-                        } else if (tableCols[col] == "Population" ) {
-                            thisCell.append("span")
-                                .attr("class", "value")
-                                .text(function(d) { return numberFormat(d[tableCols[col]]); })
-                        } else if (tableCols[col] == "State Nonschool Grants" ) {
-                            thisCell.append("span")
-                                .attr("class", "value")
-                                .text(function(d) { return currencyFormat(d[tableCols[col]]); })
-                        } else if (tableCols[col] == "Quintile" ) {
-                            thisCell.append("span")
-                                .attr("class", "value")
-                                .text(function(d) { return quintileFormat(d[tableCols[col]]); })
+                                .text(function(d) { return percentFormat(d[tableCols[col]]); })
                         } else {
                             thisCell.append("span")
                                 .attr("class", "value")

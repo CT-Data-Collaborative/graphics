@@ -1,0 +1,155 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+body > div#container {
+    padding-top: 2em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
+div#options {
+    /*border: 1px solid red;*/
+}
+
+div#chart {
+    /*border: 1px solid blue;*/
+}
+
+div#legend {
+    /*border: 1px solid green;*/
+}
+div.legend-entry {
+}
+div.legend-entry span.value {
+    width: 3em;
+    display: inline-block;
+}
+div.legend-entry span.color {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    margin: 0.1em 0.3em 0.1em 0.1em;
+    vertical-align: text-bottom;
+}
+@media screen and (min-width: 500px) {
+    div#options select {
+        margin-left: 1em;
+    }
+    div#legend div.legend-entry {
+        display: inline-block;
+        margin: 0.25em;
+    }
+}/*
+
+div.legend-entry.highlight {
+}
+div.legend-entry.lowlight {
+    color: #ECECEC;
+    font-style: italic;
+}*/
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #4A4A4A;
+}
+
+.tick text.highlight {
+  font-weight: bold;
+}
+
+.tick text.lowlight {
+  fill: #cecece;
+}
+
+g.bar-group rect.bar.highlight,
+g.bar-group.highlight rect.bar {}
+
+g.bar-group rect.bar.lowlight,
+g.bar-group.lowlight rect.bar {
+    opacity: 0.2;
+}
+
+g.bar-group rect.bar {
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+g.bar-group.highlight rect.bar {
+}
+g.bar-group.lowlight rect.bar {
+  opacit: 0.3;
+}
+
+g.legend-entry path.color_1,
+rect.bar.color_1 {
+  fill: #4670A7;
+}
+g.legend-entry path.color_2,
+rect.bar.color_2 {
+  fill: #6da53f;
+}
+g.legend-entry path.color_3,
+rect.bar.color_3 {
+  fill: #4A4A4A;
+}
+g.legend-entry path.color_4,
+rect.bar.color_4 {
+  fill: #A43FCD;
+}
+g.legend-entry path.color_5,
+rect.bar.color_5 {
+  fill: #b94a48;
+}
+
+rect.hover-target {
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    stroke-width: 1px;
+    stroke: red;
+    fill: black;
+}
+.barchart-tip {
+  color: #FFFFFF;
+  position: relative;
+  background: #4a4a4a;
+  border: 1px solid #FFFFFF;
+}
+.barchart-tip:after, .barchart-tip:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.barchart-tip:after {
+  border-color: rgba(74, 74, 74, 0);
+  border-top-color: #4a4a4a;
+  border-width: 8px;
+  margin-left: -8px;
+}
+.barchart-tip:before {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #FFFFFF;
+  border-width: 9px;
+  margin-left: -9px;
+}
