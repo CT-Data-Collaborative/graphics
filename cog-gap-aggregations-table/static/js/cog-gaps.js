@@ -111,6 +111,7 @@ $(document).ready(function(){
             // remove existing data
             // enter->update->exit pattern wasn't working, and with the size of our
             // data being this small it doesn't affect user experience to just redraw entirely
+            $("#table").stickyTableHeaders("destroy");
             tbody.selectAll("tr").remove();
 
             var tableRows = tbody.selectAll("tr")
@@ -152,6 +153,10 @@ $(document).ready(function(){
             // console.log(sortedData)
             // console.log(DATA)
             // console.log(GEODATA)
+
+            $("#table > table").stickyTableHeaders({
+                "scrollableArea" : "#table"
+            });
         }
 
         drawChart()

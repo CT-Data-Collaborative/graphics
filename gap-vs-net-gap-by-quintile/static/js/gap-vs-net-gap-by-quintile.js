@@ -293,7 +293,7 @@ $(document).ready(function(){
                 
                 d3.select(this)
                     .append("rect")
-                    .attr("class", function(d) {
+                    .attr("class", function() {
                         return [
                             "hover-target",
                             "q_"+(quintile)
@@ -301,12 +301,15 @@ $(document).ready(function(){
                     })
                     .attr("data-quintile", ("q_"+quintile))
                     .attr("x", function(d) {
-                        return 0;
-                        return groupX(quintile);
+                        return 0 - groupX.rangeBand() * 0.06;
                     })
-                    .attr("y", yOffset)
-                    .attr("height", barHeight)
-                    .attr("width", groupX.rangeBand());
+                    .attr("y", function(d) {
+                        return yOffset;
+                    })
+                    .attr("height", function(d) {
+                        return barHeight;
+                    })
+                    .attr("width", groupX.rangeBand() * 1.12);
             })
 
             // register hover events (tooltips) for bar groups

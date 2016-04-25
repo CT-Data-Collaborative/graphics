@@ -57,6 +57,14 @@ div#table > table > thead > tr > th {
 div#table > table > tbody > tr:nth-child(even) {
     background-color: #F0FAFE;
 }
+
+div#table > table > thead > tr > th:not(:last-child) {
+    width:15%;
+}
+div#table > table > thead > tr > th:last-child {
+    width:10%;
+}
+
 div#table > table > tbody > tr > td {
     border-bottom: 1px solid #CECECE;
 }
