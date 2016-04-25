@@ -59,7 +59,7 @@ $(document).ready(function(){
         var tbody = table.append("tbody");
 
         var tableCols = [
-            // "index",
+            "index",
             "Name",
             "Address",
             "Formation",
@@ -151,10 +151,10 @@ $(document).ready(function(){
                     }
                     // return (a[sortCol] > b[sortCol] ? 1 : -1);
                 }
-            })/*.map(function(o, oi, oa){
+            }).map(function(o, oi, oa){
                 o.index = oi;
                 return o;
-            });*/
+            });
 
             // remove existing data
             // enter->update->exit pattern wasn't working, and with the size of our
