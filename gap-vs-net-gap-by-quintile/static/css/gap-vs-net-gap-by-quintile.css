@@ -93,6 +93,7 @@ rect.bar.net-gap {
 rect.hover-target {
     fill-opacity: 0;
     stroke-opacity: 0;
+    stroke-width: 1px;
 }
 
 .barchart-tip {
