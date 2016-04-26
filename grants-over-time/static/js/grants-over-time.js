@@ -65,75 +65,6 @@ $(document).ready(function(){
         d3.json("static/data/town.geojson", function(error, geodata) {
             const GEODATA = geodata;
 
-            // const FILTER_OPTS = [
-            //     "Capitol Region",
-            //     "Greater Bridgeport",
-            //     "Lower CT River Valley",
-            //     "Naugatuck Valley",
-            //     "Northeast CT",
-            //     "Northwest Hills",
-            //     "South Central",
-            //     "Southeastern CT",
-            //     "Western CT"
-            // ];
-
-            // var filter = FILTER_OPTS;
-
-            // // draw selector/options
-            // var buttons = d3.selectAll("div#options > div:first-child")
-            //     .selectAll("button")
-            //     .data(FILTER_OPTS)
-            //     .enter()
-            //         .append("button")
-            //         .attr("class", "btn btn-sm btn-default active")
-            //         .attr("value", function(d) { return d; })
-            //         .text(function(d) { return d; });
-
-            // // register change event
-            // d3.selectAll("div#options > div:first-child button")
-            //     .on("click", function() {
-            //         var thisButton = d3.select(this);
-            //         thisButton.classed("active", !thisButton.classed("active"));
-
-            //         var thisValue = thisButton.attr("value");
-
-            //         if (filter.indexOf(thisValue) === -1) {
-            //             filter.push(thisValue)
-            //         } else {
-            //             filter = filter.filter(function(f) { return f !== thisValue; });
-            //         }
-
-            //         drawChart()
-            //     })
-
-            // // add select all/none buttons
-            // d3.selectAll("div#options > div:last-child")
-            //     .selectAll("button")
-            //     .data(["All", "None"])
-            //     .enter()
-            //     .append("button")
-            //         .attr("class", "btn btn-sm btn-default")
-            //         .attr("id", function(d) { return ["Select", d].join("_"); })
-            //         .text(function(d) { return ["Select", d].join(" "); })
-
-            // // register select all/none events
-            // d3.selectAll("button#Select_All")
-            // .on("click", function(){
-            //     d3.selectAll("div#options > div:first-child button")
-            //         .classed("active", true);
-
-            //     filter = FILTER_OPTS;
-            //     drawChart();
-            // });
-
-            // d3.selectAll("button#Select_None")
-            // .on("click", function(){
-            //     d3.selectAll("div#options > div:first-child button")
-            //         .classed("active", false);
-
-            //     filter = [];
-            //     drawChart();
-            // });
             // draw map
             var map = L.map("map", {
                 zoomControl:false
@@ -180,7 +111,7 @@ $(document).ready(function(){
             legend.addTo(map);
             /** END Legend **/
 
-            function drawChart() {
+            function drawChart(autoClickTown) {
                 // clear previous map data
                 if (undefined !== townLayer) {
                     map.removeLayer(townLayer);
@@ -228,20 +159,17 @@ $(document).ready(function(){
                 townLayer.getLayers().forEach(function(geo) {
                     geo.on("click", function(e) { drawTable(this.feature.properties); })
                     geo.on("popupclose", function(e) { destroyTables(); })
+
+                    if (
+                        undefined !== autoClickTown
+                        && geo.feature.properties.NAME == autoClickTown
+                    ) {
+                        geo.openPopup();
+                        drawTable(geo.feature.properties)
+                    }
                 })
 
-                // IF WE WANT TO ADD THESE POPUPS ON MOUSEOVER/OUT INSTEAD OF JUST CLICK
-                /*townLayer.getLayers().forEach(function(geo) {
-                    geo.on("mouseover", function(e) { this.openPopup(); })
-                    geo.on("mouseout", function(e) { this.closePopup(); })
-                })*/
-
                 map.fitBounds(townLayer.getBounds());
-
-                // console.log(filteredData)
-                // console.log(filter)
-                // console.log(DATA)
-                // console.log(GEODATA)
 
                 function destroyTables() {
                     d3.select("div#table").selectAll("*").remove();
@@ -254,9 +182,12 @@ $(document).ready(function(){
                     var title = tableContainer.append("h3")
                         .text(tableData.NAME);
 
-                    var table = tableContainer.append("table");
-                    var thead = tableContainer.append("thead");
-                    var tbody = tableContainer.append("tbody");
+                    var table = tableContainer.append("table")
+                        .attr("data-town", tableData.NAME)
+                        .classed();
+
+                    var thead = table.append("thead");
+                    var tbody = table.append("tbody");
 
                     // populate thead > tr > th
                     thead.append("tr")
@@ -308,6 +239,16 @@ $(document).ready(function(){
 
                             // append trend cell
                             row.append("td")
+                                .append("span")
+                                .attr("class", function() {
+                                    if (rowData["values"]["Trend"] > 0) {
+                                        return "increase";
+                                    } else if (rowData["values"]["Trend"] < 0) {
+                                        return "decrease"
+                                    } else {
+                                        return "neutral";
+                                    }
+                                })
                                 .html(diffFormat(rowData["values"]["Trend"]))
 
                         });
@@ -316,7 +257,17 @@ $(document).ready(function(){
 
             drawChart()
 
-            $(window).on('resize', drawChart);
+            $(window).on('resize', function() {
+                // get table town
+                var currentTown = d3.select("div#table").select("table")
+
+                if (currentTown.size() > 0) {
+                    currentTown = currentTown.attr("data-town");
+                } else {
+                    currentTown = null;
+                }
+                drawChart(currentTown);
+            });
         })
     })
 })

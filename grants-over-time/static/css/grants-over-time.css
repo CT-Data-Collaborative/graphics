@@ -88,3 +88,63 @@ path.decrease {
 path.highlight {
     stroke-width: 5px;
 }
+
+div#table {
+    display: block;
+    width: 100%;
+}
+
+div#table > table {
+    width: 100%;
+    border-collapse: separate!important;
+}
+
+div#table > table > thead > tr > th {
+    background-color: #9EDDFC;
+    width: 20%;
+    cursor: pointer;
+}
+div#table > table > tbody > tr:nth-child(even) {
+    background-color: #F0FAFE;
+}
+div#table > table > tbody > tr > td {
+    border-bottom: 1px solid #CECECE;
+}
+div#table > table > thead > tr > th,
+div#table > table > tbody > tr > td {
+    border-right: 5px solid #FFFFFF;
+}
+div#table > table > tbody > tr > td:not(:first-of-type) {
+    border-left: 1px solid #ECECEC;
+}
+div#table > table > tbody > tr > td:nth-child(n+2) {
+    text-align: right;
+}
+div#table > table > thead > tr > th:nth-child(n+2) {
+    text-align: right;
+    width: 20%;
+}
+div#table > table > tbody > tr:hover {
+    background-color: #63D1F4;
+}
+
+div#table > table th,
+div#table > table td {
+    padding: 0 0.5em;
+}
+
+tr:hover td span {
+    background-color: #FFFFFF;
+}
+
+td span {
+    border-radius: 0.25em;
+    padding: 0 0.5em;
+}
+td span.increase {
+    color: #6DA53F;
+}
+
+td span.decrease {
+    color: #B94A48;
+}
