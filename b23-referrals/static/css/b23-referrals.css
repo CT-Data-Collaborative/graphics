@@ -1,0 +1,154 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5rem 1rem;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8rem;
+}
+
+@media screen and (min-width: 800px) {
+    div#legend {
+        float: right;
+    }
+}
+@media screen and (max-width: 799px) {
+    div#legend {
+        margin-right: 1rem;
+    }
+    div#legend > div {
+        padding-left: 1rem;
+    }
+}
+
+div#legend div span.color {
+    display: inline-block;
+    height: 0.8rem;
+    width: 0.8rem;
+    margin: 0.1rem 0.5rem 0.1rem 0.1rem;
+}
+div#legend div span.color.hartford {
+    background-color: #4670a7;
+}
+div#legend div span.color.stamford {
+    background-color: #9eddfc;
+}
+div#legend div span.color.bridgeport {
+    background-color: #b94a48;
+}
+div#legend div span.color.waterbury {
+    background-color: #979797;
+}
+div#legend div span.color.new_haven {
+    background-color: #6da53f;
+}
+
+div#chart {
+    display: block;
+    width: calc(100% - 2rem);
+    margin:0 1rem;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #4A4A4A;
+}
+
+
+path.line {
+  fill: none;
+  stroke-width: 3px;
+}
+path.hartford {
+    stroke: #4670a7;
+}
+path.stamford {
+    stroke: #9eddfc;
+}
+path.bridgeport {
+    stroke: #b94a48;
+}
+path.waterbury {
+    stroke: #979797;
+}
+path.new_haven {
+    stroke: #6da53f;
+}
+
+g.hover-group rect.group-filler {
+    stroke-opacity: 0;
+    fill-opacity: 0;
+}
+g.hover-group rect.hover-line,
+g.hover-group line.hover-line {
+    opacity: 0;
+    stroke: #4A4A4A;
+    stroke-width: 1px;
+    fill: #4A4A4A;
+}
+g.hover-group.highlight rect.hover-line,
+g.hover-group.highlight line.hover-line {
+    opacity: 1;
+}
+
+g.hover-group path.point {
+    fill: #FFFFFF;
+}
+
+div#value-label i,
+div#value-label p {
+    margin: 0;
+}
+
+div#value-label p.value,
+div#value-label p.placeholder {
+    padding-left: 1rem;
+}
+div#value-label p.value {
+    display: none;
+}
+
+div#value-label p.placeholder > span:first-child,
+div#value-label p.value > span:first-child {
+    font-weight: bold;
+}
+div#value-label p.placeholder > span:first-child:after,
+div#value-label p.value > span:first-child:after {
+    content: ":";
+}
+div#value-label p.placeholder > span:last-child,
+div#value-label p.value > span:last-child {
+    padding-left: 1rem;
+}
+
+@media screen and (min-width: 500px) {
+    div#value-label p.highlight {
+        display: block;
+    }
+}
+@media screen and (max-width: 499px) {
+    div#value-label p.highlight {
+        display: block;
+    }
+
+    div#value-label {
+        display: block;
+    }
+}
+
+div#value-label.highlight p.placeholder {
+    display: none;
+}
