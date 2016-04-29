@@ -12,11 +12,11 @@ $(document).ready(function(){
     var decimalPercentFormat = d3.format(",.1%");
 
     var classNames = {
-        "Hartford" : "hartford",
-        "Stamford" : "stamford",
         "Bridgeport" : "bridgeport",
-        "Waterbury" : "waterbury",
-        "New Haven" : "new_haven"
+        "Hartford" : "hartford",
+        "New Haven" : "new_haven",
+        "Stamford" : "stamford",
+        "Waterbury" : "waterbury"
     };
 
     function sluggify(text) {
