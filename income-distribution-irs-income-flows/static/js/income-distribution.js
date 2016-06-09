@@ -1,7 +1,7 @@
 $(document).ready(function(){
     // variables
     var pymChild = null;
-    var aspect_ratio = (3.5 / 5); // H / W
+    var aspect_ratio = (3 / 5); // H / W
     var mobile_threshold = 500;
     var c10 = d3.scale.category10();
     var typeOrder = [
