@@ -171,6 +171,15 @@ div#value-label.highlight p.placeholder {
     display: none;
 }
 
+li.legend-item {
+    display: inline;
+    float: left;
+    margin-right: 1.5rem;
+}
+
+.legend-label {
+    float: right;
+}
 .legend-box {
     margin-right: .5rem;
     margin-top: .35rem;
