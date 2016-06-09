@@ -20,6 +20,7 @@ $(document).ready(function(){
     var numberFormat = d3.format(",d");
     var decimalFormat = d3.format(",.0f");
     var percentFormat = d3.format('0%');
+    var precisePercentFormat = d3.format('.1%');
     //var percentFormat = function(v) {
     //    return decimalFormat(v) + "%";
     //};
@@ -48,7 +49,7 @@ $(document).ready(function(){
             var tip = d3.tip()
                 .attr('class', 'd3-tip')
                 .html(function(d) {
-                    var text = "Year: " + d.key + "<br>Share: " + percentFormat(d.values);
+                    var text = "Year: " + d.key + "<br>Share: " + precisePercentFormat(d.values);
                     return text;
                 });
             // d3.select("span.legend-title").text(function(){
