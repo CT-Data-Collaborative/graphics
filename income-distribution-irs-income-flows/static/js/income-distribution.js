@@ -42,6 +42,9 @@ $(document).ready(function(){
 
 
         function drawChart(container_width) {
+            if (isNaN(container_width)) {
+                container_width = $(window).width();
+            }
             var tip = d3.tip()
                 .attr('class', 'd3-tip')
                 .html(function(d) {
@@ -278,81 +281,8 @@ $(document).ready(function(){
                 .attr("height", function(d) { return height - y(d.values); })
                 .on("mouseover",tip.show)
                 .on("mouseout", tip.hide);
-
-            //barGroups.each(function(d, i) {
-            //    var yOffset = d3.min(d.values.map(function(v) { return y(v.values); }));
-            //
-            //    d3.select(this)
-            //        .append("rect")
-            //        .attr("class", function(d) {
-            //            return [
-            //                "hover-target",
-            //                "_"+d.key
-            //            ].join(" ");
-            //        })
-            //        .attr("data-year", function(d) {
-            //            return "_"+d.key
-            //        })
-            //        .attr("height", height-yOffset)
-            //        .attr("x", function(d) {
-            //            return -0.05 * hoverX.rangeBand();
-            //        })
-            //        .attr("y", yOffset)
-            //        // .attr("height", height)
-            //        .attr("width", hoverX.rangeBand());
-            //})
-
-
-            // // register hover events (tooltips) for bar groups
-            //d3.selectAll("rect.hover-target")
-            //    .on("mouseover", function(d){
-            //        var highlightYear = d3.select(this).attr("data-year");
-            //        var highlightCohort = d3.select(this).attr("data-cohort");
-            //
-            //        var toHighlight = d3.selectAll("div#value-label, g.bar-group."+highlightCohort+"."+highlightYear+", p."+highlightCohort+"."+highlightYear)
-            //        var toLowlight = d3.selectAll("g.bar-group."+highlightCohort+":not(."+highlightYear+")")
-            //
-            //        toLowlight.classed({
-            //            "lowlight": true
-            //        });
-            //
-            //        toHighlight.classed({
-            //            "highlight": true
-            //        });
-            //    })
-            //    .on("mouseout", function(d){
-            //        d3.selectAll(".highlight, .lowlight")
-            //            .classed({
-            //                "lowlight": false,
-            //                "highlight": false
-            //            });
-            //    });
-            //
-            //d3.selectAll("div.legend-entry")
-            //    .on("mouseover", function(){
-            //        var highlightClass = d3.select(this).attr("data-type");
-            //
-            //        var toHighlight = d3.selectAll("div.legend-entry."+highlightClass+", rect.bar."+highlightClass)
-            //        var toLowlight = d3.selectAll("div.legend-entry:not(."+highlightClass+"), rect.bar:not(."+highlightClass+")")
-            //
-            //        toLowlight.classed({
-            //            "lowlight": true
-            //        });
-            //
-            //
-            //        toHighlight.classed({
-            //            "highlight": true
-            //        });
-            //    })
-            //    .on("mouseout", function(){
-            //        d3.selectAll(".highlight, .lowlight")
-            //            .classed({
-            //                "highlight": false,
-            //                "lowlight": false
-            //            });
-            //    })
+            
         }
-        drawChart($(window).width());
-        //pymChild = new pym.Child({ renderCallback: drawChart });
+        pymChild = new pym.Child({ renderCallback: drawChart });
     });
 });
