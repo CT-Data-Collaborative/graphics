@@ -28,6 +28,7 @@ $(document).ready(function(){
         var selectOptions = d3.range(1980, 2015, 5).map(function(y) {
             return [y, y+4];
         })
+
         optionsContainer.append("label")
             .text("Formation Years");
 
