@@ -3,12 +3,18 @@ $(document).ready(function(){
     var pymChild = null;
     var aspect_ratio = (1 / 3); // H / W
     var mobile_threshold = 500;
-
+    var c10 = d3.scale.category10();
     var typeOrder = [
         "2000",
         "2005-2009",
         "2010-2014"
     ];
+
+    var yearColors = {};
+    typeOrder.forEach(function(y) {
+        yearColors[y] = c10(y);
+    });
+    console.log(yearColors);
     // we need this in a few places
     var dateFormat = d3.time.format("%Y");
     var numberFormat = d3.format(",d");
@@ -23,7 +29,7 @@ $(document).ready(function(){
     var legendContainer = d3.select("div#legend");
     var labelContainer = d3.select("div#value-label")
     /** END container vars **/
-    var c10 = d3.scale.category10();
+
 
     d3.csv("static/data/ct-income-distribution.csv", function(data) {
         const DATA = d3.nest()
@@ -80,6 +86,28 @@ $(document).ready(function(){
                 }
             }
 
+            typeOrder.forEach(function(d) {
+                var itemClass = ".legend-item.y" + d + "> span.legend-box";
+                var item = d3.select(itemClass);
+                var itemColor = yearColors[d];
+                var style = 'background-color:' + itemColor;
+                item.attr('style', style);
+            });
+            //var legend = legendContainer.selectAll('span')
+            //    .data(typeOrder)
+            //    .enter()
+            //    .append('span')
+            //    .html(function(d) {
+            //        return d;
+            //    })
+            //    .append('span')
+            //    .attr("height", '10')
+            //    .attr("width", '10')
+            //    .html(" ")
+            //    .attr('background-color', function(d) {
+            //        return c10(d);
+            //    });
+            //
             // svg containers
             var svg = chartContainer.append("svg")
                 .classed("chart", true)

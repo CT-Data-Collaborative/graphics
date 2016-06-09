@@ -170,3 +170,11 @@ div#value-label p.value > span:first-child:after {
 div#value-label.highlight p.placeholder {
     display: none;
 }
+
+.legend-box {
+    margin-right: .5rem;
+    margin-top: .35rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    float: left;
+}
