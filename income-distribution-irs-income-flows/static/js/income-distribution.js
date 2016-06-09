@@ -131,7 +131,7 @@ $(document).ready(function(){
             var svg = chartContainer.append("svg")
                 .classed("chart", true)
                 .attr("height", height)
-                .attr("width", width)
+                .attr("width", width-margin.left)
                 .attr("transform", "translate("+ margin.left + ", " + margin.top + ")");
 
             svg.call(tip);
