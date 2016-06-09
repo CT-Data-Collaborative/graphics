@@ -1,7 +1,7 @@
 $(document).ready(function(){
     // variables
     var pymChild = null;
-    var aspect_ratio = (1 / 3); // H / W
+    var aspect_ratio = (3.5 / 5); // H / W
     var mobile_threshold = 500;
     var c10 = d3.scale.category10();
     var typeOrder = [
@@ -14,6 +14,15 @@ $(document).ready(function(){
     typeOrder.forEach(function(y) {
         yearColors[y] = c10(y);
     });
+
+    var xAxisRelabelLookup = {
+        'Less than $10,000': '< $10k',
+        '$10,000-$24,999': '$10k-$25k',
+        '$25,000-$49,999': '$25k-$50k',
+        '$50,000-$99,999': '$50k-$100k',
+        '$100,000-$149,999': '$100k-$150k',
+        '$150,000+': '$150k+'
+    };
     console.log(yearColors);
     // we need this in a few places
     var dateFormat = d3.time.format("%Y");
@@ -52,9 +61,6 @@ $(document).ready(function(){
                     var text = "Year: " + d.key + "<br>Share: " + precisePercentFormat(d.values);
                     return text;
                 });
-            // d3.select("span.legend-title").text(function(){
-            //     return container_width + "px : " + d3.format("0.2f")(container_width/mobile_threshold)
-            // })
 
             // remove existing chart and legend entries
             chartContainer.selectAll("svg").remove();
@@ -69,7 +75,7 @@ $(document).ready(function(){
             var margin = {
                 top: 0.09 * height,
                 right: 0.12 * width,
-                bottom: 0.15 * height,
+                bottom: 0.1 * height,
                 left: 0.08 * width
             }
 
@@ -78,14 +84,14 @@ $(document).ready(function(){
                 margin = {
                     top: 0.15 * height,
                     right: 0.15 * width,
-                    bottom: 0.35 * height,
-                    left: 0.18 * width
+                    bottom: 0.1 * height,
+                    left: 0.1 * width
                 }
             } else if (container_width < mobile_threshold * 1.5) {
                 margin = {
                     top: 0.09 * height,
                     right: 0.12 * width,
-                    bottom: 0.2 * height,
+                    bottom: 0.1 * height,
                     left: 0.1 * width
                 }
             }
@@ -97,21 +103,7 @@ $(document).ready(function(){
                 var style = 'background-color:' + itemColor;
                 item.attr('style', style);
             });
-            //var legend = legendContainer.selectAll('span')
-            //    .data(typeOrder)
-            //    .enter()
-            //    .append('span')
-            //    .html(function(d) {
-            //        return d;
-            //    })
-            //    .append('span')
-            //    .attr("height", '10')
-            //    .attr("width", '10')
-            //    .html(" ")
-            //    .attr('background-color', function(d) {
-            //        return c10(d);
-            //    });
-            //
+
             // svg containers
             var svg = chartContainer.append("svg")
                 .classed("chart", true)
@@ -169,7 +161,8 @@ $(document).ready(function(){
 
             if (container_width < mobile_threshold * 1.5) {
                 xAxis.tickFormat(function(t) {
-                    return "'" + t.slice(-2);
+                    return xAxisRelabelLookup[t];
+                    //return "'" + t.slice(-2);
                 })
             }
 
