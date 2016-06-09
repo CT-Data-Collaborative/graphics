@@ -1,7 +1,7 @@
 $(document).ready(function(){
     // variables
     var pymChild = null;
-    var aspect_ratio = (3 / 5); // H / W
+    var aspect_ratio = (1 / 2.5); // H / W
     var mobile_threshold = 500;
     var c10 = d3.scale.category10();
     var typeOrder = [
@@ -75,7 +75,7 @@ $(document).ready(function(){
             var margin = {
                 top: 0.09 * height,
                 right: 0.12 * width,
-                bottom: 0.1 * height,
+                bottom: 0.15 * height,
                 left: 0.08 * width
             }
 
@@ -84,17 +84,40 @@ $(document).ready(function(){
                 margin = {
                     top: 0.15 * height,
                     right: 0.15 * width,
-                    bottom: 0.1 * height,
-                    left: 0.1 * width
+                    bottom: 0.35 * height,
+                    left: 0.18 * width
                 }
             } else if (container_width < mobile_threshold * 1.5) {
                 margin = {
                     top: 0.09 * height,
                     right: 0.12 * width,
-                    bottom: 0.1 * height,
+                    bottom: 0.2 * height,
                     left: 0.1 * width
                 }
             }
+            //var margin = {
+            //    top: 0.09 * height,
+            //    right: 0.12 * width,
+            //    bottom: 0.1 * height,
+            //    left: 0.08 * width
+            //}
+            //
+            //// check bottom/left for minimums
+            //if (container_width < mobile_threshold) {
+            //    margin = {
+            //        top: 0.15 * height,
+            //        right: 0.15 * width,
+            //        bottom: 0.1 * height,
+            //        left: 0.1 * width
+            //    }
+            //} else if (container_width < mobile_threshold * 1.5) {
+            //    margin = {
+            //        top: 0.09 * height,
+            //        right: 0.12 * width,
+            //        bottom: 0.1 * height,
+            //        left: 0.1 * width
+            //    }
+            //}
 
             typeOrder.forEach(function(d) {
                 var itemClass = ".legend-item.y" + d + "> span.legend-box";
