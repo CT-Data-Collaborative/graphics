@@ -1,0 +1,106 @@
+body * {
+    font-family: "Roboto Condensed",sans-serif;
+}
+body > div {
+    padding:0.5em 1em;
+}
+
+div.note {
+    clear: both;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.note p {
+    margin: 0;
+}
+
+div#footer {
+    font-size: 0.8em;
+}
+
+button.active {
+    color: #FFFFFF!important;
+    background-color: #4670A7!important;
+}
+
+div#table {
+    display: block;
+    width: 100%;
+    max-height: 325px;
+    height: 50%;
+    overflow-y: auto;
+}
+
+div#table > table {
+    width: 100%;
+    border-collapse: separate!important;
+}
+
+div#table > table > thead > tr > th > i {
+    display: none;
+    font-size: 1.25em;
+    padding: 0 0.25em;
+}
+div#table > table > thead > tr > th[data-sort=asc] i.asc {
+    display: inline-block;
+}
+div#table > table > thead > tr > th[data-sort=desc] i.desc {
+    display: inline-block;
+}
+
+div#table > table > thead > tr > th {
+    background-color: #9EDDFC;
+    width: 20%;
+    cursor: pointer;
+}
+div#table > table > tbody > tr:nth-child(even) {
+    background-color: #F0FAFE;
+}
+
+div#table > table > thead > tr > th:not(:last-child) {
+    width:15%;
+}
+div#table > table > thead > tr > th:last-child {
+    width:10%;
+}
+
+div#table > table > tbody > tr > td {
+    border-bottom: 1px solid #CECECE;
+}
+div#table > table > thead > tr > th,
+div#table > table > tbody > tr > td {
+    border-right: 5px solid #FFFFFF;
+}
+div#table > table > tbody > tr > td:not(:first-of-type) {
+    border-left: 1px solid #ECECEC;
+}
+div#table > table > tbody > tr > td:nth-child(n+2) {
+    text-align: right;
+}
+div#table > table > tbody > tr:hover {
+    background-color: #63D1F4;
+}
+
+div#table > table th:nth-child(n+2) {
+    text-align: center;
+}
+div#table > table th,
+div#table > table td {
+    padding: 0 0.5em;
+}
+
+div#table > table > tbody > tr > td > span.label {
+    font-size: 0.75em;
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+    font-weight: bold;
+    background-color: #FFFFFF;
+    border-radius: 0.25em;
+}
+div#table > table > tbody > tr > td > span.label.Deficit {
+    color: red;
+}
+div#table > table > tbody > tr > td > span.label.Surplus {
+    color: green;
+}

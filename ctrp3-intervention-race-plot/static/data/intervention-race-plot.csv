@@ -1,0 +1,7 @@
+"InterventionDispositionCode","Avg Pct White","Avg Pct Black","Avg Pct Asian Pacific","Avg Pct American Indian / Alaska Native","Avg Pct Non-White","Avg Num White","Avg Num Black","Avg Num Asian Pacific","Avg Num American Indian / Alaska Native","Avg Num Non-White"
+"Uniform Arrest Report",77.33,21.42,0.89,0.35,22.67,4139,1144,48,19,1210
+"No Disposition",83.78,14.33,1.27,0.62,16.22,7759,1324,117,57,1498
+"Misdemeanor Summons",74.39,24.39,0.81,0.4,25.61,22965,7506,248,121,7875
+"Written Warning",86.95,10.81,1.74,0.5,13.04,84553,10508,1687,471,12666
+"Verbal Warning",82.25,15.5,1.65,0.59,17.75,140171,26486,2828,1032,30346
+"Infraction",83.04,13.85,2.26,0.84,16.95,226707,37708,6123,2262,46093
